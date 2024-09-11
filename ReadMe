@@ -5,3 +5,10 @@ Front end
 Dev 
 	• npm install --save-dev nodemon
 	• npm install -g sequelize-cli
+
+To run the programm
+	•cd into both the frontend & backend folders in seprate terminal windows Example /cd Documents/GitHub/IndustryMatch/FrontEnd
+	•in the FrontEnd folder run "npm run dev"
+	•in the BackEnd folder run "npm start"
+	
+

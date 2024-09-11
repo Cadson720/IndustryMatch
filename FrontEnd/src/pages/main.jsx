@@ -4,11 +4,17 @@ import App from '../components/userDisplay.jsx'
 import '../styles/userDisplay.css'
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import '../components/AddUserForm.jsx'
+import '../components/EditUserForm.jsx'
+import AddUserForm from '../components/AddUserForm.jsx';
+import EditUserForm from '../components/EditUserForm.jsx';
 //import App from './App';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
+    <AddUserForm/>
+    <EditUserForm/>
   </StrictMode>,
 )
 
