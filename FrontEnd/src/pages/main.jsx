@@ -5,11 +5,12 @@ import '../styles/userDisplay.css'
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import AddUserForm from '../components/AddUserForm.jsx';
+import UserEdit from '../components/EditUserForm.jsx';
 //import App from './App';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
-    <AddUserForm/>
+    <UserEdit/>
   </StrictMode>,
 )
 
