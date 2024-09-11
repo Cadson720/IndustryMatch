@@ -1,0 +1,7 @@
+Backend 
+	• npm install express pg sequelize cors dotenv
+Front end 
+	• npm install react react-dom vite @vitejs/plugin-react
+Dev 
+	• npm install --save-dev nodemon
+	• npm install -g sequelize-cli
