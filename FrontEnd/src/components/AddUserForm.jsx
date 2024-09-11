@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AddUserForm = () => {
+const AddUserForm = ({ refreshUsers }) => { // Add refreshUsers as a prop
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phno, setPhno] = useState('');
@@ -16,12 +16,20 @@ const AddUserForm = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newUser),  // Send user data as JSON
+        body: JSON.stringify(newUser),
       });
 
       if (response.ok) {
         const addedUser = await response.json();
         console.log('User added:', addedUser);
+
+        // Clear the form fields after successful submission
+        setUsername(''); 
+        setEmail('');
+        setPhno('');
+
+        // --- Call the refreshUsers function after adding a new user ---
+        refreshUsers();
       } else {
         console.error('Failed to add user');
       }
