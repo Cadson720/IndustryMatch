@@ -1,93 +1,122 @@
 import React, { useState, useEffect } from 'react';
 
-const EditUserForm = ({ userId, onUserUpdated }) => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [phno, setPhno] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+const UserEdit = () => {
+  const [users, setUsers] = useState([]);         // Store users
+  const [selectedUser, setSelectedUser] = useState(null);  // Track selected user
+  const [formData, setFormData] = useState({      // Form state
+    username: '',
+    email: '',
+    phno: ''
+  });
 
+  // Fetch all users on component mount
   useEffect(() => {
-    // Fetch the existing user data and pre-fill the form
-    const fetchUser = async () => {
+    const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/users/${userId}`);
-        if (!response.ok) throw new Error('Failed to fetch user');
-        const userData = await response.json();
-        setUsername(userData.username);
-        setEmail(userData.email);
-        setPhno(userData.phno);
-        setLoading(false);
+        const response = await fetch('http://localhost:3000/api/users');
+        const data = await response.json();
+        setUsers(data);  // Populate user list
       } catch (error) {
-        console.error(error);
-        setError('Failed to load user data');
-        setLoading(false);
+        console.error('Error fetching users:', error);
       }
     };
 
-    fetchUser();
-  }, [userId]);
+    fetchUsers();
+  }, []);
+
+  // Handle user selection from the list
+  const handleSelectUser = (user) => {
+    setSelectedUser(user.id);  // Set selected user ID
+    setFormData({              // Pre-fill form with selected user data
+      username: user.username,
+      email: user.email,
+      phno: user.phno
+    });
+  };
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const updatedUser = { username, email, phno };
-
     try {
-      const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
+      const response = await fetch(`http://localhost:3000/api/users/${selectedUser}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedUser),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),  // Send updated data
       });
-
+  
       if (response.ok) {
-        const updated = await response.json();
-        console.log('User updated:', updated);
-        onUserUpdated(); // Trigger a refresh in the parent component
+        console.log('User updated successfully');
+  
+        // Clear the form fields by resetting the form data
+        setFormData({
+          username: '',
+          email: '',
+          phno: ''
+        });
+  
+        // Optionally, clear the selected user as well
+        setSelectedUser(null);
       } else {
         console.error('Failed to update user');
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error updating user:', error);
     }
   };
-
-  if (loading) {
-    return <div>Loading user data...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
+  
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-        required
-      />
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="text"
-        value={phno}
-        onChange={(e) => setPhno(e.target.value)}
-        placeholder="Phone Number"
-        required
-      />
-      <button type="submit">Update User</button>
-    </form>
+    <div>
+      <h2>Select a User to Edit</h2>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>
+            <button onClick={() => handleSelectUser(user)}>
+              {user.username} ({user.email})
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      {selectedUser && (
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            placeholder="Username"
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email"
+            required
+          />
+          <input
+            type="text"
+            name="phno"
+            value={formData.phno}
+            onChange={handleChange}
+            placeholder="Phone Number"
+            required
+          />
+          <button type="submit">Update User</button>
+        </form>
+      )}
+    </div>
   );
 };
 
-export default EditUserForm;
+export default UserEdit;
