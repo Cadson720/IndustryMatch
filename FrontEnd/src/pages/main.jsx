@@ -10,6 +10,7 @@ import UserEdit from '../components/EditUserForm.jsx';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
+    <AddUserForm/>
     <UserEdit/>
   </StrictMode>,
 )
