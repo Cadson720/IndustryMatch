@@ -4,10 +4,9 @@ import App from '../components/userDisplay.jsx'
 import '../styles/userDisplay.css'
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import '../components/AddUserForm.jsx'
-import '../components/EditUserForm.jsx'
 import AddUserForm from '../components/AddUserForm.jsx';
 import EditUserForm from '../components/EditUserForm.jsx';
+import Header from '../components/header.jsx';
 //import App from './App';
 
 createRoot(document.getElementById('root')).render(
@@ -15,6 +14,7 @@ createRoot(document.getElementById('root')).render(
     <App />
     <AddUserForm/>
     <EditUserForm/>
+    <Header />
   </StrictMode>,
 )
 
