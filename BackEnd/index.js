@@ -1,6 +1,7 @@
 const express = require('express');
 const sequelize = require('./config/database'); // Your Sequelize instance
 const userRoutes = require('./routes/userRoutes'); // Import user routes
+const projectRoutes = require('./routes/projectRoutes'); // Import project routes
 const app = express();
 const PORT = process.env.PORT || 3000;
 const cors = require('cors');
@@ -27,6 +28,9 @@ sequelize.authenticate()
 
 // Use the user routes
 app.use('/api', userRoutes); // All user routes will be prefixed with /api
+
+// Use the project routes
+app.use('/api', projectRoutes); // All project routes will be prefixed with /api
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');

@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const Industry = sequelize.define('Industry', {
-    IndustryID: {
+    MemberID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true
@@ -24,4 +24,4 @@ const Industry = sequelize.define('Industry', {
     timestamps: false
   });
 
-module.exports = industry;
+module.exports = Industry;

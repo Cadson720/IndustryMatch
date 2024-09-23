@@ -1,12 +1,19 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../config/database');
 
 const Project = sequelize.define('Project', {
     ProjectID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
+      allowNull: false
     },
+    /*MemberID: {
+      type: DataTypes.INTEGER,
+      references: 'industry',
+      referencesKey: 'MemberID',
+      allowNull: true
+    },*/
     publishDate: {
       type: DataTypes.DATE,
       allowNull: false
@@ -38,5 +45,10 @@ const Project = sequelize.define('Project', {
   }, {
     timestamps: false
   });
+
+  (async () => {
+    await sequelize.sync({ force:true });
+    console.log("Project synced");
+  })
 
 module.exports = Project;
