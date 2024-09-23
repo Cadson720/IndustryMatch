@@ -1,0 +1,61 @@
+/* Outer header styling */
+.header {
+    width: 100%;
+    display: flex;
+    height: 80px;
+    background-color: #ffffff; /* Background color for header */
+    padding: 10px 0;
+    color: white;
+    align-items: flex-start;
+}
+
+/* Inner header container */
+.inner_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Aligned with the header's flex alignment */
+    max-width: 1200px;
+    padding-left: 20px;
+    max-height: 80px;
+}
+
+/* Logo styling */
+.logo {
+    padding-top: 10px;
+    max-height: 70px; /* Keep height consistent across the different declarations */
+    height: 60px;
+}
+
+/* Navigation container */
+.nav {
+    display: flex;
+    gap: 20px; /* Space between navigation links */
+    padding-left: 20px;
+    padding-top: 25px;
+    font-weight: 400;
+    color: #09291a;
+}
+
+/* Styling for navigation links */
+.nav-link {
+    color: #09291a;
+    text-decoration: none;
+    font-size: 18px;
+    transition: all 0.0000001s ease;
+    opacity: 0.85;
+}
+
+/* Hover effect for navigation links */
+.nav-link:hover {
+    color: #09291a;
+    text-decoration: underline;
+    opacity: 1;
+    text-shadow:1px 1px 10px #fff, 1px 1px 5px #ccc;
+}
+
+/* Active link styling - bolder and underlined */
+.nav-link.active {
+    text-decoration: underline;
+    opacity: 1;
+    text-shadow:1px 1px 10px #fff, 1px 1px 5px #ccc;
+}

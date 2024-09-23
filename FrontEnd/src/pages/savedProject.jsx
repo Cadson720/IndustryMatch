@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from '../components/projectSearch.jsx'
-import '../styles/projectSearch.css'
+import App from '../components/savedProject.jsx'
+import '../styles/savedProject.css'
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import AddUserForm from '../components/AddUserForm.jsx';
