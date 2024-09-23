@@ -8,12 +8,14 @@ const Project = sequelize.define('Project', {
       primaryKey: true,
       allowNull: false
     },
-    /*MemberID: {
+    MemberID: {
       type: DataTypes.INTEGER,
-      references: 'industry',
-      referencesKey: 'MemberID',
+      references: {
+        model: 'industry',
+        key: 'MemberID'
+      },
       allowNull: true
-    },*/
+    },
     publishDate: {
       type: DataTypes.DATE,
       allowNull: false
