@@ -11,6 +11,7 @@ import Header from '../components/header.jsx';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Header />
+    <h1>Project Search</h1>
     <App />
   </StrictMode>,
 )
