@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import '../styles/App.css'
 import React, { useState, useEffect } from 'react';
 
-function App() {
+function Appp() {
   const [users, setUsers] = useState([]);  // State to hold the users
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -49,4 +49,4 @@ function App() {
  );
 }
 
-export default App;
+export default Appp;
