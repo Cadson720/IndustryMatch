@@ -1,13 +1,118 @@
+body{
+    margin: 0;
+}
+
 #root {
     justify-content: flex-start;
-    width: 75%;
-    max-width: 75%;
+    width: 100%;
+    max-width: 100%;
     margin: 0 auto;
     text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
   }
   
   .card {
     padding: 2em;
   }
   
+/* Container for the search form */
+.project-search-container {
+    background-color: #1F3730; /* Dark green background */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   
+  /* The search bar container */
+  .search-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  
+  /* Hamburger Menu Styling */
+  .hamburger-menu {
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 15px;
+    transition: transform 0.3s ease;
+  }
+  
+  .hamburger-menu span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: white;
+    margin: 4px 0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .hamburger-menu:hover {
+    transform: scale(1.1); /* Slightly enlarge on hover */
+  }
+  
+  .hamburger-menu:hover span {
+    background-color: #6A5ACD; /* Change color on hover */
+  }
+  
+  .hamburger-menu:active {
+    transform: rotate(90deg); /* Rotate the icon on click */
+  }
+  
+  /* Styling for the input fields and select dropdowns */
+  input[type="text"],
+  select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 200px;
+    transition: all 0.3s ease;
+  }
+  
+  input[type="text"]:hover,
+  select:hover {
+    border-color: #6A5ACD; /* Change border color on hover */
+    box-shadow: 0 0 8px rgba(106, 90, 205, 0.4); /* Add shadow effect */
+  }
+  
+  input[type="text"]:focus,
+  select:focus {
+    outline: none;
+    border-color: #6A5ACD;
+    box-shadow: 0 0 8px rgba(106, 90, 205, 0.6);
+  }
+  
+  /* Search Button Styling */
+  .search-button {
+    background-color: #6A5ACD; /* Purple background */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .search-button:hover {
+    background-color: #5a4fcf; /* Darker purple on hover */
+    transform: translateY(-3px); /* Slight lift on hover */
+  }
+  
+  .search-button:active {
+    transform: translateY(2px); /* Press down effect */
+  }
+  
+  /* Extended Search Criteria */
+  .extended-criteria {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
