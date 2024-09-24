@@ -1,11 +1,35 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const ExpressionOfInterest = sequelize.define('EOI', {
+const expressionOfInterest = sequelize.define('EOI', {
     EOIID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true
+    },
+    MemberID: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'industry',
+        key: 'MemberID'
+      },
+      allowNull: true
+    },
+    AcademicID: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'academic',
+        key: 'AcademicID'
+      },
+      allowNull: true
+    },
+    ProjectID: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'project',
+        key: 'ProjectID'
+      },
+      allowNull: true
     },
     date: {
       type: DataTypes.DATE,
@@ -19,4 +43,4 @@ const ExpressionOfInterest = sequelize.define('EOI', {
     timestamps: false
   });
 
-module.exports = EOI;
+module.exports = expressionOfInterest;

@@ -35,6 +35,10 @@ const Academic = sequelize.define('Academic', {
     prompt: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    userType: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   }, {
     timestamps: false

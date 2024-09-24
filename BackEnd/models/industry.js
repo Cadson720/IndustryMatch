@@ -7,6 +7,14 @@ const Industry = sequelize.define('Industry', {
       autoIncrement: true,
       primaryKey: true
     },
+    ProjectID: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'project',
+        key: 'ProjectID'
+      },
+      allowNull: true
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -17,6 +25,10 @@ const Industry = sequelize.define('Industry', {
       allowNull: false
     },
     organisation: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    userType: {
       type: DataTypes.STRING,
       allowNull: false
     }
