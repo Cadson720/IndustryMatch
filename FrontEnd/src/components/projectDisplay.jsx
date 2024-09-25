@@ -47,6 +47,8 @@ function ProjectList({ keywords, field, duration, location, industry, size }) {
               <p><strong>Size:</strong> {project.size}</p>
               <p><strong>Industry:</strong> {project.industry}</p>
               <p><strong>Location:</strong> {project.location}</p>
+              <p><strong>Title:</strong> {project.title}</p>
+
               
               {/* Display associated member (Industry) information if available */}
               {project.Industry && (

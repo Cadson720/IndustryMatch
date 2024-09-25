@@ -58,18 +58,23 @@ const ProjectSearch = () => {
   // Function to handle search
   const handleSearch = () => {
     const filtered = projects.filter((project) => {
-      const keywordMatch = project.industry.toLowerCase().includes(keywords.toLowerCase()) || project.industry.toLowerCase().includes(keywords.toLowerCase());
+      const keywordMatch = 
+        project.industry.toLowerCase().includes(keywords.toLowerCase()) ||
+        project.discipline.toLowerCase().includes(keywords.toLowerCase()) ||
+        project.title.toLowerCase().includes(keywords.toLowerCase()); // Add title to keyword search
+  
       const fieldMatch = field ? project.discipline === field : true;
       const durationMatch = duration ? project.duration === duration : true;
       const locationMatch = location ? project.location === location : true;
       const industryMatch = industry ? project.industry === industry : true;
       const sizeMatch = size ? project.size === size : true;
-
+  
       return keywordMatch && fieldMatch && durationMatch && locationMatch && industryMatch && sizeMatch;
     });
-
+  
     setFilteredProjects(filtered);
   };
+  
 
   // If still loading, show a loading message
   if (loading) return <p>Loading...</p>;
@@ -123,7 +128,7 @@ const ProjectSearch = () => {
 
           <select value={location} onChange={(e) => setLocation(e.target.value)}>
             <option value="">Any Location</option>
-            <option value="Online">Australia</option>
+            <option value="Online">Online</option>
             <option value="Sydney">Sydney</option>
             <option value="Brisbane">Brisbane</option>
             <option value="Melbourne">Melbourne</option>
@@ -165,6 +170,7 @@ const ProjectSearch = () => {
           <ul>
             {filteredProjects.map((project) => (
               <li key={project.ProjectID}>
+                <p><strong>Project Title:</strong> {project.title}</p>
                 <p><strong>Project ID:</strong> {project.ProjectID}</p>
                 <p><strong>Member ID:</strong> {project.MemberID}</p>
                 <p><strong>Publish Date:</strong> {new Date(project.publishDate).toLocaleDateString()}</p>
