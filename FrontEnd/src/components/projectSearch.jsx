@@ -1,19 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import "../styles/projectSearch.css"; // Import the CSS for this component
 
+const disciplinesByIndustry = {
+  'Business & Management': ['Finance', 'Marketing'],
+  'Creative Arts': ['Graphic Design', 'Music'],
+  'Engineering and Mathematics': ['Civil Engineering', 'Mechanical Engineering'],
+  'Food, Hospitality & Personal Services': ['Culinary Arts', 'Hotel Management'],
+  'Humanities, Arts, & Social Sciences': ['Philosophy', 'Sociology'],
+  'IT & Computer Science': ['Software Engineering', 'Cybersecurity'],
+  'Law, Legal Studies & Justice': ['Corporate Law', 'Criminal Justice'],
+  'Medical & Health Studies': ['Nursing', 'Pharmacy'],
+  'Property & Built Environment': ['Architecture', 'Urban Planning'],
+  'Sciences': ['Biology', 'Chemistry'],
+  'Teaching & Education': ['Primary Education', 'Secondary Education'],
+  'Trades & Services': ['Carpentry', 'Electrician'],
+};
+
 const ProjectSearch = () => {
-  // States for managing search inputs
   const [keywords, setKeywords] = useState('');
   const [field, setField] = useState('');
   const [duration, setDuration] = useState('');
   const [location, setLocation] = useState('');
   const [industry, setIndustry] = useState('');
   const [size, setSize] = useState('');
-  const [showExtended, setShowExtended] = useState(false); // Toggle for extended search criteria
-  const [projects, setProjects] = useState([]); // State to hold all projects
-  const [filteredProjects, setFilteredProjects] = useState([]); // State to hold the filtered projects
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const [showExtended, setShowExtended] = useState(false);
+  const [projects, setProjects] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Fetch all projects from the backend when the component mounts
   useEffect(() => {
@@ -43,7 +57,6 @@ const ProjectSearch = () => {
 
   // Function to handle search
   const handleSearch = () => {
-    // Filter the projects based on the search criteria
     const filtered = projects.filter((project) => {
       const keywordMatch = project.industry.toLowerCase().includes(keywords.toLowerCase()) || project.industry.toLowerCase().includes(keywords.toLowerCase());
       const fieldMatch = field ? project.discipline === field : true;
@@ -52,11 +65,9 @@ const ProjectSearch = () => {
       const industryMatch = industry ? project.industry === industry : true;
       const sizeMatch = size ? project.size === size : true;
 
-      // Return true if all conditions match
       return keywordMatch && fieldMatch && durationMatch && locationMatch && industryMatch && sizeMatch;
     });
 
-    // Update the filtered projects
     setFilteredProjects(filtered);
   };
 
@@ -87,26 +98,27 @@ const ProjectSearch = () => {
 
           <select value={industry} onChange={(e) => setIndustry(e.target.value)}>
             <option value="">Any Industry</option>
-            <option value="Analytics and Data Science">Analytics and Data Science</option>
-            <option value="Business">Business</option>
-            <option value="Communication">Communication</option>
-            <option value="Design, Architecture and Building">Design, Architecture and Building</option>
-            <option value="Education">Education</option>
-            <option value="Engineering">Engineering</option>
-             <option value="Health">Health</option>
-            <option value="Health (GEM)">Health (GEM)</option>
-            <option value="Information Technology">Information Technology</option>
-            <option value="International Studies and Social Sciences">International Studies and Social Sciences</option>
-            <option value="Law">Law</option>
-            <option value="Science and Mathematics">Science and Mathematics</option>
-            <option value="Transdisciplinary Innovation">Transdisciplinary Innovation</option>
+            <option value="Business & Management">Business & Management</option>
+            <option value="Creative Arts">Creative Arts</option>
+            <option value="Engineering and mathematics">Engineering and Mathematics</option>
+            <option value="Food, Hospitality & Personal Services">Food, Hospitality & Personal Services</option>
+            <option value="Humanities, Arts, & Social Sciences">Humanities, Arts, & Social Sciences</option>
+            <option value="IT & Computer Science">IT & Computer Science</option>
+            <option value="Law, Legal Studies & Justice">Law, Legal Studies & Justice</option>
+            <option value="Medical & Health Studies">Medical & Health Studies</option>
+            <option value="Property & Built Environment">Property & Built Environment</option>
+            <option value="Sciences">Sciences</option>
+            <option value="Teaching & Education">Teaching & Education</option>
+            <option value="Trades & Services">Trades & Services</option>
           </select>
 
           <select value={duration} onChange={(e) => setDuration(e.target.value)}>
             <option value="">Any Length</option>
-            <option value="four weeks">four weeks</option>
-            <option value="six weeks">six weeks</option>
-            <option value="twelve weeks">twelve weeks</option>
+            <option value="4 weeks">4 Weeks</option>
+            <option value="6 weeks">6 Weeks</option>
+            <option value="8 weeks">8 Weeks</option>
+            <option value="12 weeks">12 Weeks</option>
+            <option value="24 Weeks">24 Weeks</option>
           </select>
 
           <select value={location} onChange={(e) => setLocation(e.target.value)}>
@@ -115,7 +127,6 @@ const ProjectSearch = () => {
             <option value="Sydney">Sydney</option>
             <option value="Brisbane">Brisbane</option>
             <option value="Melbourne">Melbourne</option>
-            {/* Add more options as needed */}
           </select>
 
           {/* Search Button */}
@@ -125,13 +136,19 @@ const ProjectSearch = () => {
         {/* Extended Search Criteria (shown when hamburger is clicked) */}
         {showExtended && (
           <div className="extended-criteria">
-          <select value={field} onChange={(e) => setField(e.target.value)}>
-            <option value="">Any Discipline</option>
-              <option value="Software Engineering">Software Engineering</option>
-              <option value="Environmental Studies">Environmental Studies</option>
-              {/* Add more options as needed */}
+            <select
+              value={field}
+              onChange={(e) => setField(e.target.value)}
+              disabled={!industry} // Disable until industry is selected
+            >
+              <option value="">Any Discipline</option>
+              {industry && disciplinesByIndustry[industry]?.map((discipline) => (
+                <option key={discipline} value={discipline}>
+                  {discipline}
+                </option>
+              ))}
             </select>
-          
+
             <select value={size} onChange={(e) => setSize(e.target.value)}>
               <option value="">Any Size</option>
               <option value="Small">Small</option>
