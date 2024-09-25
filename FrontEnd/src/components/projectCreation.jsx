@@ -15,7 +15,6 @@ function CreateProject() {
     duration: '',
     size: '',
     industry: '',
-    location: ''
   });
 
   const [success, setSuccess] = useState(false);
@@ -53,7 +52,6 @@ function CreateProject() {
           duration: '',
           size: '',
           industry: '',
-          location: ''
         });
       } else {
         // Handle errors from the server

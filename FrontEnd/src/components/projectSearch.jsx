@@ -23,7 +23,7 @@ const ProjectSearch = () => {
   const [location, setLocation] = useState('');
   const [industry, setIndustry] = useState('');
   const [size, setSize] = useState('');
-  const [showExtended, setShowExtended] = useState(false);
+  const [showExtended, setShowExtended] = useState(false); // Toggle for extended search criteria
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -151,6 +151,31 @@ const ProjectSearch = () => {
         <button className="search-button" onClick={handleSearch}>Search</button>
       </div>
 
+      {/* Extended Search Criteria */}
+      {showExtended && (
+        <div className="extended-criteria">
+          <select
+            value={field}
+            onChange={(e) => setField(e.target.value)}
+            disabled={!industry} // Disable until industry is selected
+          >
+            <option value="">Any Discipline</option>
+            {industry && disciplinesByIndustry[industry]?.map((discipline) => (
+              <option key={discipline} value={discipline}>
+                {discipline}
+              </option>
+            ))}
+          </select>
+
+          <select value={size} onChange={(e) => setSize(e.target.value)}>
+            <option value="">Any Size</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+          </select>
+        </div>
+      )}
+
       <div className="project-columns">
         {/* Left Side: Project Previews */}
         <div className="project-preview-column">
@@ -184,6 +209,15 @@ const ProjectSearch = () => {
               <p><strong>Discipline:</strong> {selectedProject.discipline}</p>
               <p><strong>Size:</strong> {selectedProject.size}</p>
               <p><strong>Publish Date:</strong> {new Date(selectedProject.publishDate).toLocaleDateString()}</p>
+              
+              {/* Display Member Info from Industry */}
+              {selectedProject.Industry && (
+                <div>
+                  <p><strong>Member ID:</strong> {selectedProject.Industry.MemberID}</p>
+                  <p><strong>Email:</strong> {selectedProject.Industry.email}</p>
+                  <p><strong>Organisation:</strong> {selectedProject.Industry.organisation}</p>
+                </div>
+              )}
             </div>
           ) : (
             <p>Please select a project to see details.</p>
