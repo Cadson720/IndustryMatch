@@ -32,7 +32,7 @@ const Project = sequelize.define('Project', {
       type: DataTypes.STRING,
       allowNull: false
     },
-    profession: {
+    industry: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -45,6 +45,7 @@ const Project = sequelize.define('Project', {
   });
 
   (async () => {
+    await sequelize.sync({ alter: true }); // Use alter instead of force to prevent dropping tables
     console.log("Project synced");
   })
 

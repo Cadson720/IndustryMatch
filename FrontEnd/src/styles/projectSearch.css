@@ -116,3 +116,7 @@ body{
     justify-content: center;
     transition: all 0.3s ease;
   }
+
+  .project-list {
+    background-color: white;
+  }
