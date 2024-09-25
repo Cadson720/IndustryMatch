@@ -34,21 +34,7 @@ const Project = sequelize.define('Project', {
       allowNull: false
     },
     industry: {
-      type: DataTypes.ENUM(
-        'Analytics and Data Science',
-        'Business',
-        'Communication',
-        'Design, Architecture and Building',
-        'Education',
-        'Engineering',
-        'Health',
-        'Health (GEM)',
-        'Information Technology',
-        'International Studies and Social Sciences',
-        'Law',
-        'Science and Mathematics',
-        'Transdisciplinary Innovation'
-      ),
+      type: DataTypes.STRING,
       allowNull: false
     },
     location: {

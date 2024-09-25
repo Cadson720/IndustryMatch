@@ -63,8 +63,6 @@ function ProjectList({ keywords, field, duration, location, industry, size }) {
       </div>
     );
   }
-
   return null;
 }
-
 export default ProjectList;
