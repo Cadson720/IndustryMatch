@@ -45,7 +45,7 @@ function ProjectList({ keywords, field, duration, location, industry, size }) {
               <p><strong>Discipline:</strong> {project.discipline}</p>
               <p><strong>Duration:</strong> {project.duration}</p>
               <p><strong>Size:</strong> {project.size}</p>
-              <p><strong>Profession:</strong> {project.profession}</p>
+              <p><strong>Industry:</strong> {project.industry}</p>
               <p><strong>Location:</strong> {project.location}</p>
               <hr />
             </li>
@@ -57,7 +57,7 @@ function ProjectList({ keywords, field, duration, location, industry, size }) {
 
   // Function to filter projects based on the search criteria
   const filteredProjects = projects.filter((project) => {
-    const keywordMatch = project.profession.toLowerCase().includes(keywords.toLowerCase()) || project.discipline.toLowerCase().includes(keywords.toLowerCase());
+    const keywordMatch = project.industry.toLowerCase().includes(keywords.toLowerCase()) || project.industry.toLowerCase().includes(keywords.toLowerCase());
     const fieldMatch = field ? project.discipline === field : true;
     const durationMatch = duration ? project.duration === duration : true;
     const locationMatch = location ? project.location === location : true;
@@ -86,7 +86,7 @@ function ProjectList({ keywords, field, duration, location, industry, size }) {
           <p><strong>Discipline:</strong> {project.discipline}</p>
           <p><strong>Duration:</strong> {project.duration}</p>
           <p><strong>Size:</strong> {project.size}</p>
-          <p><strong>Profession:</strong> {project.profession}</p>
+          <p><strong>Industry:</strong> {project.industry}</p>
           <p><strong>Location:</strong> {project.location}</p>
           <hr />
         </li>

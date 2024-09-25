@@ -11,7 +11,7 @@ const Project = sequelize.define('Project', {
     MemberID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'industry',
+        model: 'Industries',
         key: 'MemberID'
       },
       allowNull: true
@@ -33,10 +33,28 @@ const Project = sequelize.define('Project', {
       allowNull: false
     },
     industry: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM(
+        'Analytics and Data Science',
+        'Business',
+        'Communication',
+        'Design, Architecture and Building',
+        'Education',
+        'Engineering',
+        'Health',
+        'Health (GEM)',
+        'Information Technology',
+        'International Studies and Social Sciences',
+        'Law',
+        'Science and Mathematics',
+        'Transdisciplinary Innovation'
+      ),
       allowNull: false
     },
     location: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    title: {
       type: DataTypes.STRING,
       allowNull: false
     }
@@ -44,9 +62,4 @@ const Project = sequelize.define('Project', {
     timestamps: false
   });
 
-  (async () => {
-    await sequelize.sync({ alter: true }); // Use alter instead of force to prevent dropping tables
-    console.log("Project synced");
-  })
-
-module.exports = Project;
+  module.exports = Project;

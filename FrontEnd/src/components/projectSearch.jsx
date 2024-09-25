@@ -114,9 +114,19 @@ const ProjectSearch = () => {
         <div className="extended-criteria">
           <select value={industry} onChange={(e) => setIndustry(e.target.value)}>
             <option value="">Any Industry</option>
-            <option value="Tech">Tech</option>
-            <option value="Finance">Finance</option>
-            {/* Add more options as needed */}
+            <option value="Analytics and Data Science">Analytics and Data Science</option>
+            <option value="Business">Business</option>
+            <option value="Communication">Communication</option>
+            <option value="Design, Architecture and Building">Design, Architecture and Building</option>
+            <option value="Education">Education</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Health">Health</option>
+            <option value="Health (GEM)">Health (GEM)</option>
+            <option value="Information Technology">Information Technology</option>
+            <option value="International Studies and Social Sciences">International Studies and Social Sciences</option>
+            <option value="Law">Law</option>
+            <option value="Science and Mathematics">Science and Mathematics</option>
+            <option value="Transdisciplinary Innovation">Transdisciplinary Innovation</option>
           </select>
 
           <select value={size} onChange={(e) => setSize(e.target.value)}>
