@@ -85,11 +85,21 @@ const ProjectSearch = () => {
             onChange={(e) => setKeywords(e.target.value)}
           />
 
-          <select value={field} onChange={(e) => setField(e.target.value)}>
-            <option value="">Any Discipline</option>
-            <option value="Software Engineering">Software Engineering</option>
-            <option value="Environmental Studies">Environmental Studies</option>
-            {/* Add more options as needed */}
+          <select value={industry} onChange={(e) => setIndustry(e.target.value)}>
+            <option value="">Any Industry</option>
+            <option value="Analytics and Data Science">Analytics and Data Science</option>
+            <option value="Business">Business</option>
+            <option value="Communication">Communication</option>
+            <option value="Design, Architecture and Building">Design, Architecture and Building</option>
+            <option value="Education">Education</option>
+            <option value="Engineering">Engineering</option>
+             <option value="Health">Health</option>
+            <option value="Health (GEM)">Health (GEM)</option>
+            <option value="Information Technology">Information Technology</option>
+            <option value="International Studies and Social Sciences">International Studies and Social Sciences</option>
+            <option value="Law">Law</option>
+            <option value="Science and Mathematics">Science and Mathematics</option>
+            <option value="Transdisciplinary Innovation">Transdisciplinary Innovation</option>
           </select>
 
           <select value={duration} onChange={(e) => setDuration(e.target.value)}>
@@ -115,23 +125,13 @@ const ProjectSearch = () => {
         {/* Extended Search Criteria (shown when hamburger is clicked) */}
         {showExtended && (
           <div className="extended-criteria">
-            <select value={industry} onChange={(e) => setIndustry(e.target.value)}>
-              <option value="">Any Industry</option>
-              <option value="Analytics and Data Science">Analytics and Data Science</option>
-              <option value="Business">Business</option>
-              <option value="Communication">Communication</option>
-              <option value="Design, Architecture and Building">Design, Architecture and Building</option>
-              <option value="Education">Education</option>
-              <option value="Engineering">Engineering</option>
-              <option value="Health">Health</option>
-              <option value="Health (GEM)">Health (GEM)</option>
-              <option value="Information Technology">Information Technology</option>
-              <option value="International Studies and Social Sciences">International Studies and Social Sciences</option>
-              <option value="Law">Law</option>
-              <option value="Science and Mathematics">Science and Mathematics</option>
-              <option value="Transdisciplinary Innovation">Transdisciplinary Innovation</option>
+          <select value={field} onChange={(e) => setField(e.target.value)}>
+            <option value="">Any Discipline</option>
+              <option value="Software Engineering">Software Engineering</option>
+              <option value="Environmental Studies">Environmental Studies</option>
+              {/* Add more options as needed */}
             </select>
-
+          
             <select value={size} onChange={(e) => setSize(e.target.value)}>
               <option value="">Any Size</option>
               <option value="Small">Small</option>
