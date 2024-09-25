@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Project = sequelize.define('Projects', {
+const Project = sequelize.define('Project', {
     ProjectID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -11,7 +11,7 @@ const Project = sequelize.define('Projects', {
     MemberID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Industries',
+        model: 'industry',
         key: 'MemberID'
       },
       allowNull: true
@@ -28,7 +28,7 @@ const Project = sequelize.define('Projects', {
       type: DataTypes.STRING,
       allowNull: false
     },
-    size: {  // Only one size field
+    size: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -39,18 +39,13 @@ const Project = sequelize.define('Projects', {
     location: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    title: {  // Newly added title field
-      type: DataTypes.STRING,
-      allowNull: false
     }
   }, {
     timestamps: false
   });
 
   (async () => {
-    await sequelize.sync({ force: true });  // Use `force: true` only if you're okay with resetting the data
     console.log("Project synced");
-  })();
+  })
 
 module.exports = Project;

@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from '../components/projectSearch.jsx'
+import ProjectSearch from '../components/projectSearch.jsx'
 import '../styles/projectSearch.css'
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -11,7 +11,6 @@ import Header from '../components/header.jsx';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Header />
-    <h1>Project Search</h1>
-    <App />
+    <ProjectSearch />
   </StrictMode>,
 )
