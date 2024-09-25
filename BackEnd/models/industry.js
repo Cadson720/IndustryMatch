@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Industry = sequelize.define('Industry', {
+const Industry = sequelize.define('Industries', {
     MemberID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -10,7 +10,7 @@ const Industry = sequelize.define('Industry', {
     ProjectID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'project',
+        model: 'Projects',
         key: 'ProjectID'
       },
       allowNull: true

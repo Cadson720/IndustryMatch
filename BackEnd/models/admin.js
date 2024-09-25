@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Admin = sequelize.define('Admin', {
+const Admin = sequelize.define('Admins', {
     AdminID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -10,7 +10,7 @@ const Admin = sequelize.define('Admin', {
     MemberID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'industry',
+        model: 'Industries',
         key: 'MemberID'
       },
       allowNull: true
@@ -18,15 +18,15 @@ const Admin = sequelize.define('Admin', {
     AcademicID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'academic',
-        key: 'AcademicID'
+        model: 'Academics',
+        key: 'AcademicId'
       },
       allowNull: true
     },
     EOIID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'eoi',
+        model: 'EOIs',
         key: 'EOIID'
       },
       allowNull: true
@@ -34,7 +34,7 @@ const Admin = sequelize.define('Admin', {
     ProjectID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'project',
+        model: 'Projects',
         key: 'ProjectID'
       },
       allowNull: true

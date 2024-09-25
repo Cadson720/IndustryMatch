@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function ProjectList() {
+function ProjectDisplay() {
   const [projects, setProjects] = useState([]);  // State to hold the projects
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -54,4 +54,4 @@ function ProjectList() {
   );
 }
 
-export default ProjectList;
+export default ProjectDisplay;

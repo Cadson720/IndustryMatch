@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const expressionOfInterest = sequelize.define('EOI', {
+const expressionOfInterest = sequelize.define('EOIs', {
     EOIID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -10,7 +10,7 @@ const expressionOfInterest = sequelize.define('EOI', {
     MemberID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'industry',
+        model: 'Industries',
         key: 'MemberID'
       },
       allowNull: true
@@ -18,15 +18,15 @@ const expressionOfInterest = sequelize.define('EOI', {
     AcademicID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'academic',
-        key: 'AcademicID'
+        model: 'Academics',
+        key: 'AcademicId'
       },
       allowNull: true
     },
     ProjectID: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'project',
+        model: 'Projects',
         key: 'ProjectID'
       },
       allowNull: true
