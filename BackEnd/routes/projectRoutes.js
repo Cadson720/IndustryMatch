@@ -1,11 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const { Project } = require('../models'); // Make sure Project model is imported
+const { Project, Industry } = require('../models'); // Ensure both Project and Industry models are imported
 
 // Get all projects
+// Get all projects with associated Industry (member) information
 router.get('/project', async (req, res) => {
   try {
-    const projects = await Project.findAll();
+    const projects = await Project.findAll({
+      include: {
+        model: Industry, // Include the Industry model
+        as: 'Industry'   // Alias used in the association
+      }
+    });
     res.json(projects);
   } catch (error) {
     res.status(500).json({ error: 'Error retrieving projects' });
