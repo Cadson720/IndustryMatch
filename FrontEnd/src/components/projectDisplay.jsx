@@ -47,6 +47,15 @@ function ProjectList({ keywords, field, duration, location, industry, size }) {
               <p><strong>Size:</strong> {project.size}</p>
               <p><strong>Industry:</strong> {project.industry}</p>
               <p><strong>Location:</strong> {project.location}</p>
+              
+              {/* Display associated member (Industry) information if available */}
+              {project.Industry && (
+                <div>
+                  <h3>Member Info</h3>
+                  <p><strong>Email:</strong> {project.Industry.email}</p>
+                  <p><strong>Organisation:</strong> {project.Industry.organisation}</p>
+                </div>
+              )}
               <hr />
             </li>
           ))}
@@ -55,44 +64,7 @@ function ProjectList({ keywords, field, duration, location, industry, size }) {
     );
   }
 
-  // Function to filter projects based on the search criteria
-  const filteredProjects = projects.filter((project) => {
-    const keywordMatch = project.industry.toLowerCase().includes(keywords.toLowerCase()) || project.industry.toLowerCase().includes(keywords.toLowerCase());
-    const fieldMatch = field ? project.discipline === field : true;
-    const durationMatch = duration ? project.duration === duration : true;
-    const locationMatch = location ? project.location === location : true;
-    const industryMatch = industry ? project.industry === industry : true;
-    const sizeMatch = size ? project.size === size : true;
-
-    // Return true if all conditions match
-    return keywordMatch && fieldMatch && durationMatch && locationMatch && industryMatch && sizeMatch;
-  });
-
-  // Display the first matching project if search criteria are provided
-  const project = filteredProjects[0]; // Get the first matching project
-
-  if (!project) {
-    return <p>No matching project found.</p>; // If no project matches the criteria
-  }
-
-  return (
-    <div>
-      <h1>Project Details</h1>
-      <ul>
-        <li key={project.ProjectID}>
-          <p><strong>Project ID:</strong> {project.ProjectID}</p>
-          <p><strong>Member ID:</strong> {project.MemberID}</p>
-          <p><strong>Publish Date:</strong> {new Date(project.publishDate).toLocaleDateString()}</p>
-          <p><strong>Discipline:</strong> {project.discipline}</p>
-          <p><strong>Duration:</strong> {project.duration}</p>
-          <p><strong>Size:</strong> {project.size}</p>
-          <p><strong>Industry:</strong> {project.industry}</p>
-          <p><strong>Location:</strong> {project.location}</p>
-          <hr />
-        </li>
-      </ul>
-    </div>
-  );
+  return null;
 }
 
 export default ProjectList;

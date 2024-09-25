@@ -1,19 +1,11 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Industry = sequelize.define('Industries', {
+const Industry = sequelize.define('Industry', {
     MemberID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true
-    },
-    ProjectID: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Projects',
-        key: 'ProjectID'
-      },
-      allowNull: true
     },
     email: {
       type: DataTypes.STRING,
