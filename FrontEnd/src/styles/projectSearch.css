@@ -120,3 +120,56 @@ body{
   .project-list {
     background-color: white;
   }
+
+  .project-columns {
+    padding-top: 20px;
+    display: flex;
+    gap: 50px;
+    height: calc(100% - 150px);
+    max-width: 75%;
+    width: 75%;
+  }
+  
+  /* Left Column: Project Previews */
+  .project-preview-column {
+    width: 25%;
+    max-height: 100%;
+    overflow-y: scroll;
+    padding-right: 20px;
+  }
+  
+  .project-preview {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .project-preview:hover {
+    background-color: #f4f4f4;
+  }
+  
+  .project-preview.active {
+    border: 2px solid #6A5ACD;
+  }
+  
+  .project-preview p {
+    margin: 5px 0;
+  }
+  
+  /* Right Column: Project Details */
+  .project-detail-column {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+  }
+  
+  .project-detail h2 {
+    margin-top: 0;
+  }
