@@ -132,9 +132,9 @@ body{
   
   /* Left Column: Project Previews */
   .project-preview-column {
-    width: 25%;
+    width: 45%;
     max-height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
     padding-right: 20px;
   }
   
@@ -168,6 +168,7 @@ body{
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    max-height: 1000px;
   }
   
   .project-detail h2 {
