@@ -67,78 +67,82 @@ const ProjectSearch = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="project-search-container">
-      <div className="search-bar">
-        {/* Hamburger Menu Icon */}
-        <div className="hamburger-menu" onClick={toggleExtendedCriteria}>
-          <span></span>
-          <span></span>
-          <span></span>
+    <>
+      <div className="project-search-container">
+        <div className="search-bar">
+          {/* Hamburger Menu Icon */}
+          <div className="hamburger-menu" onClick={toggleExtendedCriteria}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          {/* Input Fields */}
+          <input
+            type="text"
+            placeholder="Keywords"
+            value={keywords}
+            onChange={(e) => setKeywords(e.target.value)}
+          />
+
+          <select value={field} onChange={(e) => setField(e.target.value)}>
+            <option value="">Any Discipline</option>
+            <option value="Software Engineering">Software Engineering</option>
+            <option value="Environmental Studies">Environmental Studies</option>
+            {/* Add more options as needed */}
+          </select>
+
+          <select value={duration} onChange={(e) => setDuration(e.target.value)}>
+            <option value="">Any Length</option>
+            <option value="four weeks">four weeks</option>
+            <option value="six weeks">six weeks</option>
+            <option value="twelve weeks">twelve weeks</option>
+          </select>
+
+          <select value={location} onChange={(e) => setLocation(e.target.value)}>
+            <option value="">Any Location</option>
+            <option value="Online">Australia</option>
+            <option value="Sydney">Sydney</option>
+            <option value="Brisbane">Brisbane</option>
+            <option value="Melbourne">Melbourne</option>
+            {/* Add more options as needed */}
+          </select>
+
+          {/* Search Button */}
+          <button className="search-button" onClick={handleSearch}>Search</button>
         </div>
 
-        {/* Input Fields */}
-        <input
-          type="text"
-          placeholder="Keywords"
-          value={keywords}
-          onChange={(e) => setKeywords(e.target.value)}
-        />
+        {/* Extended Search Criteria (shown when hamburger is clicked) */}
+        {showExtended && (
+          <div className="extended-criteria">
+            <select value={industry} onChange={(e) => setIndustry(e.target.value)}>
+              <option value="">Any Industry</option>
+              <option value="Analytics and Data Science">Analytics and Data Science</option>
+              <option value="Business">Business</option>
+              <option value="Communication">Communication</option>
+              <option value="Design, Architecture and Building">Design, Architecture and Building</option>
+              <option value="Education">Education</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Health">Health</option>
+              <option value="Health (GEM)">Health (GEM)</option>
+              <option value="Information Technology">Information Technology</option>
+              <option value="International Studies and Social Sciences">International Studies and Social Sciences</option>
+              <option value="Law">Law</option>
+              <option value="Science and Mathematics">Science and Mathematics</option>
+              <option value="Transdisciplinary Innovation">Transdisciplinary Innovation</option>
+            </select>
 
-        <select value={field} onChange={(e) => setField(e.target.value)}>
-          <option value="">Any Discipline</option>
-          <option value="Engineering">Engineering</option>
-          <option value="Science">Science</option>
-          {/* Add more options as needed */}
-        </select>
-
-        <select value={duration} onChange={(e) => setDuration(e.target.value)}>
-          <option value="">Any Length</option>
-          <option value="Short">Short</option>
-          <option value="Medium">Medium</option>
-          <option value="Long">Long</option>
-        </select>
-
-        <select value={location} onChange={(e) => setLocation(e.target.value)}>
-          <option value="">Any Location</option>
-          <option value="Australia">Australia</option>
-          <option value="USA">USA</option>
-          {/* Add more options as needed */}
-        </select>
-
-        {/* Search Button */}
-        <button className="search-button" onClick={handleSearch}>Search</button>
+            <select value={size} onChange={(e) => setSize(e.target.value)}>
+              <option value="">Any Size</option>
+              <option value="Small">Small</option>
+              <option value="Medium">Medium</option>
+              <option value="Large">Large</option>
+            </select>
+          </div>
+        )}
       </div>
 
-      {/* Extended Search Criteria (shown when hamburger is clicked) */}
-      {showExtended && (
-        <div className="extended-criteria">
-          <select value={industry} onChange={(e) => setIndustry(e.target.value)}>
-            <option value="">Any Industry</option>
-            <option value="Analytics and Data Science">Analytics and Data Science</option>
-            <option value="Business">Business</option>
-            <option value="Communication">Communication</option>
-            <option value="Design, Architecture and Building">Design, Architecture and Building</option>
-            <option value="Education">Education</option>
-            <option value="Engineering">Engineering</option>
-            <option value="Health">Health</option>
-            <option value="Health (GEM)">Health (GEM)</option>
-            <option value="Information Technology">Information Technology</option>
-            <option value="International Studies and Social Sciences">International Studies and Social Sciences</option>
-            <option value="Law">Law</option>
-            <option value="Science and Mathematics">Science and Mathematics</option>
-            <option value="Transdisciplinary Innovation">Transdisciplinary Innovation</option>
-          </select>
-
-          <select value={size} onChange={(e) => setSize(e.target.value)}>
-            <option value="">Any Size</option>
-            <option value="Small">Small</option>
-            <option value="Medium">Medium</option>
-            <option value="Large">Large</option>
-          </select>
-        </div>
-      )}
-
-      {/* Render the filtered project list */}
+      {/* Render the filtered project list outside and below the search container */}
       <div className="project-list">
         {filteredProjects.length > 0 ? (
           <ul>
@@ -160,7 +164,7 @@ const ProjectSearch = () => {
           <p>No matching projects found.</p>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
