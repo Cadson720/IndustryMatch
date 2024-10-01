@@ -2,9 +2,10 @@ const express = require('express');
 const sequelize = require('./config/database'); // Your Sequelize instance
 const userRoutes = require('./routes/userRoutes'); // Import user routes
 const projectRoutes = require('./routes/projectRoutes'); // Import project routes
+const aiSearchRoutes = require('./routes/aiSearchRoutes'); // Import AI search route
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
-const cors = require('cors');
 
 // Enable CORS for all routes
 app.use(cors());
@@ -32,6 +33,10 @@ app.use('/api', userRoutes); // All user routes will be prefixed with /api
 // Use the project routes
 app.use('/api', projectRoutes); // All project routes will be prefixed with /api
 
+// Use the AI-specific search routes
+app.use('/api', aiSearchRoutes); // AI search routes are also prefixed with /api
+
+// Health check endpoint
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
