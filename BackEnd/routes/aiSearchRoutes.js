@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Project, Industry } = require('../models');
+const { Project } = require('../models'); // No need for Industry model here unless you're including its fields
 const { Op } = require('sequelize'); // Import Sequelize Operators for advanced querying
 
 // AI-specific route for searching projects based on user inputs
@@ -35,9 +35,9 @@ router.get('/project/ai-search', async (req, res) => {
       filters.size = size; // Exact match for size (small, medium, large)
     }
 
-    // Filtering by industry if provided
+    // Filtering by industry if provided (directly from the Project model)
     if (industry) {
-      filters.industry = { [Op.iLike]: `%${industry}%` }; // Case-insensitive match for industry
+      filters.industry = { [Op.iLike]: `%${industry}%` }; // Case-insensitive match for industry from Project model
     }
 
     // Filtering by location if provided
@@ -47,11 +47,7 @@ router.get('/project/ai-search', async (req, res) => {
 
     // Fetch projects from the database using the filters
     const projects = await Project.findAll({
-      where: filters,
-      include: {
-        model: Industry, // Include the Industry model
-        as: 'Industry',  // Alias used in the association
-      },
+      where: filters, // Apply the filters directly to the Project model
     });
 
     // If no projects are found, return a meaningful message
