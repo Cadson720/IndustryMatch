@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { Project, Industry } = require('../models'); // Ensure both Project and Industry models are imported
 
-// Get all projects
 // Get all projects with associated Industry (member) information
 router.get('/project', async (req, res) => {
   try {
@@ -26,6 +25,22 @@ router.post('/project', async (req, res) => {
   } catch (error) {
     console.error('Error creating project:', error);
     res.status(500).json({ error: 'Failed to create project' });
+  }
+});
+
+// Delete a project by ProjectID
+router.delete('/project/:id', async (req, res) => {
+  const { id } = req.params; // Extract the project ID from the request parameters
+  try {
+    const project = await Project.findByPk(id); // Find the project by its primary key (ID)
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' }); // Return 404 if project doesn't exist
+    }
+    await project.destroy(); // Delete the project
+    res.status(204).send(); // Send a 204 No Content response on successful deletion
+  } catch (error) {
+    console.error('Error deleting project:', error);
+    res.status(500).json({ error: 'Failed to delete project' });
   }
 });
 

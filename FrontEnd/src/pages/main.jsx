@@ -9,15 +9,16 @@ import Header from '../components/header.jsx';
 import Appp from '../components/userDisplay.jsx'
 import ProjectDisplay from '../components/projectDisplay.jsx';
 import CreateProject from '../components/projectCreation.jsx';
+import DeleteProjectList from '../components/projectDeletion.jsx';
 //<Appp/>
 //<App />
 //<AddUserForm/>
 //<EditUserForm/>
+//<CreateProject/>
+//<ProjectDisplay/>
 //import App from './App';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Appp/>
-    <CreateProject/>
-    <ProjectDisplay/>
+    <DeleteProjectList/>
   </StrictMode>,
 )
