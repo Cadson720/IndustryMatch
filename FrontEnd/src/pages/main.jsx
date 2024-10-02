@@ -10,6 +10,7 @@ import Appp from '../components/userDisplay.jsx'
 import ProjectDisplay from '../components/projectDisplay.jsx';
 import CreateProject from '../components/projectCreation.jsx';
 import DeleteProjectList from '../components/projectDeletion.jsx';
+import EditProject from '../components/projectEdit.jsx';
 //<Appp/>
 //<App />
 //<AddUserForm/>
@@ -19,6 +20,7 @@ import DeleteProjectList from '../components/projectDeletion.jsx';
 //import App from './App';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <EditProject/>
     <DeleteProjectList/>
   </StrictMode>,
 )

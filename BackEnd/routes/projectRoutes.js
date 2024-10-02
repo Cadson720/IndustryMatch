@@ -28,6 +28,23 @@ router.post('/project', async (req, res) => {
   }
 });
 
+router.put('/project/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const project = await Project.findByPk(id); // Find the project by its ID
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+    await project.update(req.body); // Update the project with new data
+    res.json(project); // Send the updated project as a response
+  } catch (error) {
+    console.error('Error updating project:', error);
+    res.status(500).json({ error: 'Failed to update project' });
+  }
+});
+
+
+
 // Delete a project by ProjectID
 router.delete('/project/:id', async (req, res) => {
   const { id } = req.params; // Extract the project ID from the request parameters
