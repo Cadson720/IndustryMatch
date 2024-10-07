@@ -17,7 +17,6 @@ app.use(express.json());
 sequelize.authenticate()
   .then(() => {
     console.log('Connection to PostgreSQL has been established successfully.');
-    // Sync the database (this will create the tables if they don't exist)
     return sequelize.sync();
   })
   .then(() => {
@@ -28,10 +27,10 @@ sequelize.authenticate()
   });
 
 // Use the user routes
-app.use('/api', userRoutes); // All user routes will be prefixed with /api
+app.use('/api', userRoutes);
 
 // Use the project routes
-app.use('/api', projectRoutes); // All project routes will be prefixed with /api
+app.use('/api', projectRoutes);
 
 // Use the AI-specific search routes
 app.use('/api', aiSearchRoutes); // AI search routes are also prefixed with /api

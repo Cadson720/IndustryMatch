@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { Project } = require('../models'); // No need for Industry model here unless you're including its fields
-const { Op } = require('sequelize'); // Import Sequelize Operators for advanced querying
+const { Project, Industry } = require('../models'); // Ensure correct path to Project and Industry model
+const { Op } = require('sequelize'); // Sequelize operators for advanced querying
 
 // AI-specific route for searching projects based on user inputs
 router.get('/project/ai-search', async (req, res) => {
@@ -9,11 +9,16 @@ router.get('/project/ai-search', async (req, res) => {
     // Extract query parameters for filtering
     const { keywords, discipline, duration, size, industry, location } = req.query;
 
-    // Create a dynamic filter object based on the AI's input
+    // Log incoming query parameters for debugging
+    console.log("Query parameters received:", { keywords, discipline, duration, size, industry, location });
+
+    // Create a dynamic filter object based on the user's input
     let filters = {};
 
-    // Filtering logic for keywords (search in title or discipline)
-    if (keywords) {
+    // Add conditions to the filters object based on the provided query parameters
+
+    // Filtering by keywords (search in title or discipline)
+    if (keywords && keywords.trim() !== '') {
       filters[Op.or] = [
         { title: { [Op.iLike]: `%${keywords}%` } },  // Case-insensitive search in project title
         { discipline: { [Op.iLike]: `%${keywords}%` } }  // Case-insensitive search in discipline
@@ -21,45 +26,54 @@ router.get('/project/ai-search', async (req, res) => {
     }
 
     // Filtering by discipline if provided
-    if (discipline) {
-      filters.discipline = { [Op.iLike]: `%${discipline}%` }; // Case-insensitive exact match or partial match
+    if (discipline && discipline.trim() !== '') {
+      filters.discipline = { [Op.iLike]: `%${discipline}%` }; // Case-insensitive partial match for discipline
     }
 
     // Filtering by duration if provided
-    if (duration) {
+    if (duration && duration.trim() !== '') {
       filters.duration = duration; // Exact match for duration
     }
 
     // Filtering by size if provided
-    if (size) {
+    if (size && size.trim() !== '') {
       filters.size = size; // Exact match for size (small, medium, large)
     }
 
-    // Filtering by industry if provided (directly from the Project model)
-    if (industry) {
-      filters.industry = { [Op.iLike]: `%${industry}%` }; // Case-insensitive match for industry from Project model
+    // Filtering by industry if provided
+    if (industry && industry.trim() !== '') {
+      filters.industry = { [Op.iLike]: `%${industry}%` }; // Case-insensitive match for industry
     }
 
     // Filtering by location if provided
-    if (location) {
+    if (location && location.trim() !== '') {
       filters.location = { [Op.iLike]: `%${location}%` }; // Case-insensitive match for location
     }
 
-    // Fetch projects from the database using the filters
+    // Log filters before executing the query
+    console.log("Filters applied:", filters);
+
+    // Fetch filtered projects from the database
     const projects = await Project.findAll({
-      where: filters, // Apply the filters directly to the Project model
+      where: filters, // Apply the dynamic filters object
+      include: {
+        model: Industry, // Reference the actual Industry model, not the query parameter
+        attributes: ['email', 'organisation', 'userType'] // Specify required fields from Industry
+      }
     });
 
-    // If no projects are found, return a meaningful message
-    if (projects.length === 0) {
-      return res.status(404).json({ message: 'No matching projects found based on your search criteria.' });
-    }
+    // Log query result
+    console.log("Projects found:", projects.length);
 
-    // Respond with the filtered projects
-    res.json(projects);
+    // Return the filtered projects
+    if (projects.length > 0) {
+      res.json(projects);
+    } else {
+      res.status(404).json({ message: 'No matching projects found based on your search criteria.' });
+    }
   } catch (error) {
     console.error('Error retrieving projects:', error);
-    res.status(500).json({ error: 'Failed to retrieve projects' });
+    res.status(500).json({ error: 'Failed to retrieve projects', details: error.message });
   }
 });
 
