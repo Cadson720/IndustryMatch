@@ -1,0 +1,828 @@
+version: "3.1"
+
+nlu:
+  - intent: greet
+    examples: |
+      - hello
+      - hi
+      - hey
+      - good morning
+      - good afternoon
+      - greetings
+      - howdy
+      - hello bot
+      - hi there
+      - what's up
+      - yo
+      - hey!
+      - how's it going?
+      - hello there
+      - hey bot
+
+  - intent: nlu_fallback
+    examples: |
+      - random text
+      - gibberish
+      - ?!@#
+      - what the!
+      - I don't know what to type
+      - blah blah blah
+      - asdfasdf
+      - gvfthjoik
+      - sdfgh
+      - oiehfi
+      - akljewq
+      - jkasd!
+      - hgiof
+      - huh??
+      - I'm lost
+      - ?????
+      - I'm confused
+
+  - intent: ask_project_by_field
+    examples: |
+      - Show me projects in [Civil Engineering & Construction](discipline)
+      - I am looking for projects in [Software Engineering](discipline)
+      - Are there any projects related to [Biomedical Engineering](discipline)?
+      - What are some projects in [Mechanical Engineering](discipline)?
+      - Can you list [Cyber Security](discipline) projects?
+      - I want projects related to [Data Science](discipline)
+      - Show me projects available for [Marketing, Advertising & Public Relations](discipline)
+      - Are there any [Aerospace Engineering](discipline) projects?
+      - List projects in [Environmental Engineering](discipline)
+      - Do you have any [Veterinary Science](discipline) projects?
+      - Are there [Artificial Intelligence](discipline) projects available?
+      - Find me projects in [Criminal Justice](discipline)
+      - What projects do you have for [Electrical Engineering](discipline)?
+      - Show me [Philosophy](discipline) projects
+      - Can I get a list of [Journalism & Writing](discipline) projects?
+      - Do you have any projects in [Physics](discipline)?
+
+  - intent: ask_project_by_duration
+    examples: |
+      - I want a project that lasts [6 weeks](duration)
+      - Show me [8-week](duration) long projects
+      - Do you have any [12-week](duration) projects?
+      - Are there [4 weeks](duration) projects available?
+      - Find me [24-week](duration) projects
+      - Show me [12-week](duration) long [Biomedical Engineering](discipline) projects
+      - What are some [8-week](duration) projects in [Aerospace Engineering](discipline)?
+      - List [6-week](duration) [Marketing, Advertising & Public Relations](discipline) projects
+      - Do you have any [4-week](duration) [Veterinary Science](discipline) projects?
+      - Find a [6-week](duration) [Cyber Security](discipline) project
+      - Any [8-week](duration) projects available for [Mechanical Engineering](discipline)?
+      - Show me [24-week](duration) long [Environmental Engineering](discipline) projects
+
+
+  - intent: ask_project_by_location
+    examples: |
+      - Show me projects in [Sydney](location)
+      - I need [remote](location) projects
+      - Are there projects in [Melbourne](location)?
+      - Show me [online](location) projects
+      - List projects available in [Brisbane](location)
+      - Are there any projects in [Perth](location)?
+      - Find me projects in [Adelaide](location)
+      - Do you have any projects based in [Gold Coast](location)?
+      - Show me [international](location) projects
+      - List [Hobart](location) projects
+      - Are there any projects in [Canberra](location)?
+
+  - intent: ask_project_by_keywords
+    examples: |
+      - What are some projects focused on [machine learning](keywords)?
+      - Show me projects related to [AI](keywords)
+      - Can I find any [cloud computing](keywords) projects?
+      - Are there any [cybersecurity](keywords) projects available?
+      - Show me projects in [blockchain](keywords)
+      - I’m looking for [robotics](keywords) projects
+      - Do you have any [mobile development](keywords) projects?
+      - Find me [UX design](keywords) projects
+      - Any projects on [big data](keywords)?
+      - I’m interested in [deep learning](keywords) projects
+      - What projects do you have related to [bioinformatics](keywords)?
+      - Show me projects on [game development](keywords)
+      - Find [data analysis](keywords) projects
+      - Are there projects involving [video editing](keywords)?
+
+  - intent: ask_project_by_industry
+    examples: |
+      - Show me projects in the [Business](industry) sector
+      - List projects in [Engineering](industry)
+      - I want projects in [Health](industry)
+      - Do you have any [IT & Computer Science](industry) projects?
+      - What projects are available in [Design & Arts](industry)?
+      - I am looking for [Education](industry) related projects
+      - Are there projects in the [Trades & Services](industry)?
+      - Find me projects in [Science](industry)
+      - Show me [Social Sciences & Communication](industry) projects
+      - Do you have any [Food & Hospitality](industry) projects?
+
+  - intent: ask_project_by_size
+    examples: |
+      - Show me [small](size) projects
+      - Do you have any [medium](size) projects available?
+      - Are there [large](size) projects I can join?
+      - Find a project with a [small](size) team
+      - I want to work on a [medium-sized](size) team project
+      - Show me [large-scale](size) projects
+      - Find [small team](size) projects
+      - I want a [large](size) team project
+      - Any [medium](size) group projects available?
+
+  - intent: ask_project_by_detailed_criteria
+    examples: |
+      - Show me a [6-week](duration) [Cyber Security](discipline) project in [Melbourne](location) with [small](size) teams focused on [network penetration](keywords)
+      - I’m looking for [Marketing, Advertising & Public Relations](discipline) projects that last [12 weeks](duration) in [Sydney](location) with a focus on [social media analytics](keywords)
+      - Are there any [8-week](duration) [Data Science](discipline) projects in [Brisbane](location) with [medium](size) teams?
+      - I need a [4-week](duration) [Biomedical Engineering](discipline) project based [online](location) that focuses on [prosthetic design](keywords)
+      - Can you find me a [12-week](duration) [Mechanical Engineering](discipline) project in [Canberra](location) with a [large](size) team?
+
+  - lookup: industry
+    examples: |
+      - Business
+      - Design & Arts
+      - Engineering
+      - IT & Computer Science
+      - Law, Legal Studies & Justice
+      - Health
+      - Education
+      - Science
+      - Social Sciences & Communication
+      - Food & Hospitality
+      - Trades & Services
+
+  - lookup: discipline
+    examples: |
+      - Economics
+      - Human Resources
+      - Management
+      - Accounting, Commerce & Finance
+      - Hospitality, Tourism & Retail
+      - Marketing, Advertising & Public Relations
+      - Animation, Visual Effects & Post Production
+      - Creative Arts
+      - Media Studies
+      - Fashion Design
+      - Film & TV
+      - Graphic Design & Visual Arts
+      - Journalism & Writing
+      - Music & Performing Arts
+      - Aerospace Engineering
+      - Software Engineering
+      - Automotive & Transport Engineering
+      - Biomedical Engineering
+      - Civil Engineering & Construction
+      - Mechanical Engineering
+      - Mechatronic Engineering
+      - Electrical Engineering
+      - Chemical Engineering
+      - Industrial Engineering
+      - Robotics Engineering
+      - Environmental Engineering
+      - Marine Engineering
+      - Manufacturing Engineering
+      - Mining Engineering
+      - Artificial Intelligence
+      - Computer Graphics & Animations
+      - Computer Systems & Networks
+      - Cyber Security
+      - Data Science
+      - Design & User Experience
+      - Video Game Development
+      - Criminal Justice
+      - Corporate Law
+      - Law Enforcement
+      - Nursing
+      - Pharmacist
+      - Dentistry & Orthopediatrics
+      - Exercise & Sports Science
+      - Midwifery
+      - Occupational
+      - Paramedics
+      - Physiotherapy
+      - Psychology
+      - Primary Teaching
+      - Secondary Teaching
+      - Special Education
+      - Tertiary Education
+      - Astronomy
+      - Biochemistry
+      - Biology
+      - Chemistry
+      - Geology
+      - Genetics
+      - Food Science
+      - Forensic Science
+      - Environmental Science
+      - Physics
+      - Marine Science
+      - Veterinary Science
+      - Criminology
+      - International Studies
+      - Languages & Linguistics
+      - Literature
+      - Philosophy
+      - Social Work
+      - Politics
+      - Culinary Arts
+      - Hotel Management
+      - Carers
+      - Carpentry
+      - Electrician
+      - Plumping
+      - Flooring, Plastering & Tiling
+      - Heating, Ventilation & Cooling
+      - Bricklaying & Stonemasonry
+      - Surveying
+synonyms:
+
+  Small:
+    - small
+    - compact
+    - minor
+    - petite
+    - micro
+    - short-term
+    - low-scale
+    - limited-scale
+    - bite-sized
+    - low-capacity
+    - modest
+    - minimal
+    - few-member
+  Medium:
+    - medium
+    - mid-sized
+    - moderate
+    - average-sized
+    - balanced
+    - mid-range
+    - standard-sized
+    - intermediate
+    - mid-level
+    - typical-sized
+  Large:
+    - large
+    - big
+    - extensive
+    - major
+    - large-scale
+    - broad-scale
+    - high-capacity
+    - significant
+    - full-scale
+    - sizeable
+
+  Business:
+    - business
+    - commerce
+    - corporate
+    - trade
+    - management
+  # Synonyms for Business disciplines
+  Economics:
+    - economics
+    - economic theory
+    - financial economics
+    - econometrics
+    - international economics
+    - macroeconomics
+    - microeconomics
+  Human Resources:
+    - hr
+    - human resources
+    - talent management
+    - personnel management
+    - recruitment
+    - employee relations
+  Management:
+    - management
+    - business management
+    - organizational management
+    - operations management
+    - leadership
+    - strategic management
+  Accounting, Commerce & Finance:
+    - accounting
+    - finance
+    - bookkeeping
+    - commerce
+    - financial management
+    - auditing
+    - tax accounting
+  Hospitality, Tourism & Retail:
+    - hospitality
+    - tourism
+    - hotel management
+    - retail management
+    - service industry
+    - food and beverage
+  Marketing, Advertising & Public Relations:
+    - marketing
+    - advertising
+    - public relations
+    - pr
+    - branding
+    - promotion
+    - digital marketing
+    - social media marketing
+    - seo
+
+  # Synonyms for Design & Arts industry
+  Design & Arts:
+    - design
+    - arts
+    - creative industry
+    - visual arts
+    - digital arts
+    - entertainment industry
+  # Synonyms for Design & Arts disciplines
+  Animation, Visual Effects & Post Production:
+    - animation
+    - visual effects
+    - vfx
+    - post-production
+    - cgi
+    - motion graphics
+  Creative Arts:
+    - creative arts
+    - fine arts
+    - mixed media
+    - visual arts
+    - artistic expression
+  Media Studies:
+    - media studies
+    - media theory
+    - mass communication
+    - media research
+  Fashion Design:
+    - fashion design
+    - textile design
+    - couture
+    - garment design
+    - clothing design
+  Film & TV:
+    - film
+    - television
+    - film production
+    - cinematography
+    - tv production
+    - screenwriting
+  Graphic Design & Visual Arts:
+    - graphic design
+    - visual communication
+    - branding
+    - typography
+    - logo design
+    - web design
+    - front end design
+  Journalism & Writing:
+    - journalism
+    - news writing
+    - investigative journalism
+    - editorial writing
+    - creative writing
+    - writing
+    - journalism and writing
+  Music & Performing Arts:
+    - music
+    - performing arts
+    - theater
+    - musical composition
+    - drama
+    - stagecraft
+    - music and performing arts
+    - music & performing arts
+
+  # Synonyms for Engineering industry
+  Engineering:
+    - engineering
+    - technical field
+    - applied sciences
+    - industrial field
+    - engineering industry
+    - engineering field
+  # Synonyms for Engineering disciplines
+  Aerospace Engineering:
+    - aerospace engineering
+    - aeronautics
+    - astronautics
+    - aviation engineering
+    - aerospace
+  Software Engineering:
+    - software engineering
+    - coding
+    - software development
+    - devops
+    - application development
+    - app development
+    - front end development
+    - back end development
+    - database development
+  Automotive & Transport Engineering:
+    - automotive engineering
+    - vehicle engineering
+    - transport engineering
+    - automotive
+  Biomedical Engineering:
+    - biomedical engineering
+    - bioengineering
+    - medical devices
+    - medical technology
+    - biomedical
+  Civil Engineering & Construction:
+    - civil engineering
+    - construction engineering
+    - infrastructure engineering
+    - construction
+    - 
+  Mechanical Engineering:
+    - mechanical engineering
+    - mechanics
+    - thermodynamics
+    - mechanical
+  Mechatronic Engineering:
+    - mechatronics
+    - electromechanical systems
+    - mechatronical
+    - mechatronic
+  Electrical Engineering:
+    - electrical engineering
+    - electronics engineering
+    - circuit design
+    - electronics
+    - electronic
+  Chemical Engineering:
+    - chemical engineering
+    - process engineering
+    - materials engineering
+    - chemical
+  Industrial Engineering:
+    - industrial engineering
+    - production engineering
+    - industrial
+  Robotics Engineering:
+    - robotics
+    - automation
+    - robotic systems
+    - robotic engineering
+    - robotics engineering
+  Environmental Engineering:
+    - environmental engineering
+    - sustainability engineering
+    - waste management
+    - Environmental
+    - environmental
+  Marine Engineering:
+    - marine engineering
+    - naval engineering
+    - ocean engineering
+  Manufacturing Engineering:
+    - manufacturing engineering
+    - production engineering
+    - fabrication engineering
+    - manufacturing
+  Mining Engineering:
+    - mining engineering
+    - resource extraction
+    - geological engineering
+
+  # Synonyms for IT & Computer Science industry
+  IT & Computer Science:
+    - information technology
+    - tech industry
+    - computing
+    - computer science
+    - IT
+    - info tech
+    - comp sci
+    - it and computer science
+    - IT Field
+  # Synonyms for IT & Computer Science disciplines
+  Artificial Intelligence:
+    - artificial intelligence
+    - ai
+    - machine learning
+    - cognitive computing
+    - neural networks
+  Computer Graphics & Animations:
+    - computer graphics
+    - 3d modeling
+    - animation
+    - rendering
+  Computer Systems & Networks:
+    - computer systems
+    - networking
+    - network security
+  Cyber Security:
+    - cybersecurity
+    - information security
+    - network security
+    - infosec
+    - cyber security
+  Data Science:
+    - data science
+    - data analytics
+    - big data
+    - data engineering
+  Design & User Experience:
+    - ux design
+    - ui design
+    - user interface design
+    - user interface development
+    - user experience design
+    - storyboarding
+  Video Game Development:
+    - game development
+    - video game design
+    - game programming
+    - game design
+    - video game development
+
+  # Synonyms for Law, Legal Studies & Justice industry
+  Law, Legal Studies & Justice:
+    - law
+    - legal field
+    - judiciary
+    - judicial
+    - law, legal studies and justice
+    - Law, Legal Studies & Justice
+    - Law Legal Studies and Justice
+    - law legal studies and justice
+    - law, legal studies & justice
+    - Law, legal studies and Justice
+    - law, legal studies & Justice
+    - Law, legal studies and justice
+    - legal studies
+    - law
+    - justice
+  # Synonyms for Law disciplines
+  Criminal Justice:
+    - criminal justice
+    - policing
+    - barrister
+  Corporate Law:
+    - corporate law
+    - business law
+    - commercial law
+  Law Enforcement:
+    - law enforcement
+    - security services
+    - crime prevention
+    - police
+    - 
+
+  # Synonyms for Health industry
+  Health:
+    - healthcare
+    - medical
+    - wellness
+    - medicine
+  # Synonyms for Health disciplines
+  Nursing:
+    - nursing
+    - patient care
+    - clinical nursing
+  Pharmacist:
+    - pharmacy
+    - pharmacology
+    - drug dispensing
+  Dentistry & Orthopediatrics:
+    - dentistry
+    - dental care
+    - orthodontics
+  Exercise & Sports Science:
+    - sports science
+    - exercise science
+    - kinesiology
+  Midwifery:
+    - midwifery
+    - maternity care
+    - childbirth
+  Occupational:
+    - occupational therapy
+    - ot
+  Paramedics:
+    - paramedics
+    - emergency medicine
+  Physiotherapy:
+    - physiotherapy
+    - physical therapy
+  Psychology:
+    - psychology
+    - psychotherapy
+    - mental health
+
+  # Synonyms for Education industry
+  Education:
+    - education
+    - teaching
+    - learning
+    - pedagogy
+  # Synonyms for Education disciplines
+  Primary Teaching:
+    - primary education
+    - elementary teaching
+  Secondary Teaching:
+    - secondary education
+    - high school teaching
+  Special Education:
+    - special education
+    - inclusive education
+  Tertiary Education:
+    - tertiary education
+    - higher education
+    - university teaching
+
+  # Synonyms for Science industry
+  Science:
+    - science
+    - scientific field
+    - research field
+  # Synonyms for Science disciplines
+  Astronomy:
+    - astronomy
+    - astrophysics
+    - space science
+  Biochemistry:
+    - biochemistry
+    - molecular biology
+  Biology:
+    - biology
+    - life sciences
+  Chemistry:
+    - chemistry
+    - organic chemistry
+    - inorganic chemistry
+  Geology:
+    - geology
+    - earth sciences
+  Genetics:
+    - genetics
+    - gene research
+  Food Science:
+    - food science
+    - nutrition science
+  Forensic Science:
+    - forensic science
+    - forensics
+  Environmental Science:
+    - environmental science
+    - ecology
+  Physics:
+    - physics
+    - physical sciences
+  Marine Science:
+    - marine science
+    - oceanography
+  Veterinary Science:
+    - veterinary science
+    - animal health
+    - vet care
+
+  # Synonyms for Social Sciences & Communication industry
+  Social Sciences & Communication:
+    - social sciences
+    - humanities
+    - communication
+  # Synonyms for Social Sciences disciplines
+  Criminology:
+    - criminology
+    - criminal studies
+  International Studies:
+    - international studies
+    - global studies
+  Languages & Linguistics:
+    - languages
+    - linguistics
+  Literature:
+    - literature
+    - literary studies
+  Philosophy:
+    - philosophy
+    - ethics
+    - critical thinking
+  Social Work:
+    - social work
+    - social care
+  Politics:
+    - politics
+    - political science
+
+  # Synonyms for Food & Hospitality industry
+  Food & Hospitality:
+    - food
+    - hospitality
+    - service industry
+  # Synonyms for Food & Hospitality disciplines
+  Culinary Arts:
+    - culinary arts
+    - cooking
+    - gastronomy
+  Hotel Management:
+    - hotel management
+    - hospitality management
+  Carers:
+    - care work
+    - caregiving
+    - social care
+
+  # Synonyms for Trades & Services industry
+  Trades & Services:
+    - trades
+    - services
+    - skilled trades
+  # Synonyms for Trades & Services disciplines
+  Carpentry:
+    - carpentry
+    - woodworking
+  Electrician:
+    - electrical work
+    - electrician
+  Plumping:
+    - plumbing
+    - pipe fitting
+  Flooring, Plastering & Tiling:
+    - flooring
+    - plastering
+    - tiling
+  Heating, Ventilation & Cooling:
+    - hvac
+    - heating
+    - ventilation
+  Bricklaying & Stonemasonry:
+    - bricklaying
+    - stonemasonry
+  Surveying:
+    - surveying
+    - land surveying
+  # Synonyms for location
+  Online:
+    - online
+    - remote
+    - virtual
+    - work from home
+  On-site:
+    - on-site
+    - in-person
+    - at location
+    - local
+    - in-office
+    - physical location
+    - on site
+  Sydney:
+    - sydney
+    - syd
+    - sydney, australia
+    - nsw capital
+  Melbourne:
+    - melbourne
+    - mel
+    - melbourne, australia
+  Brisbane:
+    - brisbane
+    - bris
+    - brisbane, australia
+  Perth:
+    - perth
+    - western australia
+    - perth, australia
+  Adelaide:
+    - adelaide
+    - adelaide, australia
+    - sa capital
+  Canberra:
+    - canberra
+    - canberra, australia
+    - australian capital territory
+  Gold Coast:
+    - gold coast
+    - goldcoast
+    - queensland
+  Hobart:
+    - hobart
+    - hobart, tasmania
+    - tasmania
+
+  # Synonyms for duration
+  4_weeks:
+    - 4 weeks
+    - one month
+    - 4-week duration
+  6_weeks:
+    - 6 weeks
+    - one and a half months
+    - 6-week project
+  8_weeks:
+    - 8 weeks
+    - two months
+    - 8-week duration
+  12_weeks:
+    - 12 weeks
+    - three months
+    - 12-week project
+  24_weeks:
+    - 24 weeks
+    - six months
+    - 24-week duration

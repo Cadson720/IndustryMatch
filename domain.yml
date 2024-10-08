@@ -1,0 +1,81 @@
+version: "3.1"
+
+intents:
+  - greet
+  - nlu_fallback
+  - ask_project_by_field
+  - ask_project_by_duration
+  - ask_project_by_location
+  - ask_project_by_keywords
+  - ask_project_by_industry
+  - ask_project_by_size
+  - ask_project_by_detailed_criteria
+
+entities:
+  - discipline
+  - keywords
+  - industry
+  - duration
+  - location
+  - size
+
+slots:
+  discipline:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: discipline
+
+  keywords:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: keywords
+
+  industry:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: industry
+
+  duration:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: duration
+
+  location:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: location
+
+  size:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: size
+
+responses:
+  utter_greet:
+    - text: "Hello! How can I assist you with project searches today?"
+
+actions:
+  - action_search_projects
+
+policies:
+  - name: MemoizationPolicy
+    max_history: 5
+  - name: RulePolicy
+  - name: TEDPolicy
+    max_history: 5
+  - name: FallbackPolicy
+    nlu_threshold: 0.4
+    core_threshold: 0.4
+    fallback_action_name: "action_default_fallback"
