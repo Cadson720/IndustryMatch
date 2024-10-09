@@ -11,6 +11,6 @@ import Appp from '../components/userDisplay.jsx'
 //import App from './App';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-  <Appp/>
+    <Header />
   </StrictMode>,
 )

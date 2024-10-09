@@ -9,6 +9,7 @@ const Header = () => {
         <nav className="nav">
           <a href="/src/html-pages/projectSearch.html" className="nav-link">Project Search</a>
           <a href="/src/html-pages/savedProject.html" className="nav-link">Saved Projects</a>
+          <a href="/src/html-pages/matchMaker.html" className="nav-link">MatchMaker</a>
           </nav>
       </div>
     </header>
