@@ -34,7 +34,7 @@ function Landing(){
         setIndustry(data);
         setLoading(false);
     })
-  }, []); 
+  }, []);
   */
 
   let navigate = useNavigate()
