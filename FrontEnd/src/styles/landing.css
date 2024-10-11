@@ -1,3 +1,111 @@
-.nav-link{
-  cursor: pointer
+.nav-link {
+  cursor: pointer;
+}
+
+body {
+  margin: 0; /* Reset body margin */
+  font-family: 'Arial', sans-serif;
+}
+
+.container {
+  position: relative; /* Required for positioning the pseudo-element */
+  display: flex;
+  flex-direction: row; /* Arrange children in a row */
+  justify-content: space-between; /* Space between columns */
+  align-items: center; /* Center items vertically */
+  padding: 20px; /* Add padding around the container */
+  background-color: rgb(46, 85, 98); /* Dark green background */
+  color: rgb(0, 0, 0); /* Change text color for better contrast */
+  height: 100vh; /* Full height of the viewport */
+  overflow: hidden; /* Prevent overflow */
+}
+
+.left-column {
+  flex: 1; /* Take up available space */
+  padding-right: 20px; /* Add space between columns */
+  position: relative; /* Required for pseudo-element positioning */
+  z-index: 1; /* Ensure text is above the diagonal line */
+}
+
+.right-column {
+  flex: 1; /* Take up available space */
+  display: flex;
+  justify-content: center; /* Center image horizontally */
+  align-items: center; /* Center image vertically */
+}
+
+.text {
+  font-size: 5rem; /* Adjust font size for the title */
+  font-weight: bold; /* Make title bold */
+  margin-bottom: 20px; /* Space below the title */
+  margin-top: -100px;
+  font-family: 'Arial', sans-serif;
+  color: white;
+}
+
+.button-container {
+  margin-bottom: 20px; /* Space below the button container */
+}
+
+.auth-button {
+  font-size: 1.2rem; /* Increase button text size */
+  padding: 10px 20px; /* Increase button size */
+  margin-right: 10px; /* Space between buttons */
+}
+
+.image {
+  margin-top: -100px;
+  margin-right: -50px;
+  width: 100%; 
+  height: 750px;
+  max-width: none;
+  object-fit: cover;
+  right: 0;
+}
+
+/* Diagonal Line */
+.diagonal-line {
+  position: absolute;
+  top: 50; /* Start from the top */
+  left: 0; /* Start from the left */
+  width: 60%; /* Full width of the container */
+  height: 120%; /* Full height of the parent container */
+  background-color: rgb(29, 70, 84); /* Color of the diagonal line */
+  transform: rotate(90deg) skewY(-10deg); /* Create the diagonal effect (skew vertically) */
+  z-index: 0; /* Send the line behind the text */
+}
+
+/* Seperator */
+.seperator {
+  position: absolute; /* Position absolutely within the container */
+  bottom: 0; /* Align to the bottom of the container */
+  left: 0; /* Align to the left */
+  width: 100vw; /* Full width of the viewport */
+  height: 15%; /* Adjust height as needed */
+  background-color: rgb(29, 70, 84); /* Color of the separator */
+  z-index: 0; /* Ensure it's behind the text and other content */
+}
+
+
+
+
+/* Container for the text and line */
+.text-container {
+  position: relative; /* For positioning the diagonal line */
+  margin-left: 8%;
+  z-index: 1; /* Ensure the text is above the line */
+}
+
+.h1 {
+  font-size: 2.5rem; /* Adjust font size for the title */
+  font-weight: bold; /* Make title bold */
+  margin-bottom: 20px; /* Space below the title */
+}
+
+p {
+  font-family: 'Georgia', serif;
+  font-size: 1.5rem; /* Adjust font size */
+  margin: 10px 0; /* Space above and below the paragraph */
+  line-height: 1.6; /* Adjust line height for better readability */
+  color: white;
 }
