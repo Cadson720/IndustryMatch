@@ -1,18 +1,18 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Academic = sequelize.define('Academics', {
-    AcademicId: {
+const academic = sequelize.define('academics', {
+    academic_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true
     },
-    email: {
+    academic_email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
-    password: {
+    academic_password: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -24,24 +24,8 @@ const Academic = sequelize.define('Academics', {
       type: DataTypes.STRING,
       allowNull: false
     },
-    discipline: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    classes: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    prompt: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    userType: {
-      type: DataTypes.STRING,
-      allowNull: false
-    }
   }, {
     timestamps: false
   });
 
-module.exports = Academic;
+module.exports = academic;

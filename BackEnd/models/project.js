@@ -3,25 +3,25 @@ const sequelize = require('../config/database');
 const Industry = require('./industry'); // Import Industry model
 
 const Project = sequelize.define('Project', {
-    ProjectID: {
+    project_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
       allowNull: false
     },
-    MemberID: {
+    industry_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Industry',
-        key: 'MemberID'
+        model: 'industry',
+        key: 'industry_id'
       },
       allowNull: true
     },
-    publishDate: {
+    publish_date: {
       type: DataTypes.DATE,
       allowNull: false
     },
-    discipline: {
+    project_discipline: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -29,20 +29,36 @@ const Project = sequelize.define('Project', {
       type: DataTypes.STRING,
       allowNull: false
     },
-    size: {
+    project_size: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    industry: {
+    profession: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    location: {
+    location_type: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    title: {
+    address: {
       type: DataTypes.STRING,
+      allowNull: false
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    project_status: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    featured: {
+      type: DataTypes.BOOLEAN,
       allowNull: false
     }
   }, {
@@ -50,6 +66,6 @@ const Project = sequelize.define('Project', {
   });
 
 // Define the association (Project belongs to an Industry)
-Project.belongsTo(Industry, { foreignKey: 'MemberID' });
+Project.belongsTo(Industry, { foreignKey: 'industry_id' });
 
 module.exports = Project;

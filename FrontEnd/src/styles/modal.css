@@ -1,0 +1,74 @@
+/* modal.css */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+  
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center; /* Keep text center for title and buttons */
+    position: relative;
+}
+  
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* New styles for form elements */
+form {
+    text-align: left; /* Align form elements to the left */
+    margin-top: 20px; /* Add some space above the form */
+}
+
+form > div {
+    margin-bottom: 15px; /* Space between each input field */
+}
+
+label {
+    display: block; /* Each label on a new line */
+    margin-bottom: 5px; /* Space between label and input */
+}
+
+.landing select {
+    width: 100%; /* Make select take full width */
+    padding: 5px; /* Add some padding for aesthetics */
+}
+
+.landing input {
+    width: 93%; /* Make inputs take full width */
+    padding: 10px; /* Add padding for better aesthetics */
+    margin-bottom: 15px; /* Space between each input field */
+}
+
+button:hover {
+    background-color: rgb(155, 155, 155) /* Darker shade on hover */
+}
+
+.button-container {
+    display: flex; /* Enable flexbox */
+    justify-content: space-between; /* Space between items */
+    margin-top: 20px; /* Space above the button container */
+}
+
+.login-button {
+    display: flex; /* Enable flexbox */
+    justify-content: flex-end; /* Align items to the right */
+    margin-top: 20px; /* Optional: Add space above the button */
+}
