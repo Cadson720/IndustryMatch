@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/DeleteProjectList.css'; // Import CSS file for stylin
+import '../styles/DeleteProjectList.css'; // Import CSS file for styling
 
 function DeleteProjectList() {
   const [projects, setProjects] = useState([]);  // State to hold the projects
@@ -50,7 +50,7 @@ function DeleteProjectList() {
           }
           // Update the projects list after deletion
           setProjects((prevProjects) =>
-            prevProjects.filter((project) => project.ProjectID !== projectId)
+            prevProjects.filter((project) => project.project_id !== projectId)
           );
         })
         .catch((error) => console.error('Error deleting project:', error));
@@ -75,11 +75,11 @@ function DeleteProjectList() {
         <div className="project-list">
           {projects.map((project) => (
             <div
-              key={project.ProjectID}
-              className={`project-card ${selectedProjects.includes(project.ProjectID) ? 'selected' : ''}`}
-              onClick={() => handleSelect(project.ProjectID)}
+              key={project.project_id} // Updated to match your new field
+              className={`project-card ${selectedProjects.includes(project.project_id) ? 'selected' : ''}`}
+              onClick={() => handleSelect(project.project_id)} // Updated to match new field
             >
-              <strong>Project ID:</strong> {project.ProjectID} <br />
+              <strong>Project ID:</strong> {project.project_id} <br />
               <strong>Title:</strong> {project.title} <br />
               <strong>Duration:</strong> {project.duration} <br />
               <strong>Industry:</strong> {project.industry}

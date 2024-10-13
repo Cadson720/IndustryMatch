@@ -66,4 +66,52 @@ router.delete('/project/:id', async (req, res) => {
   }
 });
 
+// Route to update an existing project
+router.put('/project/:id', async (req, res) => {
+  const projectId = req.params.id;
+  const {
+    title,
+    publish_date,
+    industry,
+    discipline,
+    duration,
+    size,
+    location_type,
+    address,
+    description,
+    status,
+    image_path
+  } = req.body;
+
+  try {
+    // Find the project by ID
+    const project = await Project.findByPk(projectId);
+
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+
+    // Update the project's details
+    project.title = title;
+    project.publish_date = publish_date;
+    project.industry = industry;
+    project.discipline = discipline;
+    project.duration = duration;
+    project.size = size;
+    project.location_type = location_type;
+    project.address = address;
+    project.description = description;
+    project.status = status;
+    project.image_path = image_path;
+
+    // Save the updated project
+    await project.save();
+
+    res.json(project); // Return the updated project
+  } catch (error) {
+    console.error('Error updating project:', error);
+    res.status(500).json({ error: 'Failed to update project' });
+  }
+});
+
 module.exports = router;
