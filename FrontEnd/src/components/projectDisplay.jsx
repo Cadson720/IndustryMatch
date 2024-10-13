@@ -15,7 +15,9 @@ function ProjectList({ keywords, field, duration, location, industry, size }) {
         return response.json();
       })
       .then((data) => {
-        setProjects(data);  // Set the fetched project data
+        // Sort the data by project_id in ascending order
+        const sortedData = data.sort((a, b) => a.project_id - b.project_id);
+        setProjects(sortedData);  // Set the sorted project data
         setLoading(false);   // Stop loading
       })
       .catch((error) => {
@@ -35,27 +37,29 @@ function ProjectList({ keywords, field, duration, location, industry, size }) {
   if (!keywords && !field && !duration && !location && !industry && !size) {
     return (
       <div>
-        <h1>All Projects</h1>
+        <h1>All Projects (Sorted by Project ID)</h1>
         <ul>
           {projects.map((project) => (
-            <li key={project.ProjectID}>
-              <p><strong>Project ID:</strong> {project.ProjectID}</p>
-              <p><strong>Member ID:</strong> {project.MemberID}</p>
-              <p><strong>Publish Date:</strong> {new Date(project.publishDate).toLocaleDateString()}</p>
-              <p><strong>Discipline:</strong> {project.discipline}</p>
+            <li key={project.project_id}>
+              <p><strong>Project ID:</strong> {project.project_id}</p>
+              <p><strong>Publish Date:</strong> {new Date(project.publish_date).toLocaleDateString()}</p>
+              <p><strong>Discipline:</strong> {project.project_discipline}</p>
               <p><strong>Duration:</strong> {project.duration}</p>
-              <p><strong>Size:</strong> {project.size}</p>
-              <p><strong>Industry:</strong> {project.industry}</p>
-              <p><strong>Location:</strong> {project.location}</p>
-              <p><strong>Title:</strong> {project.title}</p>
+              <p><strong>Size:</strong> {project.project_size}</p>
+              <p><strong>Profession:</strong> {project.profession}</p>
+              <p><strong>Location Type:</strong> {project.location_type}</p>
+              <p><strong>Address:</strong> {project.address}</p>
+              <p><strong>Description:</strong> {project.description}</p>
+              <p><strong>Status:</strong> {project.project_status}</p>
+              <p><strong>Image Path:</strong> {project.image_path}</p>
 
-              
-              {/* Display associated member (Industry) information if available */}
+              {/* Display associated Industry (member) information if available */}
               {project.Industry && (
                 <div>
-                  <h3>Member Info</h3>
-                  <p><strong>Email:</strong> {project.Industry.email}</p>
+                  <h3>Industry Info</h3>
+                  <p><strong>Email:</strong> {project.Industry.industry_email}</p>
                   <p><strong>Organisation:</strong> {project.Industry.organisation}</p>
+                  <p><strong>Discipline:</strong> {project.Industry.industry_discipline}</p>
                 </div>
               )}
               <hr />
@@ -67,4 +71,5 @@ function ProjectList({ keywords, field, duration, location, industry, size }) {
   }
   return null;
 }
+
 export default ProjectList;

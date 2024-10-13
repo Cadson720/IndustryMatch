@@ -5,7 +5,7 @@ const Academic = require('./academic'); // Import Academic model
 const Project = require('./project'); // Import Project model
 
 const EOI = sequelize.define('EOIs', {
-    oie_id: {
+    eoi_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true

@@ -8,11 +8,8 @@ const User = require('./user');
 
 const db = {
   Academic,
-  Admin,
-  ExpressionOfInterest,
   Industry,
   Project,
-  User,
   sequelize
 };
 
