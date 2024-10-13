@@ -17,9 +17,11 @@ import EditProject from '../components/projectEdit.jsx';
 //<EditUserForm/>
 //<CreateProject/>
 //<ProjectDisplay/>
+//<ProjectDisplay/>
 //import App from './App';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <CreateProject/>
     <ProjectDisplay/>
   </StrictMode>,
 )

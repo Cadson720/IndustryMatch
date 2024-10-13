@@ -12,50 +12,54 @@ const Project = sequelize.define('Project', {
   industry_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'industry',
+      model: 'Industry', // Ensure the table name matches exactly as it is in your DB
       key: 'industry_id'
     },
-    allowNull: true // If industry_id can be null
+    allowNull: true
   },
   publish_date: {
     type: DataTypes.DATE,
-    allowNull: false
+    allowNull: true
   },
-  project_discipline: {
+  industry: {
     type: DataTypes.STRING(50),
-    allowNull: false
+    allowNull: true
   },
   duration: {
     type: DataTypes.STRING(50),
-    allowNull: false
+    allowNull: true
   },
-  project_size: {
+  size: {
     type: DataTypes.STRING(50),
-    allowNull: false
-  },
-  profession: {
-    type: DataTypes.STRING(50),
-    allowNull: false
+    allowNull: true
   },
   location_type: {
     type: DataTypes.STRING(50),
-    allowNull: false
+    allowNull: true
   },
-  address: {
+  title: {
     type: DataTypes.STRING(50),
-    allowNull: false
+    allowNull: true
+  },
+  discipline: {
+    type: DataTypes.STRING(50),
+    allowNull: true
   },
   description: {
-    type: DataTypes.TEXT, // Text field for longer content
-    allowNull: false
+    type: DataTypes.TEXT,
+    allowNull: true
   },
-  project_status: {
+  status: {
     type: DataTypes.STRING(50),
-    allowNull: false
+    allowNull: true
   },
   image_path: {
-    type: DataTypes.STRING(50), // Rename from image to image_path
-    allowNull: false
+    type: DataTypes.STRING(50),
+    allowNull: true
+  },
+  address: {
+    type: DataTypes.STRING(255), // Based on your column allowing 150 characters
+    allowNull: true
   }
 }, {
   timestamps: false

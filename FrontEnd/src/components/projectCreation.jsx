@@ -1,22 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function CreateProject() {
-  // Helper function to format date to YYYY-MM-DD
   const getTodayDate = () => {
     const today = new Date();
-    return today.toISOString().split('T')[0]; // This will give you the date in YYYY-MM-DD format
+    return today.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
   };
 
-  // State to store form inputs, initialize publishDate with today's date
+  // Define industry and corresponding disciplines
+  const industryOptions = {
+    "Business": [
+      "Economics", "Human Resources", "Management", "Accounting, Commerce & Finance",
+      "Hospitality, Tourism & Retail", "Marketing, Advertising & Public Relations"
+    ],
+    "Design & Arts": [
+      "Animation, Visual Effects & Post Production", "Creative Arts", "Media Studies", 
+      "Fashion Design", "Film & TV", "Graphic Design & Visual Arts", "Journalism & Writing", 
+      "Music & Performing Arts"
+    ],
+    "Engineering": [
+      "Aerospace", "Software", "Automotive & Transport", "Biomedical", "Civil & Construction",
+      "Mechanical", "Mechatronic", "Electrical", "Chemical", "Industrial", "Robotics",
+      "Environmental", "Marine", "Manufacturing", "Mining"
+    ],
+    "IT & Computer Science": [
+      "Artificial Intelligence", "Computer Graphics & Animations", "Computer Systems & Networks",
+      "Cyber Security", "Data Science", "Design & User Experience", "Video Game Development"
+    ],
+    "Law": [
+      "Criminal Justice", "Corporate Law", "Law Enforcement"
+    ],
+    "Health": [
+      "Nursing", "Pharmacist", "Dentistry & Orthopediatrics", "Exercise & Sports Science", 
+      "Midwifery", "Occupational", "Paramedics", "Physiotherapy", "Psychology"
+    ],
+    "Education": [
+      "Primary Teaching", "Secondary Teaching", "Special Education", "Tertiary Education"
+    ],
+    "Science": [
+      "Astronomy", "Biochemistry", "Biology", "Chemistry", "Geology", "Genetics",
+      "Food Science", "Forensic Science", "Environmental Science", "Physics", 
+      "Marine Science", "Veterinary Science"
+    ],
+    "Social Sciences & Communication": [
+      "Criminology", "International Studies", "Languages & Linguistics", "Literature", 
+      "Philosophy", "Social Work", "Politics"
+    ],
+    "Food & Hospitality": [
+      "Culinary Arts", "Hotel Management", "Carers"
+    ],
+    "Trades & Services": [
+      "Carpentry", "Electrician", "Plumbing", "Flooring, Plastering & Tiling", 
+      "Heating, Ventilation & Cooling", "Bricklaying & Stonemasonry", "Surveying"
+    ]
+  };
+
+  // State to store form inputs, initialize with today's date
   const [formData, setFormData] = useState({
     title: '',
-    publishDate: getTodayDate(),  // Set today's date as default
+    publish_date: getTodayDate(),
+    industry: '',
     discipline: '',
     duration: '',
-    size: '',
-    industry: '',
+    size: '', // Update to match your DB field
+    location_type: '',
+    address: '',
+    description: '',
+    status: '', // Update to match your DB field
+    image_path: ''
   });
 
+  // State to handle disciplines based on the selected industry
+  const [disciplines, setDisciplines] = useState([]);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
 
@@ -29,11 +83,38 @@ function CreateProject() {
     });
   };
 
-  // Handle form submission
+  // Update discipline options when industry is selected
+  useEffect(() => {
+    if (formData.industry) {
+      setDisciplines(industryOptions[formData.industry] || []);
+      setFormData((prevData) => ({
+        ...prevData,
+        discipline: '' // Reset discipline when industry changes
+      }));
+    }
+  }, [formData.industry]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate required fields
+    if (
+      !formData.publish_date.trim() || 
+      !formData.discipline.trim() || 
+      !formData.duration.trim() || 
+      !formData.size.trim() || 
+      !formData.location_type.trim() || 
+      !formData.address.trim() || 
+      !formData.description.trim() || 
+      !formData.status.trim() || 
+      !formData.image_path.trim()
+    ) {
+      setError('Please fill all required fields');
+      console.log('Missing fields:', formData); // Debug missing fields
+      return;
+    }
+
     try {
-      // Send the POST request to your backend API
       const response = await fetch('http://localhost:3000/api/project', {
         method: 'POST',
         headers: {
@@ -43,18 +124,22 @@ function CreateProject() {
       });
 
       if (response.ok) {
-        // Success case
         setSuccess(true);
+        setError(null);
         setFormData({
           title: '',
-          publishDate: getTodayDate(), // Reset the form with today's date again
+          publish_date: getTodayDate(),
+          industry: '',
           discipline: '',
           duration: '',
-          size: '',
-          industry: '',
+          size: '', // Reset to match the new field
+          location_type: '',
+          address: '',
+          description: '',
+          status: '', // Reset to match the new field
+          image_path: ''
         });
       } else {
-        // Handle errors from the server
         const errorData = await response.json();
         setError(errorData.error || 'Failed to create project');
       }
@@ -77,34 +162,74 @@ function CreateProject() {
         </div>
         <div>
           <label>Publish Date:</label>
-          <input type="date" name="publishDate" value={formData.publishDate} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Discipline:</label>
-          <input type="text" name="discipline" value={formData.discipline} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Duration:</label>
-          <input type="text" name="duration" value={formData.duration} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Size:</label>
-          <input type="text" name="size" value={formData.size} onChange={handleChange} required />
+          <input type="date" name="publish_date" value={formData.publish_date} onChange={handleChange} required />
         </div>
         <div>
           <label>Industry:</label>
           <select name="industry" value={formData.industry} onChange={handleChange} required>
             <option value="">Select Industry</option>
-            <option value="Analytics and Data Science">Analytics and Data Science</option>
-            <option value="Business">Business</option>
-            <option value="Communication">Communication</option>
-            <option value="Engineering">Engineering</option>
-            {/* Add other industry options as needed */}
+            {Object.keys(industryOptions).map((industry) => (
+              <option key={industry} value={industry}>{industry}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Discipline:</label>
+          <select name="discipline" value={formData.discipline} onChange={handleChange} required>
+            <option value="">Select Discipline</option>
+            {disciplines.map((discipline) => (
+              <option key={discipline} value={discipline}>{discipline}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Duration:</label>
+          <select name="duration" value={formData.duration} onChange={handleChange} required>
+            <option value="Any length">Any length</option>
+            <option value="4 weeks">4 weeks</option>
+            <option value="6 weeks">6 weeks</option>
+            <option value="8 weeks">8 weeks</option>
+            <option value="12 weeks">12 weeks</option>
+            <option value="24 weeks">24 weeks</option>
+          </select>
+        </div>
+        <div>
+          <label>Size:</label>
+          <select name="size" value={formData.size} onChange={handleChange} required>
+            <option value="">Select Size</option>
+            <option value="Small">Small (1-3 students)</option>
+            <option value="Medium">Medium (4-8 students)</option>
+            <option value="Large">Large (8+ students)</option>
           </select>
         </div>
         <div>
           <label>Location:</label>
-          <input type="text" name="location" value={formData.location} onChange={handleChange} required />
+          <select name="location_type" value={formData.location_type} onChange={handleChange} required>
+            <option value="On-site">On-site</option>
+            <option value="Online">Online</option>
+            <option value="Flexible">Flexible</option>
+          </select>
+        </div>
+        <div>
+          <label>Address:</label>
+          <input type="text" name="address" value={formData.address} onChange={handleChange} required />
+        </div>
+        <div>
+          <label>Description:</label>
+          <textarea name="description" value={formData.description} onChange={handleChange} required />
+        </div>
+        <div>
+          <label>Project Status:</label>
+          <select name="status" value={formData.status} onChange={handleChange} required>
+            <option value="">Select Status</option>
+            <option value="Public">Public</option>
+            <option value="Private">Private</option>
+            <option value="Archived">Archived</option>
+          </select>
+        </div>
+        <div>
+          <label>Image Path:</label>
+          <input type="text" name="image_path" value={formData.image_path} onChange={handleChange} required />
         </div>
         <button type="submit">Create Project</button>
       </form>

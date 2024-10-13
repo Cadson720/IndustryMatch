@@ -43,15 +43,16 @@ function ProjectList({ keywords, field, duration, location, industry, size }) {
             <li key={project.project_id}>
               <p><strong>Project ID:</strong> {project.project_id}</p>
               <p><strong>Publish Date:</strong> {new Date(project.publish_date).toLocaleDateString()}</p>
-              <p><strong>Discipline:</strong> {project.project_discipline}</p>
+              <p><strong>Industry:</strong> {project.industry}</p>
               <p><strong>Duration:</strong> {project.duration}</p>
-              <p><strong>Size:</strong> {project.project_size}</p>
-              <p><strong>Profession:</strong> {project.profession}</p>
+              <p><strong>Size:</strong> {project.size}</p>
               <p><strong>Location Type:</strong> {project.location_type}</p>
-              <p><strong>Address:</strong> {project.address}</p>
+              <p><strong>Title:</strong> {project.title}</p>
+              <p><strong>Discipline:</strong> {project.discipline}</p>
               <p><strong>Description:</strong> {project.description}</p>
-              <p><strong>Status:</strong> {project.project_status}</p>
+              <p><strong>Status:</strong> {project.status}</p>
               <p><strong>Image Path:</strong> {project.image_path}</p>
+              <p><strong>Address:</strong> {project.address}</p>
 
               {/* Display associated Industry (member) information if available */}
               {project.Industry && (

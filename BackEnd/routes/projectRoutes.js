@@ -38,31 +38,15 @@ router.get('/project/:id', async (req, res) => {
   }
 });
 
-// Create a new project
+
+// Route to create a new project
 router.post('/project', async (req, res) => {
   try {
-    // Assuming req.body has all required fields matching the Project model
     const newProject = await Project.create(req.body);
     res.status(201).json(newProject);
   } catch (error) {
-    console.error('Error creating project:', error);
+    console.error(error);
     res.status(500).json({ error: 'Failed to create project' });
-  }
-});
-
-// Update an existing project by ID
-router.put('/project/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    const project = await Project.findByPk(id);
-    if (!project) {
-      return res.status(404).json({ error: 'Project not found' });
-    }
-    await project.update(req.body); // Update project with new data from req.body
-    res.json(project);
-  } catch (error) {
-    console.error('Error updating project:', error);
-    res.status(500).json({ error: 'Failed to update project' });
   }
 });
 
