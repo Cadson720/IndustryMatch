@@ -4,40 +4,6 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import Modal from './modal';
 import "../styles/landing.css"; // Import the CSS for this component
 
-/*
-  const [academics, setAcademic] = useState([]);
-  const [industries, setIndustry] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  //Fetch both academics and industries from the backend when the component mounts
-  useEffect(() => {
-    //academic fetch
-    fetch('http://localhost:3000/api/academic')
-      .then((response) => {
-        if (!response.ok) {
-        throw new Error('Failed to fetch academic data');
-        }
-        return response.json();
-      })
-      .then((data) => {
-          setAcademic(data);
-      })
-    //industry fetch
-    fetch('http://localhost:3000/api/industry')
-    .then((response) => {
-      if (!response.ok) {
-      throw new Error('Failed to fetch industry data');
-      }
-      return response.json();
-    })
-    .then((data) => {
-        setIndustry(data);
-        setLoading(false);
-    })
-  }, []);
-  */
-
-
 function Landing() {
   const [userType, setUserType] = useState('Invalid');
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -52,6 +18,22 @@ function Landing() {
     const formData = new FormData(form);
     const email = formData.get("email");
     const password = formData.get("password");
+
+    //Check if user is an academic
+    console.log('start academic fetch')
+    fetch(`http://localhost:3000/api/academic/${email}`, {
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to find academic');
+        }
+        // Move to academic page
+        path = '/src/html-pages/projectSearch.html';
+        navigate(path);
+        window.location.reload();
+      })
+      .catch((error) => console.error('Error finding academic:', error));
+
 
     // Verify which account type logged in
     if (email === 'a@admin.com' && password === 'Admin') {
