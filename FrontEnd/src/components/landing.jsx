@@ -72,7 +72,7 @@ function Landing() {
     }
     // Check if user is industry
     if (userType === 'Industry') {
-      path = '/src/html-pages/projectCreation.html';
+      path = '/src/html-pages/industryRedirect.html';
       navigate(path);
       window.location.reload();
     }
