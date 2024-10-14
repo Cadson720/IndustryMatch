@@ -72,7 +72,7 @@ function Landing() {
     }
     // Check if user is industry
     if (userType === 'Industry') {
-      path = '/src/html-pages/industryRedirect.html';
+      path = '/src/html-pages/projectCreation.html';
       navigate(path);
       window.location.reload();
     }
@@ -207,7 +207,7 @@ const industryFields = [
             <button onClick={() => setIsRegisterModalOpen(true)} className="auth-button">Register</button>
           <p>
           Fostering social and human perspectives in engineering: Projects, Partnerships, Professional Learning.
-          With 250 projects to choose from and over 100 successful partnerships! Now aided by <strong>AI</strong>.
+          With <i className="landing-i">250</i> projects to choose from and over <i className="landing-i">100</i> successful partnerships! Now aided by <strong>AI</strong>.
           </p>
         </div>
       </div>
