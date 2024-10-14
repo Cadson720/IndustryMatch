@@ -3,40 +3,47 @@ version: "3.1"
 language: "en"
 
 pipeline:
-- name: SpacyNLP
-  model: en_core_web_md
-- name: SpacyTokenizer
-- name: SpacyFeaturizer
-- name: RegexEntityExtractor
+- name: WhitespaceTokenizer
+- name: RegexFeaturizer
   case_sensitive: false
-  use_lookup_tables: true
-  use_regexes: true
-  use_word_boundaries: true
-  entities: ["duration", "size", "location"]
-- name: CRFEntityExtractor
-  features: [["low", "title", "upper"], ["low", "upper", "title", "digit", "pattern"], ["low", "upper", "title"]]
-  BILOU_flag: true
+- name: LexicalSyntacticFeaturizer
+- name: CountVectorsFeaturizer
+  OOV_token: "[UNK]"
+  min_ngram: 1
+  max_ngram: 2
+  max_features: 10000
 - name: DIETClassifier
-  epochs: 200
+  epochs: 500
+  constrain_similarities: true
   entity_recognition: true
   random_seed: 42
-  constrain_similarities: true
-  use_masked_language_model: true
+  use_masked_language_model: false
+  batch_size: 64
+  embedding_dimension: 60
+  intent_classification: true
   entity_roles: true
   entity_groups: true
-  entities: ["discipline", "industry", "keywords"]
+  entities:
+  - discipline
+  - industry
+  - keywords
+  - duration
+  - location
+  - size
 - name: EntitySynonymMapper
-- name: ResponseSelector
-  epochs: 100
-  retrieval_intent: faq
 - name: FallbackClassifier
   threshold: 0.3
   ambiguity_threshold: 0.05
 
 policies:
 - name: MemoizationPolicy
+  max_history: 10
 - name: TEDPolicy
-  max_history: 5
-  epochs: 200
+  max_history: 10
+  epochs: 300
+  batch_size: 64
 - name: RulePolicy
-assistant_id: 20241007-153825-amber-vertex
+  core_fallback_threshold: 0.3
+  core_fallback_action_name: "action_default_fallback"
+  enable_fallback_prediction: true
+assistant_id: 20241014-010512-frigid-fitting

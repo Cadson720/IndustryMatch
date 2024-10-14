@@ -1,10 +1,6 @@
 version: "3.1"
 
 stories:
-  - story: Search project by detailed criteria
-    steps:
-      - intent: ask_project_by_detailed_criteria
-      - action: action_search_projects
 
   - story: Search project by field
     steps:
@@ -16,9 +12,9 @@ stories:
       - intent: ask_project_by_duration
       - action: action_search_projects
 
-  - story: Search project by location
+  - story: Search project by location type
     steps:
-      - intent: ask_project_by_location
+      - intent: ask_project_by_location_type
       - action: action_search_projects
 
   - story: Search project by keywords
@@ -35,3 +31,8 @@ stories:
     steps:
       - intent: ask_project_by_size
       - action: action_search_projects
+  
+  - story: Fallback after inactivity
+    steps:
+      - action: action_search_projects
+      - action: action_fallback_prompt 

@@ -4,19 +4,11 @@ from rasa_sdk.executor import CollectingDispatcher
 from typing import Any, Text, Dict, List
 import re
 import psycopg2
+import logging
 
-# Database connection
-try:
-    conn = psycopg2.connect(
-        host="159.196.147.89",
-        port="5432",
-        user="postgres",
-        password="EthanIsASillyBilly",
-        dbname="industryconnectdb"
-    )
-    print("DEBUG: Successfully connected to the database.")
-except psycopg2.Error as e:
-    print(f"ERROR: Could not connect to the database. Details: {e}")
+# Set up logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 # Custom action to search for projects
 class ActionSearchProjects(Action):
@@ -25,6 +17,7 @@ class ActionSearchProjects(Action):
         return "action_search_projects"
 
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
         # Extract slots
         keywords = tracker.get_slot('keywords')
         discipline = tracker.get_slot('discipline')
@@ -43,12 +36,29 @@ class ActionSearchProjects(Action):
             if match:
                 duration = f"{match.group(1)} Weeks"
 
-        print(f"DEBUG: Slots - Discipline: {discipline}, Keywords: {keywords}, Industry: {industry}, Duration: {duration}, Location: {location}, Size: {size}")
+        # Handle cases where discipline is used as keyword
+        if discipline and not keywords:
+            keywords = discipline
 
-        # Fetch data from the database
+        logger.debug(f"Slots - Discipline: {discipline}, Keywords: {keywords}, Industry: {industry}, Duration: {duration}, Location: {location}, Size: {size}")
+
         try:
+            # Open database connection within the run method
+            conn = psycopg2.connect(
+                host="159.196.147.89",
+                port="5432",
+                user="postgres",
+                password="EvanLovesFinance",
+                dbname="industryconnectdb"
+            )
             cursor = conn.cursor()
-            query = "SELECT title, discipline, duration, location FROM projects WHERE 1=1"
+
+            query = """
+                SELECT project_id, industry_id, publish_date, discipline, duration, size, location_type, title, 
+                industry, description, status, image_path, address 
+                FROM "Projects" 
+                WHERE 1=1
+            """
             params = []
 
             if discipline:
@@ -56,65 +66,48 @@ class ActionSearchProjects(Action):
                 params.append(discipline)
 
             if keywords:
-                query += " AND title ILIKE %s"
+                query += " AND (title ILIKE %s OR description ILIKE %s)"
+                params.append(f"%{keywords}%")
                 params.append(f"%{keywords}%")
 
             if industry:
                 query += " AND industry = %s"
                 params.append(industry)
 
+            if location:
+                query += " AND location_type = %s"
+                params.append(location)
+
             query += " LIMIT 5;"
+            logger.debug(f"Final query: {query} with params: {params}")
+
             cursor.execute(query, tuple(params))
             results = cursor.fetchall()
             cursor.close()
+            conn.close()
 
             # Check if any results were returned
             if results:
-                project_summaries = "\n".join([f"- {title} ({disc}, {dur}, {loc})" for title, disc, dur, loc in results])
+                project_summaries = "\n\n".join(
+                    [f"Project ID: {proj_id}\nTitle: {title}\nDiscipline: {discipline}\nIndustry: {industry}\nPublish Date: {publish_date}\nDuration: {duration}\nSize: {size}\nLocation Type: {location_type}\nDescription: {description}\nStatus: {status}\nImage Path: {image_path}\nAddress: {address}"
+                     for proj_id, industry_id, publish_date, discipline, duration, size, location_type, title, industry, description, status, image_path, address in results])
                 dispatcher.utter_message(text=f"Here are some projects from the database:\n{project_summaries}")
+                logger.debug("Projects found and returned")
             else:
                 dispatcher.utter_message(text="No matching projects found in the database.")
+                logger.debug("No matching projects found")
 
         except psycopg2.Error as e:
             dispatcher.utter_message(text="An error occurred while fetching data from the database.")
-            print(f"Database error: {e}")
+            logger.error(f"Database error: {e}")
 
-        # Build query parameters for API call
-        query_params = {}
-        if keywords:
-            query_params['keywords'] = keywords
-        if discipline:
-            query_params['discipline'] = discipline
-        if duration:
-            query_params['duration'] = duration
-        if size:
-            query_params['size'] = size
-        if industry:
-            query_params['industry'] = industry
-        if location:
-            query_params['location'] = location
+        return []
 
-        print(f"DEBUG: Query parameters for API: {query_params}")
+# Custom action for fallback prompt
+class ActionFallbackPrompt(Action):
+    def name(self) -> Text:
+        return "action_fallback_prompt"
 
-        # Make a GET request to the external API
-        try:
-            api_url = 'http://host.docker.internal:3000/api/project/ai-search'
-            response = requests.get(api_url, params=query_params)
-            print(f"DEBUG: API Response status: {response.status_code}")
-
-            if response.status_code == 200:
-                projects = response.json()
-                if projects:
-                    project_summaries = "\n".join([f"- {project['title']} ({project['discipline']}, {project['duration']}, {project['location']})" for project in projects])
-                    dispatcher.utter_message(text=f"Here are some matching projects from the API:\n{project_summaries}")
-                else:
-                    dispatcher.utter_message(text="No matching projects found via the API.")
-            else:
-                dispatcher.utter_message(text="Error fetching data from the API.")
-                print(f"API Error: {response.status_code}, {response.text}")
-
-        except requests.RequestException as e:
-            dispatcher.utter_message(text="An error occurred while accessing the project search API.")
-            print(f"API error: {e}")
-
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        dispatcher.utter_message(text="Have you thought of a value proposition for the industry partner?")
         return []

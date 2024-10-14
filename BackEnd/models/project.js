@@ -38,7 +38,7 @@ const Project = sequelize.define('Project', {
     allowNull: true
   },
   title: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(100),
     allowNull: true
   },
   discipline: {

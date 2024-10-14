@@ -5,12 +5,10 @@ intents:
   - nlu_fallback
   - ask_project_by_field
   - ask_project_by_duration
-  - ask_project_by_location
+  - ask_project_by_location_type
   - ask_project_by_keywords
   - ask_project_by_industry
   - ask_project_by_size
-  - ask_project_by_detailed_criteria
-
 entities:
   - discipline
   - keywords
@@ -18,6 +16,7 @@ entities:
   - duration
   - location
   - size
+  - location_type
 
 slots:
   discipline:
@@ -62,12 +61,23 @@ slots:
       - type: from_entity
         entity: size
 
+  location_type:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: location_type
+
 responses:
   utter_greet:
     - text: "Hello! How can I assist you with project searches today?"
 
+  utter_fallback_prompt:
+    - text: "Have you thought of a value proposition for the industry partner?"
+
 actions:
   - action_search_projects
+  - action_fallback_prompt
 
 policies:
   - name: MemoizationPolicy

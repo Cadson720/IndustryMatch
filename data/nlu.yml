@@ -38,105 +38,73 @@ nlu:
       - I'm lost
       - ?????
       - I'm confused
-
-  - intent: ask_project_by_field
-    examples: |
-      - Show me projects in [Civil Engineering & Construction](discipline)
-      - I am looking for projects in [Software Engineering](discipline)
-      - Are there any projects related to [Biomedical Engineering](discipline)?
-      - What are some projects in [Mechanical Engineering](discipline)?
-      - Can you list [Cyber Security](discipline) projects?
-      - I want projects related to [Data Science](discipline)
-      - Show me projects available for [Marketing, Advertising & Public Relations](discipline)
-      - Are there any [Aerospace Engineering](discipline) projects?
-      - List projects in [Environmental Engineering](discipline)
-      - Do you have any [Veterinary Science](discipline) projects?
-      - Are there [Artificial Intelligence](discipline) projects available?
-      - Find me projects in [Criminal Justice](discipline)
-      - What projects do you have for [Electrical Engineering](discipline)?
-      - Show me [Philosophy](discipline) projects
-      - Can I get a list of [Journalism & Writing](discipline) projects?
-      - Do you have any projects in [Physics](discipline)?
-
-  - intent: ask_project_by_duration
-    examples: |
-      - I want a project that lasts [6 weeks](duration)
-      - Show me [8-week](duration) long projects
-      - Do you have any [12-week](duration) projects?
-      - Are there [4 weeks](duration) projects available?
-      - Find me [24-week](duration) projects
-      - Show me [12-week](duration) long [Biomedical Engineering](discipline) projects
-      - What are some [8-week](duration) projects in [Aerospace Engineering](discipline)?
-      - List [6-week](duration) [Marketing, Advertising & Public Relations](discipline) projects
-      - Do you have any [4-week](duration) [Veterinary Science](discipline) projects?
-      - Find a [6-week](duration) [Cyber Security](discipline) project
-      - Any [8-week](duration) projects available for [Mechanical Engineering](discipline)?
-      - Show me [24-week](duration) long [Environmental Engineering](discipline) projects
-
-
-  - intent: ask_project_by_location
-    examples: |
-      - Show me projects in [Sydney](location)
-      - I need [remote](location) projects
-      - Are there projects in [Melbourne](location)?
-      - Show me [online](location) projects
-      - List projects available in [Brisbane](location)
-      - Are there any projects in [Perth](location)?
-      - Find me projects in [Adelaide](location)
-      - Do you have any projects based in [Gold Coast](location)?
-      - Show me [international](location) projects
-      - List [Hobart](location) projects
-      - Are there any projects in [Canberra](location)?
-
+      
+  # Keywords Intent
   - intent: ask_project_by_keywords
     examples: |
       - What are some projects focused on [machine learning](keywords)?
       - Show me projects related to [AI](keywords)
-      - Can I find any [cloud computing](keywords) projects?
-      - Are there any [cybersecurity](keywords) projects available?
-      - Show me projects in [blockchain](keywords)
-      - I’m looking for [robotics](keywords) projects
-      - Do you have any [mobile development](keywords) projects?
-      - Find me [UX design](keywords) projects
-      - Any projects on [big data](keywords)?
-      - I’m interested in [deep learning](keywords) projects
-      - What projects do you have related to [bioinformatics](keywords)?
-      - Show me projects on [game development](keywords)
-      - Find [data analysis](keywords) projects
-      - Are there projects involving [video editing](keywords)?
+      - Can I find any [data analysis](keywords) projects?
+      - Are there any [game development](keywords) projects available?
+      - Do you have any projects involving [data engineering](keywords)?
+      - Find me projects on [UX design](keywords)
+      - Are there any projects about [digital marketing](keywords)?
+      - I’m looking for [automation](keywords) projects
+      - Can I see some [cloud computing](keywords) projects?
+      - Show me some [cybersecurity](keywords) projects
 
+  # Discipline Intent
+  - intent: ask_project_by_field
+    examples: |
+      - Show me projects in [Software Engineering](discipline)
+      - I want projects related to [Aerospace Engineering](discipline)
+      - Are there any projects in [Biochemistry](discipline)?
+      - What are some projects in [Civil Engineering & Construction](discipline)?
+      - Can you list [Nursing](discipline) projects?
+      - Find projects in [Law Enforcement](discipline)
+      - Show me [Physics](discipline) projects
+      - I am looking for projects in [Human Resources](discipline)
+      - Are there any [Environmental Science](discipline) projects?
+
+  # Industry Intent
   - intent: ask_project_by_industry
     examples: |
       - Show me projects in the [Business](industry) sector
-      - List projects in [Engineering](industry)
-      - I want projects in [Health](industry)
-      - Do you have any [IT & Computer Science](industry) projects?
-      - What projects are available in [Design & Arts](industry)?
+      - List projects in [IT & Computer Science](industry)
+      - I want projects in [Engineering](industry)
+      - Do you have any [Food & Hospitality](industry) projects?
+      - What projects are available in [Health](industry)?
       - I am looking for [Education](industry) related projects
       - Are there projects in the [Trades & Services](industry)?
       - Find me projects in [Science](industry)
       - Show me [Social Sciences & Communication](industry) projects
-      - Do you have any [Food & Hospitality](industry) projects?
 
+  # Duration Intent
+  - intent: ask_project_by_duration
+    examples: |
+      - Show me projects lasting [12 weeks](duration)
+      - Are there any [8-week](duration) projects available?
+      - Find me projects for [4 weeks](duration)
+      - I need a project that lasts [24 weeks](duration)
+      - Do you have any [6-week](duration) projects?
+
+  # Location Intent
+  - intent: ask_project_by_location_type
+    examples: |
+      - Show me [remote](location_type) projects
+      - Are there any [on-site](location_type) projects available?
+      - Do you have [flexible](location_type) projects?
+      - List [online](location_type) projects
+      - Can I find any [hybrid](location_type) projects?
+
+  # Size Intent
   - intent: ask_project_by_size
     examples: |
       - Show me [small](size) projects
-      - Do you have any [medium](size) projects available?
-      - Are there [large](size) projects I can join?
-      - Find a project with a [small](size) team
-      - I want to work on a [medium-sized](size) team project
-      - Show me [large-scale](size) projects
-      - Find [small team](size) projects
-      - I want a [large](size) team project
-      - Any [medium](size) group projects available?
-
-  - intent: ask_project_by_detailed_criteria
-    examples: |
-      - Show me a [6-week](duration) [Cyber Security](discipline) project in [Melbourne](location) with [small](size) teams focused on [network penetration](keywords)
-      - I’m looking for [Marketing, Advertising & Public Relations](discipline) projects that last [12 weeks](duration) in [Sydney](location) with a focus on [social media analytics](keywords)
-      - Are there any [8-week](duration) [Data Science](discipline) projects in [Brisbane](location) with [medium](size) teams?
-      - I need a [4-week](duration) [Biomedical Engineering](discipline) project based [online](location) that focuses on [prosthetic design](keywords)
-      - Can you find me a [12-week](duration) [Mechanical Engineering](discipline) project in [Canberra](location) with a [large](size) team?
+      - I am looking for [medium](size) projects
+      - Find me [large](size) projects
+      - Can you list [big](size) projects?
+      - I’m interested in [sizeable](size) projects
 
   - lookup: industry
     examples: |
@@ -757,53 +725,34 @@ synonyms:
   Surveying:
     - surveying
     - land surveying
+
   # Synonyms for location
-  Online:
-    - online
+  Online (Remote):
     - remote
+    - online
     - virtual
     - work from home
+    - telecommute
+    - online project
+
   On-site:
-    - on-site
-    - in-person
-    - at location
-    - local
+    - on location
+    - in person
     - in-office
-    - physical location
-    - on site
-  Sydney:
-    - sydney
-    - syd
-    - sydney, australia
-    - nsw capital
-  Melbourne:
-    - melbourne
-    - mel
-    - melbourne, australia
-  Brisbane:
-    - brisbane
-    - bris
-    - brisbane, australia
-  Perth:
-    - perth
-    - western australia
-    - perth, australia
-  Adelaide:
-    - adelaide
-    - adelaide, australia
-    - sa capital
-  Canberra:
-    - canberra
-    - canberra, australia
-    - australian capital territory
-  Gold Coast:
-    - gold coast
-    - goldcoast
-    - queensland
-  Hobart:
-    - hobart
-    - hobart, tasmania
-    - tasmania
+    - at the office
+    - on the premises
+    - office-based
+    - on-site project
+
+  Flexible:
+    - hybrid
+    - flexible location
+    - work both ways
+    - mix of remote and on-site
+    - remote and office
+    - part-time in office
+    - partially remote
+
 
   # Synonyms for duration
   4_weeks:
