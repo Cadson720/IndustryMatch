@@ -1,0 +1,55 @@
+/* Outer footer styling */
+.footer {
+    width: 100%;
+    display: flex;
+    height: 110px;
+    background-color: rgb(56, 97, 111); 
+    color: white;
+    align-items: center;   
+}
+
+/* Inner footer container */
+.inner_footer {
+    display: flex;
+    justify-content: space-between; /* Space between columns */
+    align-items: center; /* Align items at the center of the footer */
+    width: 100%; /* Full width of the footer */
+    padding: 0 12.5%; /* Optional padding for horizontal spacing */
+}
+
+i {
+    font-size: 20px;
+    color: rgb(219, 219, 219);
+}
+
+/* Left column styling */
+.left-column {
+    flex: 1; /* Allow it to take available space */
+    font-size: 14px; /* Set font size specifically for left column */
+    color: #f0f0f0; /* Set a different color for footer text */
+    text-align: left; /* Align text to the left */
+}
+
+/* Middle column styling */
+.middle-column {
+    flex: 1; /* Allow it to take available space */
+    text-align: right; /* Center the "Sponsored by" text */
+    font-size: 14px; /* Keep the same font size */
+    color: #f0f0f0; /* Match the color with the other columns */
+}
+
+/* Right column styling */
+.right-column {
+    flex: 1;
+    display: flex; /* Use flex for horizontal alignment */
+    align-items: left; /* Align logo vertically */
+    font-size: 14px; /* Keep the same font size */
+    color: #f0f0f0; /* Match the color with the left column */
+}
+
+/* Logo styling */
+.ACED_logo {
+    max-height: 80px; /* Control height of the logo */
+    height: auto; /* Keep aspect ratio */
+    margin-left: 10px; /* Space between text and logo */
+}
