@@ -92,7 +92,7 @@ body {
 /* Container for the text and line */
 .text-container {
   position: relative; /* For positioning the diagonal line */
-  margin-left: 8%;
+  margin-left: 15%;
   z-index: 1; /* Ensure the text is above the line */
 }
 
