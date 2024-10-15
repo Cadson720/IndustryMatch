@@ -1,176 +1,298 @@
-body{
-    margin: 0;
+body {
+  margin: 0;
+  overflow: hidden; /* Prevent page scrolling */
+  font-family: 'Roboto', Arial, Helvetica, sans-serif; /* Updated Font */
 }
 
 #root {
-    justify-content: flex-start;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-  }
-  
-  .card {
-    padding: 2em;
-  }
-  
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif; /* Use the new font */
+}
+
+.card {
+  padding: 2em;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
 /* Container for the search form */
 .project-search-container {
-    background-color: #1F3730; /* Dark green background */
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* The search bar container */
-  .search-bar {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    transition: all 0.3s ease;
-  }
-  
-  /* Hamburger Menu Styling */
-  .hamburger-menu {
-    display: inline-block;
-    cursor: pointer;
-    margin-right: 15px;
-    transition: transform 0.3s ease;
-  }
-  
-  .hamburger-menu span {
-    display: block;
-    width: 25px;
-    height: 2px;
-    background-color: white;
-    margin: 4px 0;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .hamburger-menu:hover {
-    transform: scale(1.1); /* Slightly enlarge on hover */
-  }
-  
-  .hamburger-menu:hover span {
-    background-color: #6A5ACD; /* Change color on hover */
-  }
-  
-  .hamburger-menu:active {
-    transform: rotate(90deg); /* Rotate the icon on click */
-  }
-  
-  /* Styling for the input fields and select dropdowns */
-  input[type="text"],
-  select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    width: 200px;
-    transition: all 0.3s ease;
-  }
-  
-  input[type="text"]:hover,
-  select:hover {
-    border-color: #6A5ACD; /* Change border color on hover */
-    box-shadow: 0 0 8px rgba(106, 90, 205, 0.4); /* Add shadow effect */
-  }
-  
-  input[type="text"]:focus,
-  select:focus {
-    outline: none;
-    border-color: #6A5ACD;
-    box-shadow: 0 0 8px rgba(106, 90, 205, 0.6);
-  }
-  
-  /* Search Button Styling */
-  .search-button {
-    background-color: #6A5ACD; /* Purple background */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .search-button:hover {
-    background-color: #5a4fcf; /* Darker purple on hover */
-    transform: translateY(-3px); /* Slight lift on hover */
-  }
-  
-  .search-button:active {
-    transform: translateY(2px); /* Press down effect */
-  }
-  
-  /* Extended Search Criteria */
-  .extended-criteria {
-    margin-top: 15px;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    transition: all 0.3s ease;
-  }
+  background-color: #1d4654; /* Dark green background */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* Positioning for layering the pseudo-element */
+  z-index: 1; /* Ensure content appears above background layers */
+}
 
-  .project-list {
-    background-color: white;
-  }
+/* Adding the background image as an overlay */
+.project-search-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/public/background.png');
+  background-size: cover; /* Ensure the image covers the entire element */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  opacity: 0.1; /* Set opacity for the image to see through it */
+  z-index: -1; /* Ensure the background image is behind the content */
+}
 
-  .project-columns {
-    padding-top: 20px;
-    display: flex;
-    gap: 50px;
-    height: calc(100% - 150px);
-    max-width: 75%;
-    width: 75%;
-  }
-  
-  /* Left Column: Project Previews */
-  .project-preview-column {
-    width: 45%;
-    max-height: 100%;
-    overflow-y: auto;
-    padding-right: 20px;
-  }
-  
-  .project-preview {
-    background-color: white;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .project-preview:hover {
-    background-color: #f4f4f4;
-  }
-  
-  .project-preview.active {
-    border: 2px solid #6A5ACD;
-  }
-  
-  .project-preview p {
-    margin: 5px 0;
-  }
-  
-  /* Right Column: Project Details */
-  .project-detail-column {
-    flex: 1;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    max-height: 1000px;
-  }
-  
-  .project-detail h2 {
-    margin-top: 0;
-  }
+/* The search bar container */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+/* Hamburger Menu Styling */
+.hamburger-menu {
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 15px;
+  transition: transform 0.3s ease;
+}
+
+.hamburger-menu span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background-color: white;
+  margin: 4px 0;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hamburger-menu:hover {
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.hamburger-menu:hover span {
+  background-color: #6A5ACD; /* Change color on hover */
+}
+
+.hamburger-menu:active {
+  transform: rotate(90deg); /* Rotate the icon on click */
+}
+
+/* Styling for the input fields and select dropdowns */
+input[type="text"],
+select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 250px;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+input[type="text"]:hover,
+select:hover {
+  border-color: #6A5ACD; /* Change border color on hover */
+  box-shadow: 0 0 8px rgba(106, 90, 205, 1); /* Add shadow effect */
+}
+
+input[type="text"]:focus,
+select:focus {
+  outline: none;
+  border-color: #6A5ACD;
+  box-shadow: 0 0 8px rgba(106, 90, 205, 0.6);
+}
+
+option {
+  font-weight: bold;
+}
+
+/* Search Button Styling */
+.search-button {
+  background-color: #6A5ACD; /* Purple background */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #5a4fcf; /* Darker purple on hover */
+  transform: translateY(-3px); /* Slight lift on hover */
+}
+
+.search-button:active {
+  transform: translateY(2px); /* Press down effect */
+}
+
+/* Extended Search Criteria */
+.extended-criteria {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding-right: 26px;
+}
+
+.project-list {
+  background-color: white;
+}
+
+.project-columns {
+  padding-top: 20px;
+  display: flex;
+  gap: 50px;
+  height: calc(100% - 150px);
+  max-width: 80%;
+  width: 80%;
+}
+
+/* Left Column: Project Previews */
+.project-preview-column {
+  width: 40%;
+  height: 725px;
+  max-height: 725px;
+  overflow-y: auto;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+
+.project-preview {
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.project-preview h3 {
+  font-style: normal;
+  padding-bottom: 5px;
+}
+
+.project-preview-column::-webkit-scrollbar {
+  width: 0px; /* Set scrollbar width to 0 to hide it */
+}
+
+.project-preview:hover {
+  background-color: #f4f4f4;
+}
+
+.project-preview.active {
+  /* Remove the border */
+  border: none;
+
+  /* Add a drop shadow on all sides with the desired color */
+  box-shadow: 0px 0px 8px 4px rgba(22, 178, 199, 0.75); /* Apply shadow evenly on all sides */
+}
+
+.project-preview p {
+  margin: 5px 0;
+  text-align: left;
+  padding-left: 10px;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: row;
+}
+
+.project-preview p1 {
+  margin: 5px 0;
+  text-align: left;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
+  margin: 5px 0;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: row;
+}
+
+.location-icon {
+  padding-left: 1.5px;
+  width: 18px;
+  height: 23px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.team-icon {
+  padding-left: 1.5px;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.duration-icon {
+  width: 23px;
+  height: 23px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* Right Column: Project Details */
+.project-detail-column {
+  flex: 1;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: 700px;
+  width: 50%;
+}
+
+.project-detail h2 {
+  margin-top: 10px;
+  font-style: normal;
+}
+
+/* Two-column layout for project details */
+.project-detail-columns {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.project-detail-left-column {
+  width: 80%;
+  display: flexbox;
+  text-align: left;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.project-detail-left-column p {
+  text-align: left;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: row;
+}
+
+.project-publish-info {
+  margin-top: 10px;
+}
+
+.project-publish-info p {
+  margin: 5px 0;
+  justify-content: flex-start;
+}

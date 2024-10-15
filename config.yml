@@ -16,24 +16,38 @@ pipeline:
 
   # Count Vectors Featurizer for word and n-gram features
 - name: CountVectorsFeaturizer
-  OOV_token: "[UNK]"    # Token for words not in the vocabulary
+  OOV_token: "[UNK]"
   min_ngram: 1
-  max_ngram: 3    # Trigrams will help capture patterns in larger text
-  max_features: 15000    # Increase to handle larger data
+  max_ngram: 2
+  max_features: 10000    # Keep max features at a reasonable level
 
-  # DIETClassifier with fine-tuned parameters for entity recognition and intent classification
+  # RegexEntityExtractor to capture structured entities (like discipline, industry, size)
+- name: RegexEntityExtractor
+  use_lookup_tables: true    # Make use of lookup tables defined in your NLU
+  lookup_tables:
+  - name: discipline
+    elements: data/lookup_tables/discipline.txt
+  - name: industry
+    elements: data/lookup_tables/industry.txt
+  - name: size
+    elements: data/lookup_tables/size.txt
+  - name: duration
+    elements: data/lookup_tables/duration.txt
+  - name: location
+    elements: data/lookup_tables/location.txt
+
+  # DIETClassifier with reduced epochs and optimized settings
 - name: DIETClassifier
-  epochs: 700    # Increase epochs to ensure convergence with large data
+  epochs: 200    # Reduce epochs to balance between training time and accuracy
   constrain_similarities: true
   entity_recognition: true
   intent_classification: true
   entity_roles: true
   entity_groups: true
   random_seed: 42
-  embedding_dimension: 128    # Increase dimensions to handle large data
-  use_masked_language_model: false
-  batch_size: 128    # Larger batch size for efficient training
-  learning_rate: 0.002    # Lower learning rate for smoother convergence
+  embedding_dimension: 80    # Slightly reduced embedding dimension for faster training
+  batch_size: 64    # Moderate batch size for faster iterations
+  learning_rate: 0.002    # Keep learning rate constant for good convergence
   entities:
   - discipline
   - industry
@@ -47,28 +61,23 @@ pipeline:
 
   # Fallback classifier for handling ambiguous queries
 - name: FallbackClassifier
-  threshold: 0.4    # Adjust for tolerance on low-confidence predictions
-  ambiguity_threshold: 0.1    # Slightly increase tolerance for similar intents
-
-  # Language model that boosts performance for large datasets (Optional)
-- name: LanguageModelFeaturizer
-  model_name: "bert"    # BERT model can be used to capture richer semantic features
-  model_weights: "bert-base-uncased"
+  threshold: 0.4
+  ambiguity_threshold: 0.1
 
 policies:
   # Memoization policy for remembering exact responses
 - name: MemoizationPolicy
-  max_history: 10
+  max_history: 5    # Reduce history for faster prediction processing
 
   # Transformer-based TEDPolicy for dialogue management
 - name: TEDPolicy
-  max_history: 10
-  epochs: 500    # Increase epochs for more accurate dialogue flow learning
-  batch_size: 128    # Increase batch size to match the dataset size
+  max_history: 5    # Reduce history length to speed up training
+  epochs: 200    # Reduce epochs to shorten training time
+  batch_size: 64    # Moderate batch size for faster iterations
 
   # Rule-based policy for fallback and custom rules
 - name: RulePolicy
   core_fallback_threshold: 0.3
   core_fallback_action_name: "action_default_fallback"
   enable_fallback_prediction: true
-assistant_id: 20241015-002319-ascent-carrier
+assistant_id: 20241015-045354-intense-performance
