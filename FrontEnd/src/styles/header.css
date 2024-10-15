@@ -72,3 +72,70 @@
 .nav-link.active {
     opacity: 1;
 }
+
+/* Dropdown and dropdown menu for academic name */
+
+/* Container for the academic name and dropdown */
+.dropdown {
+    position: absolute;  /* Absolute positioning similar to profile logo */
+    right: 15%;  /* Positioned 15% from the right side of the screen */
+    top: 28px;  /* Vertically align within the header */
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    z-index: 99; /* Ensure it's above other elements */
+}
+
+/* Academic name styling */
+.academic-name {
+    font-size: 20px;
+    color: #072015;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease; /* Transition for the small jump effect */
+}
+
+/* Arrow icon next to the name */
+.arrow-down {
+    margin-left: 8px;
+    font-size: 14px;
+}
+
+/* Apply a slight jump effect on click */
+.academic-name:active {
+    transform: translateY(-2px); /* Move up slightly when clicked */
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    position: absolute;
+    top: 50px; /* Position it directly below the .dropdown (adjust based on the height of .dropdown) */
+    right: 0; /* Align to the right edge of .dropdown */
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for better visibility */
+    border-radius: 8px;
+    padding: 10px;
+    z-index: 100;
+    width: 200px; /* Set fixed width */
+}
+
+/* Dropdown menu items */
+.dropdown-item {
+    display: block;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #072015;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    border-radius: 5px; /* Slightly rounded edges */
+}
+
+/* Hover effect for dropdown items */
+.dropdown-item:hover {
+    background-color: #f4f4f4; /* Light background color on hover */
+}
+
+/* Special styling for Sign Out option */
+.signout {
+    color: red;
+}
+
