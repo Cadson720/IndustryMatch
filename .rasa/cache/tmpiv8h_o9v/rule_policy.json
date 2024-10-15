@@ -1,0 +1,28 @@
+{
+  "lookup": {
+    "rules": {
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_project_by_industry\"}}]": "action_search_projects",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_project_by_industry\"}}, {\"prev_action\": {\"action_name\": \"action_search_projects\"}, \"user\": {\"intent\": \"ask_project_by_industry\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_search_projects\"}}]": "action_fallback_prompt",
+      "[{\"prev_action\": {\"action_name\": \"action_search_projects\"}}, {\"prev_action\": {\"action_name\": \"action_fallback_prompt\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_project_by_keywords\"}}]": "action_search_projects",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_project_by_keywords\"}}, {\"prev_action\": {\"action_name\": \"action_search_projects\"}, \"user\": {\"intent\": \"ask_project_by_keywords\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_project_by_field\"}}]": "action_search_projects",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_project_by_field\"}}, {\"prev_action\": {\"action_name\": \"action_search_projects\"}, \"user\": {\"intent\": \"ask_project_by_field\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_project_by_location_type\"}}]": "action_search_projects",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_project_by_location_type\"}}, {\"prev_action\": {\"action_name\": \"action_search_projects\"}, \"user\": {\"intent\": \"ask_project_by_location_type\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_project_by_size\"}}]": "action_search_projects",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_project_by_size\"}}, {\"prev_action\": {\"action_name\": \"action_search_projects\"}, \"user\": {\"intent\": \"ask_project_by_size\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_project_by_duration\"}}]": "action_search_projects",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_project_by_duration\"}}, {\"prev_action\": {\"action_name\": \"action_search_projects\"}, \"user\": {\"intent\": \"ask_project_by_duration\"}}]": "action_listen"
+    },
+    "rule_only_slots": [],
+    "rule_only_loops": [],
+    "rules_for_loop_unhappy_path": {},
+    "rules_not_in_stories": [
+      "predicting default action with intent session_start",
+      "predicting default action with intent back",
+      "predicting default action with intent restart"
+    ]
+  }
+}
