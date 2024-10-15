@@ -109,10 +109,10 @@ const disciplinesByIndustry = {
 
 const ProjectSearch = () => {
   const [keywords, setKeywords] = useState('');
-  const [field, setField] = useState(''); // Discipline
+  const [field, setField] = useState('');
   const [duration, setDuration] = useState('');
   const [location, setLocation] = useState('');
-  const [industry, setIndustry] = useState(''); // Industry
+  const [industry, setIndustry] = useState('');
   const [size, setSize] = useState('');
   const [showExtended, setShowExtended] = useState(false); // Toggle for extended search criteria
   const [projects, setProjects] = useState([]);
@@ -168,15 +168,6 @@ const ProjectSearch = () => {
     setShowExtended(!showExtended);
   };
 
-  // Function to handle industry change
-  const handleIndustryChange = (e) => {
-    const selectedIndustry = e.target.value;
-    setIndustry(selectedIndustry);
-
-    // Reset the discipline when the industry changes
-    setField('');
-  };
-
   // Function to handle search
   const handleSearch = () => {
     const filtered = projects.filter((project) => {
@@ -202,6 +193,14 @@ const ProjectSearch = () => {
     } else {
       setSelectedProject(null); // Clear if no projects match the search
     }
+  };
+
+  // Function to calculate project age in days
+  const getProjectAgeInDays = (publishDate) => {
+    const currentDate = new Date();
+    const publishDateObj = new Date(publishDate);
+    const timeDiff = Math.abs(currentDate - publishDateObj);
+    return Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
   };
 
   // Function to extract the suburb from the address
@@ -236,7 +235,7 @@ const ProjectSearch = () => {
           onChange={(e) => setKeywords(e.target.value)}
         />
 
-        <select value={industry} onChange={handleIndustryChange}>
+        <select value={industry} onChange={(e) => setIndustry(e.target.value)}>
           <option value="">Any Industry</option>
           {Object.keys(disciplinesByIndustry).map((ind) => (
             <option key={ind} value={ind}>{ind}</option>
@@ -299,9 +298,15 @@ const ProjectSearch = () => {
                 onClick={() => handleProjectClick(project)}
               >
                 <h3><strong>{project.title}</strong></h3>
-                <p>{project.industry}</p>
-                <p>{project.duration}</p>
-                <p>{project.location_type}</p>
+                <p1>{project.industry} - {project.discipline} </p1>
+                <p>
+                  <img src="/public/clock.png" alt="location icon" className="duration-icon" />
+                  {project.duration}
+                </p>
+                <p1>
+                  <img src="/public/location.png" alt="location icon" className="location-icon" />
+                  {project.location_type}
+                </p1>
                 <p><em>{project.description}</em></p>
               </div>
             ))
@@ -315,27 +320,36 @@ const ProjectSearch = () => {
           {selectedProject ? (
             <div className="project-detail">
               <h2>{selectedProject.title}</h2>
-              <p><strong>Industry:</strong> {selectedProject.industry}</p>
-              <p><strong>Duration:</strong> {selectedProject.duration}</p>
-              <p><strong>Location:</strong> {selectedProject.location_type}</p>
-              
-              {/* If location type is 'Flexible' or 'On-site', display suburb */}
-              {(selectedProject.location_type === 'Flexible' || selectedProject.location_type === 'On-site') && selectedProject.address && (
-                <p><strong>Suburb:</strong> {extractSuburb(selectedProject.address)}</p>
-              )}
+              <div className="project-detail-columns">
 
-              <p><strong>Discipline:</strong> {selectedProject.discipline}</p>
-              <p><strong>Size:</strong> {selectedProject.size}</p>
-              <p><strong>Publish Date:</strong> {new Date(selectedProject.publish_date).toLocaleDateString()}</p>
-              <p><strong>Description:</strong> {selectedProject.description}</p>
-
-              {/* Display Industry Information */}
-              {selectedProject.Industry && (
-                <div>
-                  <p><strong>Organisation:</strong> {selectedProject.Industry.organisation}</p>
-                  <p><strong>Email:</strong> {selectedProject.Industry.email}</p>
+                {/* Left Column: Industry, Discipline, Size */}
+                <div className="project-detail-left-column">
+                  <p>{selectedProject.industry}<strong>  -  </strong>{selectedProject.discipline}</p>
+                  <p>
+                    <strong>Team Size - </strong> 
+                    {selectedProject.size} 
+                    {selectedProject.size === 'Small' ? ' (1 - 3 Members)' : selectedProject.size === 'Medium' ? ' (4 - 6 Members)' : selectedProject.size === 'Large' ? ' (7+ Members)' : ''}
+                  </p>
+                  <p>
+                    <img src="/public/clock.png" alt="duration icon" className="duration-icon" />
+                    <strong> </strong> {selectedProject.duration}
+                  </p>
+                  <p>
+                    <img src="/public/location.png" alt="location icon" className="location-icon" />
+                    <strong> </strong> {selectedProject.location_type}
+                    {(selectedProject.location_type === 'Flexible' || selectedProject.location_type === 'On-site') && selectedProject.address && (
+                      <p1><strong>  - </strong> {extractSuburb(selectedProject.address)}</p1>
+                    )}
+                  </p>
                 </div>
-              )}
+              </div>
+
+              <p><strong></strong> {selectedProject.description}</p>
+
+              <div className="project-publish-info">
+                <p><strong>Published:</strong> {getProjectAgeInDays(selectedProject.publish_date)} days ago</p>
+                <p><strong>Organisation:</strong> {selectedProject.Industry.organisation}</p>
+              </div>
             </div>
           ) : (
             <p>Please select a project to see details.</p>
