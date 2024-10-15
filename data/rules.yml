@@ -1,7 +1,6 @@
 version: "3.1"
-
 rules:
-  - rule: Search project
+  - rule: Handle project search with any slot combination
     steps:
       - intent: ask_project
       - action: action_search_projects

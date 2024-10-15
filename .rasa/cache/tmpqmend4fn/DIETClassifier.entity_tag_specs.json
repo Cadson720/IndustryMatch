@@ -1,0 +1,52 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-discipline",
+      "2": "I-discipline",
+      "3": "L-discipline",
+      "4": "U-discipline",
+      "5": "B-duration",
+      "6": "I-duration",
+      "7": "L-duration",
+      "8": "U-duration",
+      "9": "B-industry",
+      "10": "I-industry",
+      "11": "L-industry",
+      "12": "U-industry",
+      "13": "B-location_type",
+      "14": "I-location_type",
+      "15": "L-location_type",
+      "16": "U-location_type",
+      "17": "B-size",
+      "18": "I-size",
+      "19": "L-size",
+      "20": "U-size",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-discipline": 1,
+      "I-discipline": 2,
+      "L-discipline": 3,
+      "U-discipline": 4,
+      "B-duration": 5,
+      "I-duration": 6,
+      "L-duration": 7,
+      "U-duration": 8,
+      "B-industry": 9,
+      "I-industry": 10,
+      "L-industry": 11,
+      "U-industry": 12,
+      "B-location_type": 13,
+      "I-location_type": 14,
+      "L-location_type": 15,
+      "U-location_type": 16,
+      "B-size": 17,
+      "I-size": 18,
+      "L-size": 19,
+      "U-size": 20,
+      "O": 0
+    },
+    "num_tags": 21
+  }
+]

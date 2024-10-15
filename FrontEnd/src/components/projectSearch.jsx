@@ -30,6 +30,21 @@ const ProjectSearch = () => {
   const [error, setError] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
 
+  // Function to check if all required fields are present
+  const isProjectValid = (project) => {
+    return (
+      project.title &&
+      project.industry &&
+      project.duration &&
+      project.location_type &&
+      project.discipline &&
+      project.size &&
+      project.publish_date &&
+      project.description &&
+      project.Industry && project.Industry.organisation
+    );
+  };
+
   // Fetch all projects from the backend when the component mounts
   useEffect(() => {
     fetch('http://localhost:3000/api/project')
@@ -40,13 +55,14 @@ const ProjectSearch = () => {
         return response.json();
       })
       .then((data) => {
-        setProjects(data);
-        setFilteredProjects(data);
+        const validProjects = data.filter(isProjectValid);
+        setProjects(validProjects);
+        setFilteredProjects(validProjects);
         setLoading(false);
 
         // Set the first project as selected by default after fetch
-        if (data.length > 0) {
-          setSelectedProject(data[0]);
+        if (validProjects.length > 0) {
+          setSelectedProject(validProjects[0]);
         }
       })
       .catch((error) => {
@@ -71,7 +87,7 @@ const ProjectSearch = () => {
 
       const fieldMatch = field ? project.discipline === field : true;
       const durationMatch = duration ? project.duration === duration : true;
-      const locationMatch = location ? project.location === location : true;
+      const locationMatch = location ? project.location_type === location : true;
       const industryMatch = industry ? project.industry === industry : true;
       const sizeMatch = size ? project.size === size : true;
 
@@ -86,6 +102,12 @@ const ProjectSearch = () => {
     } else {
       setSelectedProject(null); // Clear if no projects match the search
     }
+  };
+
+  // Function to extract the suburb from the address
+  const extractSuburb = (address) => {
+    const parts = address.split(',');
+    return parts.length > 1 ? parts[1].trim() : '';
   };
 
   // Handle project click to display detailed view
@@ -116,35 +138,25 @@ const ProjectSearch = () => {
 
         <select value={industry} onChange={(e) => setIndustry(e.target.value)}>
           <option value="">Any Industry</option>
-          <option value="Business & Management">Business & Management</option>
-          <option value="Creative Arts">Creative Arts</option>
-          <option value="Engineering & Mathematics">Engineering & Mathematics</option>
-          <option value="Food, Hospitality & Personal Services">Food, Hospitality & Personal Services</option>
-          <option value="Humanities, Arts, & Social Sciences">Humanities, Arts, & Social Sciences</option>
-          <option value="IT & Computer Science">IT & Computer Science</option>
-          <option value="Law, Legal Studies & Justice">Law, Legal Studies & Justice</option>
-          <option value="Medical & Health Studies">Medical & Health Studies</option>
-          <option value="Property & Built Environment">Property & Built Environment</option>
-          <option value="Sciences">Sciences</option>
-          <option value="Teaching & Education">Teaching & Education</option>
-          <option value="Trades & Services">Trades & Services</option>
+          {Object.keys(disciplinesByIndustry).map((ind) => (
+            <option key={ind} value={ind}>{ind}</option>
+          ))}
         </select>
 
         <select value={duration} onChange={(e) => setDuration(e.target.value)}>
           <option value="">Any Length</option>
-          <option value="4 weeks">4 Weeks</option>
-          <option value="6 weeks">6 Weeks</option>
-          <option value="8 weeks">8 Weeks</option>
-          <option value="12 weeks">12 Weeks</option>
-          <option value="24 weeks">24 Weeks</option>
+          <option value="4 Weeks">4 Weeks</option>
+          <option value="6 Weeks">6 Weeks</option>
+          <option value="8 Weeks">8 Weeks</option>
+          <option value="12 Weeks">12 Weeks</option>
+          <option value="24 Weeks">24 Weeks</option>
         </select>
 
         <select value={location} onChange={(e) => setLocation(e.target.value)}>
           <option value="">Any Location</option>
-          <option value="Online">Online</option>
-          <option value="Sydney">Sydney</option>
-          <option value="Brisbane">Brisbane</option>
-          <option value="Melbourne">Melbourne</option>
+          <option value="Online (Remote)">Online (Remote)</option>
+          <option value="On-site">On-site</option>
+          <option value="Flexible">Flexible</option>
         </select>
 
         {/* Search Button */}
@@ -169,9 +181,9 @@ const ProjectSearch = () => {
 
           <select value={size} onChange={(e) => setSize(e.target.value)}>
             <option value="">Any Size</option>
-            <option value="Small">Small</option>
-            <option value="Medium">Medium</option>
-            <option value="Large">Large</option>
+            <option value="Small">Small (1-3 Team Size)</option>
+            <option value="Medium">Medium (4-6 Team Size)</option>
+            <option value="Large">Large (7+ Team Size)</option>
           </select>
         </div>
       )}
@@ -182,15 +194,15 @@ const ProjectSearch = () => {
           {filteredProjects.length > 0 ? (
             filteredProjects.map((project) => (
               <div
-                key={project.ProjectID}
-                className={`project-preview ${selectedProject && selectedProject.ProjectID === project.ProjectID ? 'active' : ''}`}
+                key={project.project_id}
+                className={`project-preview ${selectedProject && selectedProject.project_id === project.project_id ? 'active' : ''}`}
                 onClick={() => handleProjectClick(project)}
               >
-                <p><strong>{project.title}</strong></p>
+                <h3><strong>{project.title}</strong></h3>
                 <p>{project.industry}</p>
                 <p>{project.duration}</p>
-                <p>{project.location}</p>
-                <p><em>Short description coming soon...</em></p>
+                <p>{project.location_type}</p>
+                <p><em>{project.description}</em></p>
               </div>
             ))
           ) : (
@@ -205,17 +217,23 @@ const ProjectSearch = () => {
               <h2>{selectedProject.title}</h2>
               <p><strong>Industry:</strong> {selectedProject.industry}</p>
               <p><strong>Duration:</strong> {selectedProject.duration}</p>
-              <p><strong>Location:</strong> {selectedProject.location}</p>
+              <p><strong>Location:</strong> {selectedProject.location_type}</p>
+              
+              {/* If location type is 'Flexible' or 'On-site', display suburb */}
+              {(selectedProject.location_type === 'Flexible' || selectedProject.location_type === 'On-site') && selectedProject.address && (
+                <p><strong>Suburb:</strong> {extractSuburb(selectedProject.address)}</p>
+              )}
+
               <p><strong>Discipline:</strong> {selectedProject.discipline}</p>
               <p><strong>Size:</strong> {selectedProject.size}</p>
-              <p><strong>Publish Date:</strong> {new Date(selectedProject.publishDate).toLocaleDateString()}</p>
-              
-              {/* Display Member Info from Industry */}
+              <p><strong>Publish Date:</strong> {new Date(selectedProject.publish_date).toLocaleDateString()}</p>
+              <p><strong>Description:</strong> {selectedProject.description}</p>
+
+              {/* Display Industry Information */}
               {selectedProject.Industry && (
                 <div>
-                  <p><strong>Member ID:</strong> {selectedProject.Industry.MemberID}</p>
-                  <p><strong>Email:</strong> {selectedProject.Industry.email}</p>
                   <p><strong>Organisation:</strong> {selectedProject.Industry.organisation}</p>
+                  <p><strong>Email:</strong> {selectedProject.Industry.email}</p>
                 </div>
               )}
             </div>

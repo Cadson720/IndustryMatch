@@ -3,6 +3,7 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from typing import Any, Text, Dict, List
 import logging
+import re  # Import for regex operations
 from rasa_sdk.events import SlotSet
 
 # Set up logging
@@ -25,22 +26,52 @@ class ActionSearchProjects(Action):
         industry = tracker.get_slot('industry')
         location = tracker.get_slot('location')
 
-        # Clean the slot values
+        # Clean the slot values (if needed)
         if size:
             size = size.capitalize()
+        
+        if duration:
+            # Ensure that duration is correctly formatted (e.g., "12 Weeks")
+            match = re.search(r'(\d+)\s?weeks?', duration, re.IGNORECASE)
+            if match:
+                duration = f"{match.group(1)} Weeks"
 
         # Log slot values for debugging
         logger.debug(f"Slots - Keywords: {keywords}, Discipline: {discipline}, Duration: {duration}, Size: {size}, Industry: {industry}, Location: {location}")
 
-        # Build query parameters for the API call
-        query_params = {
-            'keywords': keywords,
-            'discipline': discipline,
-            'duration': duration,
-            'size': size,
-            'industry': industry,
-            'location': location
-        }
+        # Build query parameters for the API call based on the input slots
+        query_params = {}
+
+        # If a keyword is found but no discipline, apply the keyword to search title, description, discipline, and industry
+        if keywords and not discipline:
+            query_params = {
+                'search_fields': ['title', 'description', 'discipline', 'industry'],
+                'search_value': keywords
+            }
+        # If a discipline is found but no keyword, apply the discipline to search title and description
+        elif discipline and not keywords:
+            query_params = {
+                'search_fields': ['title', 'description'],
+                'search_value': discipline
+            }
+        # If both discipline and keyword are found, apply both to their respective fields
+        elif discipline and keywords:
+            query_params = {
+                'discipline': discipline,
+                'keywords': keywords,
+                'duration': duration,
+                'size': size,
+                'industry': industry,
+                'location': location
+            }
+        else:
+            # General case for when neither keywords nor discipline is found
+            query_params = {
+                'duration': duration,
+                'size': size,
+                'industry': industry,
+                'location': location
+            }
 
         logger.debug(f"Query parameters for API: {query_params}")
 

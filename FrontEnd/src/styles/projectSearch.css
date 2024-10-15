@@ -1,5 +1,6 @@
 body{
     margin: 0;
+    overflow: hidden; /* Prevent page scrolling */
 }
 
 #root {
@@ -70,8 +71,9 @@ body{
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    width: 200px;
+    width: 250px;
     transition: all 0.3s ease;
+    font-weight: bold;
   }
   
   input[type="text"]:hover,
@@ -85,6 +87,10 @@ body{
     outline: none;
     border-color: #6A5ACD;
     box-shadow: 0 0 8px rgba(106, 90, 205, 0.6);
+  }
+
+  option {
+    font-weight: bold;
   }
   
   /* Search Button Styling */
@@ -115,6 +121,7 @@ body{
     gap: 10px;
     justify-content: center;
     transition: all 0.3s ease;
+    padding-right: 26px;
   }
 
   .project-list {
@@ -133,9 +140,11 @@ body{
   /* Left Column: Project Previews */
   .project-preview-column {
     width: 45%;
-    max-height: 100%;
+    height: 725px;
+    max-height: 725px;
     overflow-y: auto;
     padding-right: 20px;
+    padding-bottom: 20px;
   }
   
   .project-preview {
@@ -148,12 +157,16 @@ body{
     transition: all 0.3s ease;
   }
   
+  .project-preview-column::-webkit-scrollbar {
+    width: 0px; /* Set scrollbar width to 0 to hide it */
+}
+
   .project-preview:hover {
     background-color: #f4f4f4;
   }
   
   .project-preview.active {
-    border: 2px solid #6A5ACD;
+    border: 1px solid #16b2c7;
   }
   
   .project-preview p {
@@ -168,7 +181,7 @@ body{
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
-    max-height: 1000px;
+    max-height: 700px;
   }
   
   .project-detail h2 {
