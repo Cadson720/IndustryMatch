@@ -3,106 +3,106 @@ import "../styles/projectSearch.css"; // Import the CSS for this component
 
 const disciplinesByIndustry = {
   'Business': [
-    'Economics', 
-    'Human Resources', 
-    'Management', 
-    'Accounting, Commerce & Finance', 
-    'Hospitality, Tourism & Retail', 
+    'Economics',
+    'Human Resources',
+    'Management',
+    'Accounting, Commerce & Finance',
+    'Hospitality, Tourism & Retail',
     'Marketing, Advertising & Public Relations'
   ],
   'Design & Arts': [
-    'Animation, Visual Effects & Post Production', 
-    'Creative Arts', 
-    'Media Studies', 
-    'Fashion Design', 
-    'Film & TV', 
-    'Graphic Design & Visual Arts', 
-    'Journalism & Writing', 
+    'Animation, Visual Effects & Post Production',
+    'Creative Arts',
+    'Media Studies',
+    'Fashion Design',
+    'Film & TV',
+    'Graphic Design & Visual Arts',
+    'Journalism & Writing',
     'Music & Performing Arts'
   ],
   'Engineering': [
-    'Aerospace Engineering', 
-    'Software Engineering', 
-    'Automotive & Transport Engineering', 
-    'Biomedical Engineering', 
-    'Civil Engineering & Construction', 
-    'Mechanical Engineering', 
-    'Mechatronic Engineering', 
-    'Electrical Engineering', 
-    'Chemical Engineering', 
-    'Industrial Engineering', 
-    'Robotics Engineering', 
-    'Environmental Engineering', 
-    'Marine Engineering', 
-    'Manufacturing Engineering', 
+    'Aerospace Engineering',
+    'Software Engineering',
+    'Automotive & Transport Engineering',
+    'Biomedical Engineering',
+    'Civil Engineering & Construction',
+    'Mechanical Engineering',
+    'Mechatronic Engineering',
+    'Electrical Engineering',
+    'Chemical Engineering',
+    'Industrial Engineering',
+    'Robotics Engineering',
+    'Environmental Engineering',
+    'Marine Engineering',
+    'Manufacturing Engineering',
     'Mining Engineering'
   ],
   'IT & Computer Science': [
-    'Artificial Intelligence', 
-    'Computer Graphics & Animations', 
-    'Computer Systems & Networks', 
-    'Cyber Security', 
-    'Data Science', 
-    'Design & User Experience', 
+    'Artificial Intelligence',
+    'Computer Graphics & Animations',
+    'Computer Systems & Networks',
+    'Cyber Security',
+    'Data Science',
+    'Design & User Experience',
     'Video Game Development'
   ],
   'Law, Legal Studies & Justice': [
-    'Criminal Justice', 
-    'Corporate Law', 
+    'Criminal Justice',
+    'Corporate Law',
     'Law Enforcement'
   ],
   'Health': [
-    'Nursing', 
-    'Pharmacist', 
-    'Dentistry & Orthopediatrics', 
-    'Exercise & Sports Science', 
-    'Midwifery', 
-    'Occupational', 
-    'Paramedics', 
-    'Physiotherapy', 
+    'Nursing',
+    'Pharmacist',
+    'Dentistry & Orthopediatrics',
+    'Exercise & Sports Science',
+    'Midwifery',
+    'Occupational',
+    'Paramedics',
+    'Physiotherapy',
     'Psychology'
   ],
   'Education': [
-    'Primary Teaching', 
-    'Secondary Teaching', 
-    'Special Education', 
+    'Primary Teaching',
+    'Secondary Teaching',
+    'Special Education',
     'Tertiary Education'
   ],
   'Science': [
-    'Astronomy', 
-    'Biochemistry', 
-    'Biology', 
-    'Chemistry', 
-    'Geology', 
-    'Genetics', 
-    'Food Science', 
-    'Forensic Science', 
-    'Environmental Science', 
-    'Physics', 
-    'Marine Science', 
+    'Astronomy',
+    'Biochemistry',
+    'Biology',
+    'Chemistry',
+    'Geology',
+    'Genetics',
+    'Food Science',
+    'Forensic Science',
+    'Environmental Science',
+    'Physics',
+    'Marine Science',
     'Veterinary Science'
   ],
   'Social Sciences & Communication': [
-    'Criminology', 
-    'International Studies', 
-    'Languages & Linguistics', 
-    'Literature', 
-    'Philosophy', 
-    'Social Work', 
+    'Criminology',
+    'International Studies',
+    'Languages & Linguistics',
+    'Literature',
+    'Philosophy',
+    'Social Work',
     'Politics'
   ],
   'Food & Hospitality': [
-    'Culinary Arts', 
-    'Hotel Management', 
+    'Culinary Arts',
+    'Hotel Management',
     'Carers'
   ],
   'Trades & Services': [
-    'Carpentry', 
-    'Electrician', 
-    'Plumping', 
-    'Flooring, Plastering & Tiling', 
-    'Heating, Ventilation & Cooling', 
-    'Bricklaying & Stonemasonry', 
+    'Carpentry',
+    'Electrician',
+    'Plumping',
+    'Flooring, Plastering & Tiling',
+    'Heating, Ventilation & Cooling',
+    'Bricklaying & Stonemasonry',
     'Surveying'
   ]
 };
@@ -171,10 +171,9 @@ const ProjectSearch = () => {
   // Function to handle search
   const handleSearch = () => {
     const filtered = projects.filter((project) => {
-      const keywordMatch =
-        project.industry.toLowerCase().includes(keywords.toLowerCase()) ||
-        project.discipline.toLowerCase().includes(keywords.toLowerCase()) ||
-        project.title.toLowerCase().includes(keywords.toLowerCase());
+      // Search in title and description for the keyword
+      const keywordMatch = project.title.toLowerCase().includes(keywords.toLowerCase()) ||
+        project.description.toLowerCase().includes(keywords.toLowerCase());
 
       const fieldMatch = field ? project.discipline === field : true;
       const durationMatch = duration ? project.duration === duration : true;
@@ -298,7 +297,7 @@ const ProjectSearch = () => {
                 onClick={() => handleProjectClick(project)}
               >
                 <h3><strong>{project.title}</strong></h3>
-                <p1>{project.industry} - {project.discipline} </p1>
+                <p1>{project.industry} - {project.discipline}</p1>
                 <p>
                   <img src="/public/clock.png" alt="location icon" className="duration-icon" />
                   {project.duration}
