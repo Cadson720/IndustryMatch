@@ -1,34 +1,9 @@
 version: "3.1"
 
 rules:
-  - rule: Search project by field
+  - rule: Search project
     steps:
-      - intent: ask_project_by_field
-      - action: action_search_projects
-
-  - rule: Search project by duration
-    steps:
-      - intent: ask_project_by_duration
-      - action: action_search_projects
-
-  - rule: Search project by location type
-    steps:
-      - intent: ask_project_by_location_type
-      - action: action_search_projects
-
-  - rule: Search project by keywords
-    steps:
-      - intent: ask_project_by_keywords
-      - action: action_search_projects
-
-  - rule: Search project by industry
-    steps:
-      - intent: ask_project_by_industry
-      - action: action_search_projects
-
-  - rule: Search project by size
-    steps:
-      - intent: ask_project_by_size
+      - intent: ask_project
       - action: action_search_projects
 
   - rule: Fallback prompt after inactivity
