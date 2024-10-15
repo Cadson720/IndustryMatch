@@ -2,15 +2,14 @@ import requests
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from typing import Any, Text, Dict, List
-import re
-import psycopg2
 import logging
+from rasa_sdk.events import SlotSet
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-# Custom action to search for projects
+# Custom action to search for projects via the AI search API
 class ActionSearchProjects(Action):
 
     def name(self) -> Text:
@@ -30,76 +29,65 @@ class ActionSearchProjects(Action):
         if size:
             size = size.capitalize()
 
-        if duration:
-            # Ensure that duration is correctly formatted (e.g., "12 Weeks")
-            match = re.search(r'(\d+)\s?weeks?', duration, re.IGNORECASE)
-            if match:
-                duration = f"{match.group(1)} Weeks"
+        # Log slot values for debugging
+        logger.debug(f"Slots - Keywords: {keywords}, Discipline: {discipline}, Duration: {duration}, Size: {size}, Industry: {industry}, Location: {location}")
 
-        # Handle cases where discipline is used as keyword
-        if discipline and not keywords:
-            keywords = discipline
+        # Build query parameters for the API call
+        query_params = {
+            'keywords': keywords,
+            'discipline': discipline,
+            'duration': duration,
+            'size': size,
+            'industry': industry,
+            'location': location
+        }
 
-        logger.debug(f"Slots - Discipline: {discipline}, Keywords: {keywords}, Industry: {industry}, Duration: {duration}, Location: {location}, Size: {size}")
+        logger.debug(f"Query parameters for API: {query_params}")
 
+        # Make a GET request to the new project search route
         try:
-            # Open database connection within the run method
-            conn = psycopg2.connect(
-                host="159.196.147.89",
-                port="5432",
-                user="postgres",
-                password="EvanLovesFinance",
-                dbname="industryconnectdb"
-            )
-            cursor = conn.cursor()
+            api_url = 'http://host.docker.internal:3000/api/project/search'
+            response = requests.get(api_url, params=query_params)
+            logger.debug(f"API Response status: {response.status_code}")
 
-            query = """
-                SELECT project_id, industry_id, publish_date, discipline, duration, size, location_type, title, 
-                industry, description, status, image_path, address 
-                FROM "Projects" 
-                WHERE 1=1
-            """
-            params = []
+            if response.status_code == 200:
+                projects = response.json()
+                if projects:
+                    # Format the output to display project details
+                    project_summaries = "\n\n".join([
+                        f"Project ID: {project['project_id']}\n"
+                        f"Title: {project['title']}\n"
+                        f"Discipline: {project['discipline']}\n"
+                        f"Industry: {project['industry']}\n"
+                        f"Publish Date: {project['publish_date']}\n"
+                        f"Duration: {project['duration']}\n"
+                        f"Size: {project['size']}\n"
+                        f"Location Type: {project['location_type']}\n"
+                        f"Description: {project['description']}\n"
+                        f"Address: {project['address']}\n"
+                        f"Status: {project['status']}"
+                        for project in projects
+                    ])
+                    dispatcher.utter_message(text=f"Here are some matching projects:\n{project_summaries}")
 
-            if discipline:
-                query += " AND discipline = %s"
-                params.append(discipline)
-
-            if keywords:
-                query += " AND (title ILIKE %s OR description ILIKE %s)"
-                params.append(f"%{keywords}%")
-                params.append(f"%{keywords}%")
-
-            if industry:
-                query += " AND industry = %s"
-                params.append(industry)
-
-            if location:
-                query += " AND location_type = %s"
-                params.append(location)
-
-            query += " LIMIT 5;"
-            logger.debug(f"Final query: {query} with params: {params}")
-
-            cursor.execute(query, tuple(params))
-            results = cursor.fetchall()
-            cursor.close()
-            conn.close()
-
-            # Check if any results were returned
-            if results:
-                project_summaries = "\n\n".join(
-                    [f"Project ID: {proj_id}\nTitle: {title}\nDiscipline: {discipline}\nIndustry: {industry}\nPublish Date: {publish_date}\nDuration: {duration}\nSize: {size}\nLocation Type: {location_type}\nDescription: {description}\nStatus: {status}\nImage Path: {image_path}\nAddress: {address}"
-                     for proj_id, industry_id, publish_date, discipline, duration, size, location_type, title, industry, description, status, image_path, address in results])
-                dispatcher.utter_message(text=f"Here are some projects from the database:\n{project_summaries}")
-                logger.debug("Projects found and returned")
+                    # Return events to update slots with new values
+                    return [
+                        SlotSet("keywords", keywords),
+                        SlotSet("discipline", discipline),
+                        SlotSet("duration", duration),
+                        SlotSet("size", size),
+                        SlotSet("industry", industry),
+                        SlotSet("location", location)
+                    ]
+                else:
+                    dispatcher.utter_message(text="No matching projects found based on your search criteria.")
             else:
-                dispatcher.utter_message(text="No matching projects found in the database.")
-                logger.debug("No matching projects found")
+                dispatcher.utter_message(text="Error fetching data from the API.")
+                logger.error(f"API Error: {response.status_code}, {response.text}")
 
-        except psycopg2.Error as e:
-            dispatcher.utter_message(text="An error occurred while fetching data from the database.")
-            logger.error(f"Database error: {e}")
+        except requests.RequestException as e:
+            dispatcher.utter_message(text="An error occurred while accessing the project search API.")
+            logger.error(f"API error: {e}")
 
         return []
 
@@ -109,5 +97,6 @@ class ActionFallbackPrompt(Action):
         return "action_fallback_prompt"
 
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
         dispatcher.utter_message(text="Have you thought of a value proposition for the industry partner?")
         return []
