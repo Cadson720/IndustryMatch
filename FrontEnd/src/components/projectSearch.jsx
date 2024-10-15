@@ -2,26 +2,117 @@ import React, { useState, useEffect } from 'react';
 import "../styles/projectSearch.css"; // Import the CSS for this component
 
 const disciplinesByIndustry = {
-  'Business & Management': ['Finance', 'Marketing'],
-  'Creative Arts': ['Graphic Design', 'Music'],
-  'Engineering & Mathematics': ['Civil Engineering', 'Mechanical Engineering'],
-  'Food, Hospitality & Personal Services': ['Culinary Arts', 'Hotel Management'],
-  'Humanities, Arts, & Social Sciences': ['Philosophy', 'Sociology'],
-  'IT & Computer Science': ['Software Engineering', 'Cybersecurity'],
-  'Law, Legal Studies & Justice': ['Corporate Law', 'Criminal Justice'],
-  'Medical & Health Studies': ['Nursing', 'Pharmacy'],
-  'Property & Built Environment': ['Architecture', 'Urban Planning'],
-  'Sciences': ['Biology', 'Chemistry'],
-  'Teaching & Education': ['Primary Education', 'Secondary Education'],
-  'Trades & Services': ['Carpentry', 'Electrician'],
+  'Business': [
+    'Economics', 
+    'Human Resources', 
+    'Management', 
+    'Accounting, Commerce & Finance', 
+    'Hospitality, Tourism & Retail', 
+    'Marketing, Advertising & Public Relations'
+  ],
+  'Design & Arts': [
+    'Animation, Visual Effects & Post Production', 
+    'Creative Arts', 
+    'Media Studies', 
+    'Fashion Design', 
+    'Film & TV', 
+    'Graphic Design & Visual Arts', 
+    'Journalism & Writing', 
+    'Music & Performing Arts'
+  ],
+  'Engineering': [
+    'Aerospace Engineering', 
+    'Software Engineering', 
+    'Automotive & Transport Engineering', 
+    'Biomedical Engineering', 
+    'Civil Engineering & Construction', 
+    'Mechanical Engineering', 
+    'Mechatronic Engineering', 
+    'Electrical Engineering', 
+    'Chemical Engineering', 
+    'Industrial Engineering', 
+    'Robotics Engineering', 
+    'Environmental Engineering', 
+    'Marine Engineering', 
+    'Manufacturing Engineering', 
+    'Mining Engineering'
+  ],
+  'IT & Computer Science': [
+    'Artificial Intelligence', 
+    'Computer Graphics & Animations', 
+    'Computer Systems & Networks', 
+    'Cyber Security', 
+    'Data Science', 
+    'Design & User Experience', 
+    'Video Game Development'
+  ],
+  'Law, Legal Studies & Justice': [
+    'Criminal Justice', 
+    'Corporate Law', 
+    'Law Enforcement'
+  ],
+  'Health': [
+    'Nursing', 
+    'Pharmacist', 
+    'Dentistry & Orthopediatrics', 
+    'Exercise & Sports Science', 
+    'Midwifery', 
+    'Occupational', 
+    'Paramedics', 
+    'Physiotherapy', 
+    'Psychology'
+  ],
+  'Education': [
+    'Primary Teaching', 
+    'Secondary Teaching', 
+    'Special Education', 
+    'Tertiary Education'
+  ],
+  'Science': [
+    'Astronomy', 
+    'Biochemistry', 
+    'Biology', 
+    'Chemistry', 
+    'Geology', 
+    'Genetics', 
+    'Food Science', 
+    'Forensic Science', 
+    'Environmental Science', 
+    'Physics', 
+    'Marine Science', 
+    'Veterinary Science'
+  ],
+  'Social Sciences & Communication': [
+    'Criminology', 
+    'International Studies', 
+    'Languages & Linguistics', 
+    'Literature', 
+    'Philosophy', 
+    'Social Work', 
+    'Politics'
+  ],
+  'Food & Hospitality': [
+    'Culinary Arts', 
+    'Hotel Management', 
+    'Carers'
+  ],
+  'Trades & Services': [
+    'Carpentry', 
+    'Electrician', 
+    'Plumping', 
+    'Flooring, Plastering & Tiling', 
+    'Heating, Ventilation & Cooling', 
+    'Bricklaying & Stonemasonry', 
+    'Surveying'
+  ]
 };
 
 const ProjectSearch = () => {
   const [keywords, setKeywords] = useState('');
-  const [field, setField] = useState('');
+  const [field, setField] = useState(''); // Discipline
   const [duration, setDuration] = useState('');
   const [location, setLocation] = useState('');
-  const [industry, setIndustry] = useState('');
+  const [industry, setIndustry] = useState(''); // Industry
   const [size, setSize] = useState('');
   const [showExtended, setShowExtended] = useState(false); // Toggle for extended search criteria
   const [projects, setProjects] = useState([]);
@@ -75,6 +166,15 @@ const ProjectSearch = () => {
   // Function to toggle the extended search criteria
   const toggleExtendedCriteria = () => {
     setShowExtended(!showExtended);
+  };
+
+  // Function to handle industry change
+  const handleIndustryChange = (e) => {
+    const selectedIndustry = e.target.value;
+    setIndustry(selectedIndustry);
+
+    // Reset the discipline when the industry changes
+    setField('');
   };
 
   // Function to handle search
@@ -136,7 +236,7 @@ const ProjectSearch = () => {
           onChange={(e) => setKeywords(e.target.value)}
         />
 
-        <select value={industry} onChange={(e) => setIndustry(e.target.value)}>
+        <select value={industry} onChange={handleIndustryChange}>
           <option value="">Any Industry</option>
           {Object.keys(disciplinesByIndustry).map((ind) => (
             <option key={ind} value={ind}>{ind}</option>
