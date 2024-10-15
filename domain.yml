@@ -3,12 +3,7 @@ version: "3.1"
 intents:
   - greet
   - nlu_fallback
-  - ask_project_by_field
-  - ask_project_by_duration
-  - ask_project_by_location_type
-  - ask_project_by_keywords
-  - ask_project_by_industry
-  - ask_project_by_size
+  - ask_project
 entities:
   - discipline
   - keywords
