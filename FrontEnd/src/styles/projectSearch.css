@@ -100,7 +100,7 @@ select {
 input[type="text"]:hover,
 select:hover {
   border-color: #6A5ACD; /* Change border color on hover */
-  box-shadow: 0 0 8px rgba(106, 90, 205, 0.4); /* Add shadow effect */
+  box-shadow: 0 0 8px rgba(106, 90, 205, 1); /* Add shadow effect */
 }
 
 input[type="text"]:focus,
@@ -166,6 +166,7 @@ option {
   overflow-y: auto;
   padding-right: 20px;
   padding-bottom: 20px;
+  padding-left: 20px;
 }
 
 .project-preview {
@@ -192,7 +193,11 @@ option {
 }
 
 .project-preview.active {
-  border: 1px solid #16b2c7;
+  /* Remove the border */
+  border: none;
+
+  /* Add a drop shadow on all sides with the desired color */
+  box-shadow: 0px 0px 8px 4px rgba(22, 178, 199, 0.75); /* Apply shadow evenly on all sides */
 }
 
 .project-preview p {
@@ -259,9 +264,6 @@ option {
 .project-detail h2 {
   margin-top: 10px;
   font-style: normal;
-}
-
-.project-detail {
 }
 
 /* Two-column layout for project details */
