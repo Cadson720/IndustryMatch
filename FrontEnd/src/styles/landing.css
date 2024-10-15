@@ -43,6 +43,11 @@ body {
   color: white;
 }
 
+.landing-i {
+  font-size: 1.5rem;
+  color: white;
+}
+
 .button-container {
   margin-bottom: 20px; /* Space below the button container */
 }
@@ -92,7 +97,7 @@ body {
 /* Container for the text and line */
 .text-container {
   position: relative; /* For positioning the diagonal line */
-  margin-left: 8%;
+  margin-left: 15%;
   z-index: 1; /* Ensure the text is above the line */
 }
 
