@@ -22,12 +22,30 @@ body {
 
 /* Container for the search form */
 .project-search-container {
-  background-color: #1F3730; /* Dark green background */
+  background-color: #1d4654; /* Dark green background */
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative; /* Positioning for layering the pseudo-element */
+  z-index: 1; /* Ensure content appears above background layers */
+}
+
+/* Adding the background image as an overlay */
+.project-search-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/public/background.png');
+  background-size: cover; /* Ensure the image covers the entire element */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  opacity: 0.1; /* Set opacity for the image to see through it */
+  z-index: -1; /* Ensure the background image is behind the content */
 }
 
 /* The search bar container */
@@ -269,7 +287,7 @@ option {
 }
 
 .project-publish-info {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .project-publish-info p {
