@@ -326,8 +326,8 @@ const ProjectSearch = () => {
                 <div className="project-detail-left-column">
                   <p>{selectedProject.industry}<strong>  -  </strong>{selectedProject.discipline}</p>
                   <p>
-                    <strong>Team Size - </strong> 
-                    {selectedProject.size} 
+                    <img src="/public/team.png" alt="team icon" className="team-icon" />
+                     {selectedProject.size} 
                     {selectedProject.size === 'Small' ? ' (1 - 3 Members)' : selectedProject.size === 'Medium' ? ' (4 - 6 Members)' : selectedProject.size === 'Large' ? ' (7+ Members)' : ''}
                   </p>
                   <p>

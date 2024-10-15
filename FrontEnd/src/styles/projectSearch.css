@@ -136,13 +136,13 @@ option {
   display: flex;
   gap: 50px;
   height: calc(100% - 150px);
-  max-width: 75%;
-  width: 75%;
+  max-width: 80%;
+  width: 80%;
 }
 
 /* Left Column: Project Previews */
 .project-preview-column {
-  width: 45%;
+  width: 40%;
   height: 725px;
   max-height: 725px;
   overflow-y: auto;
@@ -211,6 +211,14 @@ option {
   vertical-align: middle;
 }
 
+.team-icon {
+  padding-left: 1.5px;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
 .duration-icon {
   width: 23px;
   height: 23px;
@@ -227,6 +235,7 @@ option {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   max-height: 700px;
+  width: 50%;
 }
 
 .project-detail h2 {
