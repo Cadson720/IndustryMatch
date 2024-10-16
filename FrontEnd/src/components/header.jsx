@@ -50,7 +50,7 @@ const Header = () => {
                   <a href="/applications" className="dropdown-item">Applications</a>
                   <a href="/recommended-projects" className="dropdown-item">Recommended Projects</a>
                   <a href="/settings" className="dropdown-item">Settings</a>
-                  <a href="/signout" className="dropdown-item signout">Sign Out</a>
+                  <a href="/src/html-pages/landing.html" className="dropdown-item signout">Sign Out</a>
                 </div>
               )}
             </div>
