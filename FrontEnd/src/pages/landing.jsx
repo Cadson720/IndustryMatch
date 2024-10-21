@@ -9,8 +9,6 @@ import Footer from '../components/footer.jsx'
 
 createRoot(document.getElementById('root')).render(
     <BrowserRouter>
-      <Header />
       <Landing/>
-      <Footer />
     </BrowserRouter>,
   )
