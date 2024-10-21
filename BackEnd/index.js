@@ -6,6 +6,7 @@ const aiSearchRoutes = require('./routes/aiSearchRoutes'); // Import AI search r
 const academicRoutes = require('./routes/academicRoutes'); //Import Academic route
 const industryRoutes = require('./routes/industryRoutes'); //Import Industry route
 const adminRoutes = require('./routes/adminRoutes'); //Import Admin route
+const loginRoutes = require('./routes/loginRoutes'); //Import Login route
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -46,6 +47,9 @@ app.use('/api', industryRoutes);
 
 // Use the Admin routes
 app.use('/api', adminRoutes);
+
+// Use the Login routes
+app.use('/api', loginRoutes);
 
 // Health check endpoint
 app.get('/', (req, res) => {
