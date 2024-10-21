@@ -9,6 +9,7 @@ function Landing() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [selectedUserType, setSelectedUserType] = useState(null);
+  const [busy, setBusy] = useState(false);
   let navigate = useNavigate();
 
   const LoginVerify = (e) => {
@@ -20,30 +21,117 @@ function Landing() {
     const password = formData.get("password");
 
     //Check if user is an academic
+    
     console.log('start academic fetch')
-    fetch(`http://localhost:3000/api/academic/${email}`, {
-    })
+    //console.log(email)
+    //console.log(password)
+    fetch(`http://localhost:3000/api/academic/`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to find academic');
         }
-        // Move to academic page
-        path = '/src/html-pages/projectSearch.html';
-        navigate(path);
-        window.location.reload();
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data)
+        console.log('start check Academic Users')
+        for (let i = 0; i < data.length; i++){
+          console.log(data[i].academic_email)
+          if(data[i].academic_email == email){
+            if(data[i].academic_password == password){
+              console.log('User is academic')
+              setUserType('Academic')
+              break;
+            }
+          }
+        }
+        console.log(userType)
+        if(userType == 'Academic'){
+          //Move to academic page
+          path = '/src/html-pages/projectSearch.html';
+          navigate(path);
+          window.location.reload();
+        }
       })
       .catch((error) => console.error('Error finding academic:', error));
 
 
+
+    //////check if user is industry
+    
+    console.log('start industry fetch')
+    //console.log(email)
+    //console.log(password)
+    fetch(`http://localhost:3000/api/industry`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to find industry');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data)
+        console.log('start check Industry Users')
+        for (let i = 0; i < data.length; i++){
+          console.log(data[i].industry_email)
+          if(data[i].industry_email == email){
+            if(data[i].industry_password == password){
+              console.log('User is industry')
+              setUserType('Industry')
+              break;
+            }
+          }
+        }
+        console.log(userType)
+        if(userType == 'Industry'){
+          //Move to industry page
+          path = '/src/html-pages/projectSearch.html';
+          navigate(path);
+          window.location.reload();
+        }
+      })
+      .catch((error) => console.error('Error finding industry:', error));
+  
+      
+    //////////check if user is admin
+
+    console.log('start admin fetch')
+    //console.log(email)
+    //console.log(password)
+    fetch(`http://localhost:3000/api/admin/`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to find admin');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data)
+        console.log('start check Admin Users')
+        for (let i = 0; i < data.length; i++){
+          console.log(data[i].admin_email)
+          if(data[i].admin_email == email){
+            if(data[i].admin_password == password){
+              console.log('User is admin')
+              setUserType('Admin')
+              break;
+            }
+          }
+        }
+        console.log(userType)
+        if(userType == 'Admin'){
+          //Move to admin page
+          path = '/src/html-pages/projectSearch.html';
+          navigate(path);
+          window.location.reload();
+        }
+      })
+      .catch((error) => console.error('Error finding admin:', error));
+/*      
+
     // Verify which account type logged in
     if (email === 'a@admin.com' && password === 'Admin') {
       setUserType('Admin');
-    }
-    if (email === 'i@industry.com' && password === 'Industry') {
-      setUserType('Industry');
-    }
-    if (email === 'd@academic.com' && password === 'Academic') {
-      setUserType('Academic');
     }
 
     // Check if user is admin
@@ -52,24 +140,15 @@ function Landing() {
       navigate(path);
       window.location.reload();
     }
-    // Check if user is industry
-    if (userType === 'Industry') {
-      path = '/src/html-pages/industryRedirect.html';
-      navigate(path);
-      window.location.reload();
-    }
 
-    // Check if user is academic
-    if (userType === 'Academic') {
-      path = '/src/html-pages/projectSearch.html';
-      navigate(path);
-      window.location.reload();
-    }
+*/
 
     // User does not exist in the system
     if (userType === 'Invalid') {
+      console.log('invalid credentials')
       alert('Invalid email and/or password');
     }
+      
   };
 
   const handleRegisterTypeSelection = (type) => {
@@ -96,6 +175,7 @@ function Landing() {
     // Handle registration logic based on selected user type
     console.log(`Registering ${selectedUserType}:`, email, password, extraFields);
     // Here you can add registration logic (e.g., send data to backend)
+    
 
     // Close the registration modal after submission
     setIsRegisterModalOpen(false);
