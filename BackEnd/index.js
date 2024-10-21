@@ -3,6 +3,9 @@ const sequelize = require('./config/database'); // Your Sequelize instance
 const userRoutes = require('./routes/userRoutes'); // Import user routes
 const projectRoutes = require('./routes/projectRoutes'); // Import project routes
 const aiSearchRoutes = require('./routes/aiSearchRoutes'); // Import AI search route
+const academicRoutes = require('./routes/academicRoutes'); //Import Academic route
+const industryRoutes = require('./routes/industryRoutes'); //Import Industry route
+const adminRoutes = require('./routes/adminRoutes'); //Import Admin route
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -34,6 +37,15 @@ app.use('/api', projectRoutes);
 
 // Use the AI-specific search routes
 app.use('/api', aiSearchRoutes); // AI search routes are also prefixed with /api
+
+// Use the Academic routes
+app.use('/api', academicRoutes);
+
+// Use the Industry routes
+app.use('/api', industryRoutes);
+
+// Use the Admin routes
+app.use('/api', adminRoutes);
 
 // Health check endpoint
 app.get('/', (req, res) => {

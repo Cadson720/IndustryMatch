@@ -10,6 +10,7 @@ const db = {
   Academic,
   Industry,
   Project,
+  Admin,
   sequelize
 };
 
