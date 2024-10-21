@@ -23,7 +23,7 @@ const Industry_Profile = () => {
         return (
             <div className="content-box">
               <h2>My Projects</h2>
-              <div className="add-project-btn" onClick={() => navigate('/projectCreation')}>
+              <div className="add-project-btn" onClick={() => navigate('/src/html-pages/projectCreation')}>
                 <i> + </i> Add A Project...
               </div>
             </div>
