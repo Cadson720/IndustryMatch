@@ -47,48 +47,33 @@ function Landing() {
 
   const LoginVerify = (e) => {
     e.preventDefault();
-    let path = '/';
     const form = e.target;
     const formData = new FormData(form);
     const email = formData.get("email");
     const password = formData.get("password");
-
-    // Verify which account type logged in
+  
+    let path = '/';
+  
+    // Determine user type based on email and password
     if (email === 'a@admin.com' && password === 'Admin') {
       setUserType('Admin');
-    }
-    if (email === 'i@industry.com' && password === 'Industry') {
-      setUserType('Industry');
-    }
-    if (email === 'd@academic.com' && password === 'Academic') {
-      setUserType('Academic');
-    }
-
-    // Check if user is admin
-    if (userType === 'Admin') {
       path = '/src/html-pages/adminRedirect.html';
-      navigate(path);
-      window.location.reload();
-    }
-    // Check if user is industry
-    if (userType === 'Industry') {
+    } else if (email === 'i@industry.com' && password === 'Industry') {
+      setUserType('Industry');
       path = '/src/html-pages/industryRedirect.html';
-      navigate(path);
-      window.location.reload();
-    }
-
-    // Check if user is academic
-    if (userType === 'Academic') {
+    } else if (email === 'd@academic.com' && password === 'Academic') {
+      setUserType('Academic');
       path = '/src/html-pages/projectSearch.html';
-      navigate(path);
-      window.location.reload();
-    }
-
-    // User does not exist in the system
-    if (userType === 'Invalid') {
+    } else {
       alert('Invalid email and/or password');
+      return; // Exit the function if credentials are invalid
     }
+  
+    // Navigate to the appropriate path
+    navigate(path);
+    window.location.reload(); // Reload if necessary
   };
+  
 
   const handleRegisterTypeSelection = (type) => {
     setSelectedUserType(type);
@@ -140,7 +125,7 @@ const industryFields = [
         <form method="post" onSubmit={LoginVerify}>
           <label>Email</label>
           <input name="email" type="email" placeholder="Email" required />
-          <label>Passsord</label>
+          <label>Password</label>
           <input name="password" type="password" placeholder="Password" required />
           <div className="login-button">
           <button type="submit">Login</button>

@@ -20,9 +20,9 @@ const Industry = () => {
           <div className="separator"></div>
           <div className="text bottom-row">
           <img src="/MatchMaker.png" alt="Image" className="image" />
-          Or get help with our MatchMaker AI
+          View Your Projects and Applications
           </div>
-          <a href="/src/html-pages/matchMaker.html" className="nav-link">MatchMaker AI</a>
+          <a href="/src/html-pages/industryProfile.html" className="nav-link">Here</a>
         </div>
       </div>
     </div>
