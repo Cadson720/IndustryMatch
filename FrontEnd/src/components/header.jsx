@@ -45,11 +45,11 @@ const Header = () => {
               {dropdownVisible && (
                 <div className="dropdown-menu" style={{ left: `calc(50% - ${menuPosition}px)` }}>
                   <a href="/src/html-pages/academicProfile.html" className="dropdown-item">Profile</a>
-                  <a href="/saved-projects" className="dropdown-item">Saved Projects</a>
-                  <a href="/saved-searches" className="dropdown-item">Saved Searches</a>
-                  <a href="/applications" className="dropdown-item">Applications</a>
-                  <a href="/recommended-projects" className="dropdown-item">Recommended Projects</a>
-                  <a href="/settings" className="dropdown-item">Settings</a>
+                  <a href="/src/html-pages/savedProject.html" className="dropdown-item">Saved Projects</a>
+                  <a href="/src/html-pages/landing.html" className="dropdown-item">Saved Searches</a>
+                  <a href="/src/html-pages/applicationsAcademic.html" className="dropdown-item">Applications</a>
+                  <a href="/src/html-pages/recommendedProjects.html" className="dropdown-item">Recommended Projects</a>
+                  <a href="/src/html-pages/academicSettings.html" className="dropdown-item">Settings</a>
                   <a href="/src/html-pages/landing.html" className="dropdown-item signout">Sign Out</a>
                 </div>
               )}
