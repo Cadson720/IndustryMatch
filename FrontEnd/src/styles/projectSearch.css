@@ -40,7 +40,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('/public/background.png');
+  background-image: url('/background.png');
   background-size: cover; /* Ensure the image covers the entire element */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Prevent the image from repeating */
@@ -266,6 +266,12 @@ option {
   font-style: normal;
 }
 
+.project-detail p {
+  text-align: left;
+  line-height: 1.6; /* Slightly increase line spacing for better readability */
+  white-space: pre-wrap; /* Allow line breaks from the JSX formatting */
+}
+
 /* Two-column layout for project details */
 .project-detail-columns {
   display: flex;
@@ -281,9 +287,15 @@ option {
   padding-right: 10px;
 }
 
+/* Ensure the text and icon are aligned vertically */
+.project-preview p, .project-detail-left-column p {
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+}
+
 .project-detail-left-column p {
   text-align: left;
-  align-items: flex-end;
   display: flex;
   flex-direction: row;
 }

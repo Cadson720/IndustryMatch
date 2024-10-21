@@ -208,6 +208,20 @@ const ProjectSearch = () => {
     return parts.length > 1 ? parts[1].trim() : '';
   };
 
+  // Function to limit preview description until "Project Objectives:"
+  const getPreviewDescription = (description) => {
+    const cutOffIndex = description.indexOf('Project Objectives:');
+    return cutOffIndex > -1 ? description.substring(0, cutOffIndex) : description;
+  };
+
+  // Function to format detailed description with new lines at specific points
+  const formatDetailedDescription = (description) => {
+    return description
+      .replace(/Project Objectives:/g, "\n\nProject Objectives:\n")
+      .replace(/Experience:/g, "\n\nExperience:\n")
+      .replace(/ - /g, "\n - ");
+  };
+
   // Handle project click to display detailed view
   const handleProjectClick = (project) => {
     setSelectedProject(project);
@@ -288,6 +302,8 @@ const ProjectSearch = () => {
 
       <div className="project-columns">
         {/* Left Side: Project Previews */}
+        {/* Left Side: Project Previews */}
+        {/* Left Side: Project Previews */}
         <div className="project-preview-column">
           {filteredProjects.length > 0 ? (
             filteredProjects.map((project) => (
@@ -299,14 +315,14 @@ const ProjectSearch = () => {
                 <h3><strong>{project.title}</strong></h3>
                 <p1>{project.industry} - {project.discipline}</p1>
                 <p>
-                  <img src="/public/clock.png" alt="location icon" className="duration-icon" />
+                  <img src="/clock.png" alt="duration icon" className="duration-icon" />
                   {project.duration}
                 </p>
                 <p1>
-                  <img src="/public/location.png" alt="location icon" className="location-icon" />
+                  <img src="/location.png" alt="location icon" className="location-icon" />
                   {project.location_type}
                 </p1>
-                <p><em>{project.description}</em></p>
+                <p><em>{getPreviewDescription(project.description).slice(0, -1)}..</em></p> {/* Remove last character and add ".." */}
               </div>
             ))
           ) : (
@@ -325,16 +341,16 @@ const ProjectSearch = () => {
                 <div className="project-detail-left-column">
                   <p>{selectedProject.industry}<strong>  -  </strong>{selectedProject.discipline}</p>
                   <p>
-                    <img src="/public/team.png" alt="team icon" className="team-icon" />
+                    <img src="/team.png" alt="team icon" className="team-icon" />
                      {selectedProject.size} 
                     {selectedProject.size === 'Small' ? ' (1 - 3 Members)' : selectedProject.size === 'Medium' ? ' (4 - 6 Members)' : selectedProject.size === 'Large' ? ' (7+ Members)' : ''}
                   </p>
                   <p>
-                    <img src="/public/clock.png" alt="duration icon" className="duration-icon" />
+                    <img src="/clock.png" alt="duration icon" className="duration-icon" />
                     <strong> </strong> {selectedProject.duration}
                   </p>
                   <p>
-                    <img src="/public/location.png" alt="location icon" className="location-icon" />
+                    <img src="/location.png" alt="location icon" className="location-icon" />
                     <strong> </strong> {selectedProject.location_type}
                     {(selectedProject.location_type === 'Flexible' || selectedProject.location_type === 'On-site') && selectedProject.address && (
                       <p1><strong>  - </strong> {extractSuburb(selectedProject.address)}</p1>
@@ -343,7 +359,8 @@ const ProjectSearch = () => {
                 </div>
               </div>
 
-              <p><strong></strong> {selectedProject.description}</p>
+              {/* Description with formatted new lines */}
+              <p><strong></strong> {formatDetailedDescription(selectedProject.description)}</p>
 
               <div className="project-publish-info">
                 <p><strong>Published:</strong> {getProjectAgeInDays(selectedProject.publish_date)} days ago</p>

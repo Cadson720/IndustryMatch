@@ -14,7 +14,6 @@ function Landing() {
 
   const LoginVerify = (e) => {
     e.preventDefault();
-    let path = '/';
     const form = e.target;
     const formData = new FormData(form);
     const email = formData.get("email");
@@ -147,9 +146,11 @@ function Landing() {
     if (userType === 'Invalid') {
       console.log('invalid credentials')
       alert('Invalid email and/or password');
+      return; // Exit the function if credentials are invalid
     }
       
   };
+  
 
   const handleRegisterTypeSelection = (type) => {
     setSelectedUserType(type);
@@ -202,7 +203,7 @@ const industryFields = [
         <form method="post" onSubmit={LoginVerify}>
           <label>Email</label>
           <input name="email" type="email" placeholder="Email" required />
-          <label>Passsord</label>
+          <label>Password</label>
           <input name="password" type="password" placeholder="Password" required />
           <div className="login-button">
           <button type="submit">Login</button>
