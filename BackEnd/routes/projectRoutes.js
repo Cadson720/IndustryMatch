@@ -179,4 +179,29 @@ router.put('/project/:id', async (req, res) => {
   }
 });
 
+// Get all projects by Industry ID
+router.get('/project/industry/:industryId', async (req, res) => {
+  const { industryId } = req.params;
+  try {
+    const projects = await Project.findAll({
+      where: {
+        industry_id: industryId,  // Filter by industry_id
+      },
+      include: {
+        model: Industry,
+        as: 'Industry'
+      }
+    });
+    
+    if (!projects || projects.length === 0) {
+      return res.status(404).json({ message: 'No projects found for this industry' });
+    }
+
+    res.json(projects); // Send back the list of projects
+  } catch (error) {
+    console.error('Error retrieving projects by industry ID:', error);
+    res.status(500).json({ error: 'Failed to retrieve projects for the industry' });
+  }
+});
+
 module.exports = router;
