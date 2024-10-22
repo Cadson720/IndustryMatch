@@ -9,6 +9,7 @@ const adminRoutes = require('./routes/adminRoutes'); //Import Admin route
 const loginRoutes = require('./routes/loginRoutes'); //Import Login route
 const academicProfileRoutes = require('./routes/academicProfileRoutes'); //Import academic profile route
 const eoiRoutes = require('./routes/eoiRoutes'); //Import academic profile route
+const savedProjectRoutes = require('./routes/savedProjectRoutes');
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -58,6 +59,8 @@ app.use('/api', academicProfileRoutes);
 
 // Use the academic profile routes
 app.use('/api', eoiRoutes);
+
+app.use('/api', savedProjectRoutes);
 
 // Health check endpoint
 app.get('/', (req, res) => {

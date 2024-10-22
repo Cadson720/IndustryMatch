@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const Industry = require('./industry'); // Import Industry model
+const SavedProject = require('./savedProject');
 
 const Project = sequelize.define('Project', {
   project_id: {
@@ -65,7 +66,6 @@ const Project = sequelize.define('Project', {
   timestamps: false
 });
 
-// Define the association (Project belongs to an Industry)
-Project.belongsTo(Industry, { foreignKey: 'industry_id' });
+
 
 module.exports = Project;

@@ -50,9 +50,6 @@ const EOI = sequelize.define('EOIs', {
   timestamps: false
 });
 
-// Define the associations
-EOI.belongsTo(Industry, { foreignKey: 'industry_id' });
-EOI.belongsTo(Academic, { foreignKey: 'academic_id' });
-EOI.belongsTo(Project, { foreignKey: 'project_id' });
+
 
 module.exports = EOI;
