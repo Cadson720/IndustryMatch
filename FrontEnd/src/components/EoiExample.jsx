@@ -6,20 +6,29 @@ const EOIDisplay = () => {
   const [academicId, setAcademicId] = useState('');
   const [industryId, setIndustryId] = useState('');
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [formData, setFormData] = useState({
+    industry_id: '',
+    academic_id: '',
+    project_id: '',
+    eoi_date: '',
+    class_size: '',
+    eoi_status: ''
+  });
 
   // Fetch all EOIs
-const fetchAllEOIs = async () => {
+  const fetchAllEOIs = async () => {
     try {
       const response = await fetch('http://localhost:3000/api/eoi');
       console.log('Response Status:', response.status); // Log status
-  
+
       if (!response.ok) {
         throw new Error('Error fetching all EOIs');
       }
-  
+
       const data = await response.json();
       console.log('Data received:', data); // Log the data received
-  
+
       setEois(data); // Update state with fetched EOIs
       setError(null); // Clear any errors
     } catch (err) {
@@ -73,9 +82,40 @@ const fetchAllEOIs = async () => {
     }
   };
 
+  // Handle form input change for EOI creation
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Submit form to create a new EOI
+  const handleCreateEOI = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:3000/api/eoi', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Error creating EOI');
+      }
+
+      const data = await response.json();
+      setSuccess(`EOI created successfully with ID: ${data.eoi_id}`);
+      setError(null);
+      setEois([...eois, data]); // Append the new EOI to the existing list
+    } catch (err) {
+      setError('Error creating EOI');
+      setSuccess(null);
+    }
+  };
+
   return (
     <div>
-      <h1>EOI Fetcher</h1>
+      <h1>EOI Fetcher and Creator</h1>
 
       {/* Fetch All EOIs */}
       <button onClick={fetchAllEOIs}>Fetch All EOIs</button>
@@ -116,8 +156,71 @@ const fetchAllEOIs = async () => {
         <button onClick={fetchEOIsByIndustry}>Fetch EOIs by Industry</button>
       </div>
 
-      {/* Display Error */}
+      {/* Form to Create a New EOI */}
+      <div>
+        <h2>Create a New EOI</h2>
+        <form onSubmit={handleCreateEOI}>
+          <div>
+            <label>Industry ID: </label>
+            <input
+              type="number"
+              name="industry_id"
+              value={formData.industry_id}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Academic ID: </label>
+            <input
+              type="number"
+              name="academic_id"
+              value={formData.academic_id}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Project ID: </label>
+            <input
+              type="number"
+              name="project_id"
+              value={formData.project_id}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>EOI Date: </label>
+            <input
+              type="date"
+              name="eoi_date"
+              value={formData.eoi_date}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Class Size: </label>
+            <input
+              type="text"
+              name="class_size"
+              value={formData.class_size}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>EOI Status: </label>
+            <input
+              type="text"
+              name="eoi_status"
+              value={formData.eoi_status}
+              onChange={handleChange}
+            />
+          </div>
+          <button type="submit">Create EOI</button>
+        </form>
+      </div>
+
+      {/* Display Success/Error Messages */}
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      {success && <p style={{ color: 'green' }}>{success}</p>}
 
       {/* Display Results */}
       <div>

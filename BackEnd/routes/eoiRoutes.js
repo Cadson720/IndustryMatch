@@ -85,4 +85,60 @@ router.get('/eoi/industry/:industryId', async (req, res) => {
     }
   });
 
+  // Route to create a new EOI
+router.post('/eoi', async (req, res) => {
+    const { industry_id, academic_id, project_id, eoi_date, class_size, eoi_status } = req.body;
+  
+    try {
+      // Validate the incoming data (you can add more validations as needed)
+      if (!eoi_date || !class_size || !eoi_status) {
+        return res.status(400).json({ error: 'Missing required fields: eoi_date, class_size, and eoi_status' });
+      }
+  
+      // Create the new EOI
+      const newEOI = await EOI.create({
+        industry_id,
+        academic_id,
+        project_id,
+        eoi_date,
+        class_size,
+        eoi_status
+      });
+  
+      // Send the newly created EOI in the response
+      res.status(201).json(newEOI);
+    } catch (error) {
+      console.error('Error creating EOI:', error);
+      res.status(500).json({ error: 'Error creating EOI' });
+    }
+});
+
+// Route to create a new EOI
+router.post('/eoi', async (req, res) => {
+    const { industry_id, academic_id, project_id, eoi_date, class_size, eoi_status } = req.body;
+  
+    try {
+      // Validate the incoming data (you can add more validations as needed)
+      if (!eoi_date || !class_size || !eoi_status) {
+        return res.status(400).json({ error: 'Missing required fields: eoi_date, class_size, and eoi_status' });
+      }
+  
+      // Create the new EOI
+      const newEOI = await EOI.create({
+        industry_id,
+        academic_id,
+        project_id,
+        eoi_date,
+        class_size,
+        eoi_status
+      });
+  
+      // Send the newly created EOI in the response
+      res.status(201).json(newEOI);
+    } catch (error) {
+      console.error('Error creating EOI:', error);
+      res.status(500).json({ error: 'Error creating EOI' });
+    }
+  });
+
 module.exports = router;
