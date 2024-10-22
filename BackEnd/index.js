@@ -7,6 +7,7 @@ const academicRoutes = require('./routes/academicRoutes'); //Import Academic rou
 const industryRoutes = require('./routes/industryRoutes'); //Import Industry route
 const adminRoutes = require('./routes/adminRoutes'); //Import Admin route
 const loginRoutes = require('./routes/loginRoutes'); //Import Login route
+const academicProfileRoutes = require('./routes/academicProfileRoutes'); //Import academic profile route
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -50,6 +51,9 @@ app.use('/api', adminRoutes);
 
 // Use the Login routes
 app.use('/api', loginRoutes);
+
+// Use the academic profile routes
+app.use('/api', academicProfileRoutes);
 
 // Health check endpoint
 app.get('/', (req, res) => {

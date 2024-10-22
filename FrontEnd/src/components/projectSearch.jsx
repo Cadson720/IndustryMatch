@@ -217,9 +217,10 @@ const ProjectSearch = () => {
   // Function to format detailed description with new lines at specific points
   const formatDetailedDescription = (description) => {
     return description
-      .replace(/Project Objectives:/g, "\n\nProject Objectives:\n")
-      .replace(/Experience:/g, "\n\nExperience:\n")
-      .replace(/ - /g, "\n - ");
+      .replace(/Project Objectives:/g, "\nProject Objectives:\n")
+      .replace(/Technical Knowledge:/g, "\nTechnical Knowledge:\n")
+      .replace(/Student Year Recommendation:/g, "\nStudent Year Recommendation\n")
+      //.replace(/ - /g, "\n - ");
   };
 
   // Handle project click to display detailed view
@@ -322,7 +323,7 @@ const ProjectSearch = () => {
                   <img src="/location.png" alt="location icon" className="location-icon" />
                   {project.location_type}
                 </p1>
-                <p><em>{getPreviewDescription(project.description).slice(0, -1)}..</em></p> {/* Remove last character and add ".." */}
+                <p><em>{getPreviewDescription(project.description).slice(0, -2)}..</em></p> {/* Remove last character and add ".." */}
               </div>
             ))
           ) : (

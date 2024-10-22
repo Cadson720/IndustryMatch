@@ -64,7 +64,6 @@ const Header = () => {
               <a href="/src/html-pages/landing.html" className="nav-link">Home</a>
               <a href="/src/html-pages/projectSearch.html" className="nav-link">Project Search</a>
               <a href="/src/html-pages/savedProject.html" className="nav-link">Saved Projects</a>
-              <a href="/src/html-pages/projectCreation.html" className="nav-link">Create Project</a>
             </>
           )}
           
