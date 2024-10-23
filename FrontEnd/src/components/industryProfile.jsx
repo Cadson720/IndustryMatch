@@ -6,7 +6,7 @@ const Industry_Profile = () => {
   const [userDetails, setUserDetails] = useState({
     email: '',
     industry: '',
-    department: ''
+    organisation: ''  // Change department to organisation
   });
   const [loading, setLoading] = useState(true); // Loading state
   const [editMode, setEditMode] = useState(false); // Edit mode state
@@ -35,8 +35,8 @@ const Industry_Profile = () => {
         const data = await response.json();
         setUserDetails({
           email: data.industry_email,
-          industry: data.industry_discipline,
-          department: data.department,
+          industry: data.industry_discipline,  // Ensure you get the correct field
+          organisation: data.organisation,  // Fetch organisation instead of department
         });
         setLoading(false); // Stop loading once data is fetched
       } catch (error) {
@@ -63,7 +63,11 @@ const Industry_Profile = () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`, // Send the JWT token in the Authorization header
         },
-        body: JSON.stringify(userDetails), // Send the updated details
+        body: JSON.stringify({
+          email: userDetails.email,
+          industry_discipline: userDetails.industry,  // Send industry_discipline instead of industry
+          organisation: userDetails.organisation  // Send organisation instead of department
+        }), // Send the updated details
       });
 
       if (!response.ok) {
@@ -108,11 +112,11 @@ const Industry_Profile = () => {
                   value={userDetails.industry}
                   onChange={(e) => setUserDetails({ ...userDetails, industry: e.target.value })}
                 />
-                <label>Department:</label>
+                <label>Organisation:</label> {/* Change from Department to Organisation */}
                 <input
                   type="text"
-                  value={userDetails.department}
-                  onChange={(e) => setUserDetails({ ...userDetails, department: e.target.value })}
+                  value={userDetails.organisation}  // Change from department to organisation
+                  onChange={(e) => setUserDetails({ ...userDetails, organisation: e.target.value })}  // Handle change accordingly
                 />
                 <button type="submit" className="save-btn">Save</button>
                 <button type="button" className="cancel-btn" onClick={() => setEditMode(false)}>Cancel</button>
@@ -121,7 +125,7 @@ const Industry_Profile = () => {
               <>
                 <p><strong>Email:</strong> {userDetails.email}</p>
                 <p><strong>Industry:</strong> {userDetails.industry}</p>
-                <p><strong>Department:</strong> {userDetails.department}</p>
+                <p><strong>Organisation:</strong> {userDetails.organisation}</p> {/* Adjusted */}
                 <button className="edit-btn" onClick={() => setEditMode(true)}>Edit Details</button>
               </>
             )}
