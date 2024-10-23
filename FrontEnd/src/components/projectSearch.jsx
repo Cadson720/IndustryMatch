@@ -303,8 +303,6 @@ const ProjectSearch = () => {
 
       <div className="project-columns">
         {/* Left Side: Project Previews */}
-        {/* Left Side: Project Previews */}
-        {/* Left Side: Project Previews */}
         <div className="project-preview-column">
           {filteredProjects.length > 0 ? (
             filteredProjects.map((project) => (

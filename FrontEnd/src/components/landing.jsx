@@ -5,6 +5,7 @@ import Loader from '../components/loader.jsx'; // Import the Loader component
 import Header from '../components/header.jsx'; // Import Header
 import Footer from '../components/footer.jsx'; // Import Footer
 import "../styles/loader.css";
+import FeaturedProjects from './featuredProjects';
 
 // Helper function to decode JWT token manually
 function parseJwt(token) {
@@ -29,6 +30,17 @@ function Landing() {
   const [selectedUserType, setSelectedUserType] = useState(null);
   const [loading, setLoading] = useState(false); // Add a loading state
   const navigate = useNavigate();
+  
+
+  const academicFields = [
+    { name: 'role', placeholder: 'Role', options: ['Bachelor', 'Master', 'PhD'], required: true },
+    { name: 'school', placeholder: 'School', options: ['UTS', 'UniversityB'], required: true },
+  ];
+
+  const industryFields = [
+    { name: 'organisation', placeholder: 'Organisation', options: ['OrgA', 'OrgB'], required: true },
+    { name: 'discipline', placeholder: 'Discipline', options: ['Engineering', 'Software', 'Medicin'], required: true },
+  ];
 
   const LoginVerify = async (e) => {
     e.preventDefault();
@@ -87,6 +99,38 @@ function Landing() {
     } catch (error) {
       console.error('Login error:', error);
       alert(error.message);  // Display the error message
+    }
+  };
+
+  const handleRegisterTypeSelection = (type) => {
+    setSelectedUserType(type); // Set the selected user type
+  };
+
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    
+    // Handle registration logic here
+    try {
+      const response = await fetch(`http://localhost:3000/api/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, userType: selectedUserType })
+      });
+
+      if (!response.ok) {
+        throw new Error('Registration failed');
+      }
+
+      alert('Registration successful!');
+      setIsRegisterModalOpen(false);
+      setSelectedUserType(null); // Reset user type selection
+    } catch (error) {
+      console.error('Registration error:', error);
+      alert(error.message);
     }
   };
 
@@ -182,6 +226,7 @@ function Landing() {
         </div>
         <div className="seperator"></div> 
       </div>
+      <FeaturedProjects />
       <Footer />
     </>
   );

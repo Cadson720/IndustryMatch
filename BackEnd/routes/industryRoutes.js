@@ -1,8 +1,8 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const { Industry } = require('../models'); // Assuming Industry is your Sequelize model
+const { Industry } = require('../models'); // Sequelize Industry model
 const router = express.Router();
-const jwtSecret = 'your_secret_key'; // Use your JWT secret key
+const jwtSecret = 'your_secret_key'; // JWT secret key
 
 // Middleware to authenticate and verify JWT token
 const authenticateToken = (req, res, next) => {
@@ -23,6 +23,7 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
+// Route to get the logged-in industry user's profile
 router.get('/industry/profile', authenticateToken, async (req, res) => {
   try {
     const industryId = req.user.profile.industry_id;
@@ -46,14 +47,12 @@ router.get('/industry/profile', authenticateToken, async (req, res) => {
   }
 });
 
-
 // Route to update the logged-in industry user's profile information
 router.put('/industry/profile', authenticateToken, async (req, res) => {
   const { email, industry_discipline, organisation } = req.body;
   const industryId = req.user.profile.industry_id;
 
   try {
-    // Log received data
     console.log('Received data:', req.body);
 
     // Find the industry profile in the database
@@ -62,7 +61,6 @@ router.put('/industry/profile', authenticateToken, async (req, res) => {
       return res.status(404).json({ error: 'Industry user not found' });
     }
 
-    // Log existing profile details before update
     console.log('Existing profile:', industryProfile);
 
     // Update the fields
@@ -73,7 +71,6 @@ router.put('/industry/profile', authenticateToken, async (req, res) => {
     // Save the updated industry details
     await industryProfile.save();
 
-    // Log updated profile
     console.log('Updated profile:', industryProfile);
 
     // Return updated industry profile
@@ -88,5 +85,41 @@ router.put('/industry/profile', authenticateToken, async (req, res) => {
   }
 });
 
+// POST Route to create a new Industry user
+router.post('/industry', authenticateToken, async (req, res) => {
+  const { industry_email, industry_discipline, organisation, industry_password } = req.body;
+
+  // Ensure all fields are provided
+  if (!industry_email || !industry_discipline || !organisation || !industry_password) {
+    return res.status(400).json({ error: 'Please provide all required fields' });
+  }
+
+  try {
+    // Check if the email already exists
+    const existingIndustry = await Industry.findOne({ where: { industry_email } });
+    if (existingIndustry) {
+      return res.status(409).json({ error: 'Industry email already exists' });
+    }
+
+    // Create a new Industry entry
+    const newIndustry = await Industry.create({
+      industry_email,
+      industry_discipline,
+      organisation,
+      industry_password,
+    });
+
+    // Return the newly created industry entry (without the password for security)
+    return res.status(201).json({
+      industry_id: newIndustry.industry_id,
+      industry_email: newIndustry.industry_email,
+      industry_discipline: newIndustry.industry_discipline,
+      organisation: newIndustry.organisation,
+    });
+  } catch (error) {
+    console.error('Error creating new industry:', error);
+    return res.status(500).json({ error: 'Failed to create industry' });
+  }
+});
 
 module.exports = router;
