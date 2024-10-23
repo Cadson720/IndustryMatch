@@ -229,7 +229,7 @@ function CreateProject() {
             </div>
             <div className="form-group">
                 <label className="label">Image Path:</label>
-                <input type="text" name="image_path" value={formData.image_path} onChange={handleChange} required />
+                <input type="text" name="image_path" value={formData.image_path} onChange={handleChange}/>
             </div>
             <button type="submit">Create Project</button>
         </form>
