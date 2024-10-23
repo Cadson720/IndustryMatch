@@ -1,0 +1,27 @@
+.featured-projects-container {
+    padding: 20px;
+  }
+  
+  .featured-projects-grid {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .featured-project-box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    flex: 1; /* Adjusts to fill available space */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .featured-project-box h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .featured-project-box p {
+    font-size: 14px;
+  }
+  
