@@ -3,6 +3,27 @@ const router = express.Router();
 const { Project, Industry } = require('../models');
 const { Op } = require('sequelize');
 
+/*
+// Middleware to authenticate and verify JWT token
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Bearer token format
+
+  if (!token) {
+    return res.status(401).json({ error: 'Unauthorized: No token provided' });
+  }
+
+  // Verify token
+  jwt.verify(token, jwtSecret, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ error: 'Forbidden: Invalid or expired token' });
+    }
+    req.user = decoded; // Attach the decoded user to the request
+    next();
+  });
+};
+*/
+
 // Get all projects with associated Industry (member) information
 router.get('/project', async (req, res) => {
   try {
@@ -105,9 +126,11 @@ router.get('/project/:id', async (req, res) => {
 });
 
 // Route to create a new project
-router.post('/project', async (req, res) => {
+router.post('/project', /*authenticateToken,*/  async (req, res) => {
+  const industryId = req.user.profile.industry_id;
   try {
     const newProject = await Project.create(req.body);
+    //newProject.industry_id = industryId;
     res.status(201).json(newProject);
   } catch (error) {
     console.error(error);
