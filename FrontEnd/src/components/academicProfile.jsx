@@ -12,6 +12,12 @@ const Academic_Profile = () => {
   const [editMode, setEditMode] = useState(false); // Edit mode state
   const [error, setError] = useState(null); // Error state
 
+  const handleSignOut = () => {
+    localStorage.removeItem('jwtToken'); // Remove the token from localStorage
+    setUserType(null); // Clear the user type in state
+    window.location.href = '/src/html-pages/landing.html'; // Redirect to landing page
+  };
+
   useEffect(() => {
     const fetchAcademicProfile = async () => {
       try {
@@ -131,8 +137,8 @@ const Academic_Profile = () => {
         return (
           <div className="content-box">
             <h2>My Projects</h2>
-            <div className="add-project-btn" onClick={() => (window.location.href = '/src/html-pages/projectCreation')}>
-              <i> + </i> Add A Project...
+            <div className="add-project-btn" onClick={() => (window.location.href = '/src/html-pages/projectSearch')}>
+              <i> + </i> Search for Projects...
             </div>
           </div>
         );
@@ -161,7 +167,7 @@ const Academic_Profile = () => {
           <button className={`tab-btn ${activeTab === 'details' ? 'active' : ''}`} onClick={() => setActiveTab('details')}>My Details</button>
           <button className={`tab-btn ${activeTab === 'projects' ? 'active' : ''}`} onClick={() => setActiveTab('projects')}>Saved Projects</button>
           <button className={`tab-btn ${activeTab === 'applications' ? 'active' : ''}`} onClick={() => setActiveTab('applications')}>My Applications</button>
-          <button className="logout-btn" onClick={() => localStorage.removeItem('jwtToken')}>Log Out</button>
+          <button className="logout-btn" onClick={handleSignOut }>Log Out</button>
         </div>
         <div className="right-column">
           {renderContent()}
