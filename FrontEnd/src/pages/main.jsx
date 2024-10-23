@@ -13,6 +13,7 @@ import DeleteProjectList from '../components/projectDeletion.jsx';
 import EditProject from '../components/projectEdit.jsx';
 import EOIDisplay from '../components/EoiExample.jsx';
 import SavedProjectsExample from '../components/ExampleSavedProjects.jsx';
+import CreateIndustryUser from '../components/CreateIndustryUser.jsx';
 //<Appp/>
 //<App />
 //<AddUserForm/>
@@ -23,6 +24,6 @@ import SavedProjectsExample from '../components/ExampleSavedProjects.jsx';
 //import App from './App';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <SavedProjectsExample/>
+    <CreateIndustryUser/>
   </StrictMode>,
 )
