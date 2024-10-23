@@ -35,7 +35,7 @@ const Industry_Profile = () => {
         const data = await response.json();
         setUserDetails({
           email: data.industry_email,
-          industry: data.industry,
+          industry: data.industry_discipline,
           department: data.department,
         });
         setLoading(false); // Stop loading once data is fetched
