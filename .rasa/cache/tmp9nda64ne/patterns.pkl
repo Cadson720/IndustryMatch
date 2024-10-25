@@ -1,0 +1,22 @@
+[
+  {
+    "name": "size",
+    "pattern": "(\\bSmall\\b|\\bMedium\\b|\\bLarge\\b)"
+  },
+  {
+    "name": "duration",
+    "pattern": "(\\b4\\ Weeks\\b|\\b6\\ Weeks\\b|\\b8\\ Weeks\\b|\\b12\\ Weeks\\b|\\b24\\ Weeks\\b)"
+  },
+  {
+    "name": "location_type",
+    "pattern": "(\\bOnline\\ \\(Remote\\)\\b|\\bOn\\-site\\b|\\bFlexible\\b)"
+  },
+  {
+    "name": "industry",
+    "pattern": "(\\bBusiness\\b|\\bDesign\\ \\&\\ Arts\\b|\\bEngineering\\b|\\bIT\\ \\&\\ Computer\\ Science\\b|\\bLaw,\\ Legal\\ Studies\\ \\&\\ Justice\\b|\\bHealth\\b|\\bEducation\\b|\\bScience\\b|\\bSocial\\ Sciences\\ \\&\\ Communication\\b|\\bFood\\ \\&\\ Hospitality\\b|\\bTrades\\ \\&\\ Services\\b)"
+  },
+  {
+    "name": "discipline",
+    "pattern": "(\\bEconomics\\b|\\bHuman\\ Resources\\b|\\bManagement\\b|\\bAccounting,\\ Commerce\\ \\&\\ Finance\\b|\\bHospitality,\\ Tourism\\ \\&\\ Retail\\b|\\bMarketing,\\ Advertising\\ \\&\\ Public\\ Relations\\b|\\bAnimation,\\ Visual\\ Effects\\ \\&\\ Post\\ Production\\b|\\bCreative\\ Arts\\b|\\bMedia\\ Studies\\b|\\bFashion\\ Design\\b|\\bFilm\\ \\&\\ TV\\b|\\bGraphic\\ Design\\ \\&\\ Visual\\ Arts\\b|\\bJournalism\\ \\&\\ Writing\\b|\\bMusic\\ \\&\\ Performing\\ Arts\\b|\\bAerospace\\ Engineering\\b|\\bSoftware\\ Engineering\\b|\\bAutomotive\\ \\&\\ Transport\\ Engineering\\b|\\bBiomedical\\ Engineering\\b|\\bCivil\\ Engineering\\ \\&\\ Construction\\b|\\bMechanical\\ Engineering\\b|\\bMechatronic\\ Engineering\\b|\\bElectrical\\ Engineering\\b|\\bChemical\\ Engineering\\b|\\bIndustrial\\ Engineering\\b|\\bRobotics\\ Engineering\\b|\\bEnvironmental\\ Engineering\\b|\\bMarine\\ Engineering\\b|\\bManufacturing\\ Engineering\\b|\\bMining\\ Engineering\\b|\\bArtificial\\ Intelligence\\b|\\bComputer\\ Graphics\\ \\&\\ Animations\\b|\\bComputer\\ Systems\\ \\&\\ Networks\\b|\\bCyber\\ Security\\b|\\bData\\ Science\\b|\\bDesign\\ \\&\\ User\\ Experience\\b|\\bVideo\\ Game\\ Development\\b|\\bCriminal\\ Justice\\b|\\bCorporate\\ Law\\b|\\bLaw\\ Enforcement\\b|\\bNursing\\b|\\bPharmacist\\b|\\bDentistry\\ \\&\\ Orthopediatrics\\b|\\bExercise\\ \\&\\ Sports\\ Science\\b|\\bMidwifery\\b|\\bOccupational\\ Therapy\\ Therapy\\b|\\bParamedics\\b|\\bPhysiotherapy\\b|\\bPsychology\\b|\\bPrimary\\ Teaching\\b|\\bSecondary\\ Teaching\\b|\\bSpecial\\ Education\\b|\\bTertiary\\ Education\\b|\\bAstronomy\\b|\\bBiochemistry\\b|\\bBiology\\b|\\bChemistry\\b|\\bGeology\\b|\\bGenetics\\b|\\bFood\\ Science\\b|\\bForensic\\ Science\\b|\\bEnvironmental\\ Science\\b|\\bPhysics\\b|\\bMarine\\ Science\\b|\\bVeterinary\\ Science\\b|\\bCriminology\\b|\\bInternational\\ Studies\\b|\\bLanguages\\ \\&\\ Linguistics\\b|\\bLiterature\\b|\\bPhilosophy\\b|\\bSocial\\ Work\\b|\\bPolitics\\b|\\bCulinary\\ Arts\\b|\\bHotel\\ Management\\b|\\bCarers\\b|\\bCarpentry\\b|\\bElectrician\\b|\\bPlumping\\b|\\bFlooring,\\ Plastering\\ \\&\\ Tiling\\b|\\bHeating,\\ Ventilation\\ \\&\\ Cooling\\b|\\bBricklaying\\ \\&\\ Stonemasonry\\b|\\bSurveying\\b)"
+  }
+]

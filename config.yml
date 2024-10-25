@@ -19,65 +19,168 @@ pipeline:
   OOV_token: "[UNK]"
   min_ngram: 1
   max_ngram: 2
-  max_features: 10000    # Keep max features at a reasonable level
+  max_features: 10000
 
-  # RegexEntityExtractor to capture structured entities (like discipline, industry, size)
+  # RegexEntityExtractor to capture structured entities using lookup tables
 - name: RegexEntityExtractor
-  use_lookup_tables: true    # Make use of lookup tables defined in your NLU
+  use_lookup_tables: true
   lookup_tables:
-  - name: discipline
-    elements: data/lookup_tables/discipline.txt
-  - name: industry
-    elements: data/lookup_tables/industry.txt
   - name: size
-    elements: data/lookup_tables/size.txt
+    elements: |
+      - Small
+      - Medium
+      - Large
   - name: duration
-    elements: data/lookup_tables/duration.txt
-  - name: location
-    elements: data/lookup_tables/location.txt
+    elements: |
+      - 4 Weeks
+      - 6 Weeks
+      - 8 Weeks
+      - 12 Weeks
+      - 24 Weeks
+  - name: location_type
+    elements: |
+      - Online (Remote)
+      - On-site
+      - Flexible
+  - name: industry
+    elements: |
+      - Business
+      - Design & Arts
+      - Engineering
+      - IT & Computer Science
+      - Law, Legal Studies & Justice
+      - Health
+      - Education
+      - Science
+      - Social Sciences & Communication
+      - Food & Hospitality
+      - Trades & Services
+  - name: discipline
+    elements: |
+      - Economics
+      - Human Resources
+      - Management
+      - Accounting, Commerce & Finance
+      - Hospitality, Tourism & Retail
+      - Marketing, Advertising & Public Relations
+      - Animation, Visual Effects & Post Production
+      - Creative Arts
+      - Media Studies
+      - Fashion Design
+      - Film & TV
+      - Graphic Design & Visual Arts
+      - Journalism & Writing
+      - Music & Performing Arts
+      - Aerospace Engineering
+      - Software Engineering
+      - Automotive & Transport Engineering
+      - Biomedical Engineering
+      - Civil Engineering & Construction
+      - Mechanical Engineering
+      - Mechatronic Engineering
+      - Electrical Engineering
+      - Chemical Engineering
+      - Industrial Engineering
+      - Robotics Engineering
+      - Environmental Engineering
+      - Marine Engineering
+      - Manufacturing Engineering
+      - Mining Engineering
+      - Artificial Intelligence
+      - Computer Graphics & Animations
+      - Computer Systems & Networks
+      - Cyber Security
+      - Data Science
+      - Design & User Experience
+      - Video Game Development
+      - Criminal Justice
+      - Corporate Law
+      - Law Enforcement
+      - Nursing
+      - Pharmacist
+      - Dentistry & Orthopediatrics
+      - Exercise & Sports Science
+      - Midwifery
+      - Occupational Therapy
+      - Paramedics
+      - Physiotherapy
+      - Psychology
+      - Primary Teaching
+      - Secondary Teaching
+      - Special Education
+      - Tertiary Education
+      - Astronomy
+      - Biochemistry
+      - Biology
+      - Chemistry
+      - Geology
+      - Genetics
+      - Food Science
+      - Forensic Science
+      - Environmental Science
+      - Physics
+      - Marine Science
+      - Veterinary Science
+      - Criminology
+      - International Studies
+      - Languages & Linguistics
+      - Literature
+      - Philosophy
+      - Social Work
+      - Politics
+      - Culinary Arts
+      - Hotel Management
+      - Carers
+      - Carpentry
+      - Electrician
+      - Plumping
+      - Flooring, Plastering & Tiling
+      - Heating, Ventilation & Cooling
+      - Bricklaying & Stonemasonry
+      - Surveying
 
-  # DIETClassifier with reduced epochs and optimized settings
+  # DIETClassifier to extract entities and classify intents
 - name: DIETClassifier
-  epochs: 200    # Reduce epochs to balance between training time and accuracy
+  epochs: 125
   constrain_similarities: true
   entity_recognition: true
   intent_classification: true
   entity_roles: true
   entity_groups: true
   random_seed: 42
-  embedding_dimension: 80    # Slightly reduced embedding dimension for faster training
-  batch_size: 64    # Moderate batch size for faster iterations
-  learning_rate: 0.002    # Keep learning rate constant for good convergence
+  embedding_dimension: 80
+  batch_size: 64
+  learning_rate: 0.002
   entities:
   - discipline
   - industry
   - keywords
   - duration
-  - location
+  - location_type
   - size
 
-  # Synonym mapping for entities (like size, location types, etc.)
+  # Synonym mapper for entity normalization
 - name: EntitySynonymMapper
 
-  # Fallback classifier for handling ambiguous queries
+  # Fallback classifier to handle ambiguous queries
 - name: FallbackClassifier
   threshold: 0.4
   ambiguity_threshold: 0.1
 
 policies:
-  # Memoization policy for remembering exact responses
+  # Memoization policy to remember exact responses
 - name: MemoizationPolicy
-  max_history: 5    # Reduce history for faster prediction processing
+  max_history: 5
 
   # Transformer-based TEDPolicy for dialogue management
 - name: TEDPolicy
-  max_history: 5    # Reduce history length to speed up training
-  epochs: 200    # Reduce epochs to shorten training time
-  batch_size: 64    # Moderate batch size for faster iterations
+  max_history: 5
+  epochs: 125
+  batch_size: 64
 
   # Rule-based policy for fallback and custom rules
 - name: RulePolicy
   core_fallback_threshold: 0.3
   core_fallback_action_name: "action_default_fallback"
   enable_fallback_prediction: true
-assistant_id: 20241015-045354-intense-performance
+assistant_id: 20241025-082509-vintage-chicken

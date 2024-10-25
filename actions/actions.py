@@ -10,7 +10,6 @@ from rasa_sdk.events import SlotSet
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-# Custom action to search for projects via the AI search API
 class ActionSearchProjects(Action):
 
     def name(self) -> Text:
@@ -24,7 +23,7 @@ class ActionSearchProjects(Action):
         duration = tracker.get_slot('duration')
         size = tracker.get_slot('size')
         industry = tracker.get_slot('industry')
-        location = tracker.get_slot('location')
+        location_type = tracker.get_slot('location_type')
 
         # Clean the slot values (if needed)
         if size:
@@ -37,47 +36,29 @@ class ActionSearchProjects(Action):
                 duration = f"{match.group(1)} Weeks"
 
         # Log slot values for debugging
-        logger.debug(f"Slots - Keywords: {keywords}, Discipline: {discipline}, Duration: {duration}, Size: {size}, Industry: {industry}, Location: {location}")
+        logger.debug(f"Slots - Keywords: {keywords}, Discipline: {discipline}, Duration: {duration}, Size: {size}, Industry: {industry}, Location_type: {location_type}")
 
-        # Build query parameters for the API call based on the input slots
+        # Build query parameters for the API call based on the input slots, but only include non-null slots
         query_params = {}
 
-        # If a keyword is found but no discipline, apply the keyword to search title, description, discipline, and industry
-        if keywords and not discipline:
-            query_params = {
-                'search_fields': ['title', 'description', 'discipline', 'industry'],
-                'search_value': keywords
-            }
-        # If a discipline is found but no keyword, apply the discipline to search title and description
-        elif discipline and not keywords:
-            query_params = {
-                'search_fields': ['title', 'description'],
-                'search_value': discipline
-            }
-        # If both discipline and keyword are found, apply both to their respective fields
-        elif discipline and keywords:
-            query_params = {
-                'discipline': discipline,
-                'keywords': keywords,
-                'duration': duration,
-                'size': size,
-                'industry': industry,
-                'location': location
-            }
-        else:
-            # General case for when neither keywords nor discipline is found
-            query_params = {
-                'duration': duration,
-                'size': size,
-                'industry': industry,
-                'location': location
-            }
+        if keywords:
+            query_params['keywords'] = keywords
+        if discipline:
+            query_params['discipline'] = discipline
+        if duration:
+            query_params['duration'] = duration
+        if size:
+            query_params['size'] = size
+        if industry:
+            query_params['industry'] = industry
+        if location_type:
+            query_params['location_type'] = location_type
 
         logger.debug(f"Query parameters for API: {query_params}")
 
-        # Make a GET request to the new project search route
+        # Make a GET request to the project search API
         try:
-            api_url = 'http://host.docker.internal:3000/api/project/search'
+            api_url = 'http://localhost:3000/api/project/search'
             response = requests.get(api_url, params=query_params)
             logger.debug(f"API Response status: {response.status_code}")
 
@@ -108,7 +89,7 @@ class ActionSearchProjects(Action):
                         SlotSet("duration", duration),
                         SlotSet("size", size),
                         SlotSet("industry", industry),
-                        SlotSet("location", location)
+                        SlotSet("location_type", location_type)
                     ]
                 else:
                     dispatcher.utter_message(text="No matching projects found based on your search criteria.")

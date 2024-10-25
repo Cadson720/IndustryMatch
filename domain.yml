@@ -9,56 +9,43 @@ entities:
   - keywords
   - industry
   - duration
-  - location
   - size
   - location_type
 
 slots:
-  discipline:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: discipline
-
   keywords:
     type: text
-    influence_conversation: true
+    influence_conversation: false
     mappings:
       - type: from_entity
         entity: keywords
-
-  industry:
+  discipline:
     type: text
-    influence_conversation: true
+    influence_conversation: false
     mappings:
       - type: from_entity
-        entity: industry
-
+        entity: discipline
   duration:
     type: text
-    influence_conversation: true
+    influence_conversation: false
     mappings:
       - type: from_entity
         entity: duration
-
-  location:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: location
-
   size:
     type: text
-    influence_conversation: true
+    influence_conversation: false
     mappings:
       - type: from_entity
         entity: size
-
+  industry:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: industry
   location_type:
     type: text
-    influence_conversation: true
+    influence_conversation: false
     mappings:
       - type: from_entity
         entity: location_type

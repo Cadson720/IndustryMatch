@@ -6,7 +6,7 @@ stories:
       - slot_was_set:
           - keywords: "marketing"
       - slot_was_set:
-          - discipline: "marketing"
+          - discipline: "Marketing, Advertising & Public Relations"
       - slot_was_set:
           - location_type: "Online (Remote)"
       - slot_was_set:

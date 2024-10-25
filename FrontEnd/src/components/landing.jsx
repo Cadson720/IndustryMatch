@@ -226,7 +226,6 @@ function Landing() {
         </div>
         <div className="seperator"></div> 
       </div>
-      <FeaturedProjects />
       <Footer />
     </>
   );
