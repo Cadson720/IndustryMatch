@@ -1,47 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import "../styles/featuredProjects.css"; // Import the CSS for this component
+import React, { useEffect, useState } from 'react';
+import "../styles/featuredProjects.css";
 
 const FeaturedProjects = () => {
-  const [featuredProject, setFeaturedProject] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // State to store the fetched projects
+  const [projects, setProjects] = useState([]);
 
-  // Fetch the first featured project from the backend when the component mounts
+  const getPreviewDescription = (description) => {
+    const cutOffIndex = description.indexOf('Project Objectives:');
+    return cutOffIndex > -1 ? description.substring(0, cutOffIndex) : description;
+  };
+
+  // Fetch data when the component mounts
   useEffect(() => {
-    fetch('http://localhost:3000/api/featured-projects') // Ensure this endpoint returns the projects
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch project data');
-        }
-        return response.json();
-      })
+    // Fetch all projects from the API
+    fetch('http://localhost:3000/api/project')
+      .then((response) => response.json())
       .then((data) => {
-        // Set the first project as the featured project
-        if (data.length > 0) {
-          setFeaturedProject(data[0]); // Get the first project
-        }
-        setLoading(false);
+        // Take only the first 3 projects
+        const featuredProjects = data.slice(0, 3);
+        setProjects(featuredProjects);
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
-        setError(error);
-        setLoading(false);
+        console.error('Error fetching featured projects:', error);
       });
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
   return (
     <div className="featured-projects-container">
-      {featuredProject ? (
-        <div className="featured-project-box">
-          <h3>{featuredProject.title}</h3>
-          <p>{featuredProject.description}</p>
-        </div>
-      ) : (
-        <p>No featured project available.</p>
-      )}
+      <h2>Featured Projects</h2>
+      <div className="featured-projects">
+        {projects.length > 0 ? (
+          projects.map((project) => (
+            <div key={project.id} className="project-box">
+              <h3>{project.title}</h3>
+              <p>
+                <em>{getPreviewDescription(project.description).slice(0, -2)}..</em>
+              </p>
+            </div>
+          ))
+        ) : (
+          <p>No featured projects to display</p>
+        )}
+      </div>
     </div>
   );
 };

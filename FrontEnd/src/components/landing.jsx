@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from './modal';
 import Loader from '../components/loader.jsx'; // Import the Loader component
@@ -30,6 +30,7 @@ function Landing() {
   const [selectedUserType, setSelectedUserType] = useState(null);
   const [loading, setLoading] = useState(false); // Add a loading state
   const navigate = useNavigate();
+  const [totalProjects, setTotalProjects] = useState(0);
   
 
   const academicFields = [
@@ -41,6 +42,23 @@ function Landing() {
     { name: 'organisation', placeholder: 'Organisation', options: ['OrgA', 'OrgB'], required: true },
     { name: 'discipline', placeholder: 'Discipline', options: ['Engineering', 'Software', 'Medicin'], required: true },
   ];
+
+  useEffect(() => {
+    const fetchTotalProjects = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/project`); // Fetch all projects
+        if (!response.ok) throw new Error('Failed to fetch projects');
+        
+        const data = await response.json();
+        setTotalProjects(data.length); // Set total projects to the length of the fetched array
+      } catch (error) {
+        console.error('Error fetching total projects:', error);
+        setTotalProjects(0); // Fall back to 0 on error
+      }
+    };
+
+    fetchTotalProjects();
+  }, []);
 
   const LoginVerify = async (e) => {
     e.preventDefault();
@@ -217,7 +235,7 @@ function Landing() {
               <button onClick={() => setIsRegisterModalOpen(true)} className="auth-button">Register</button>
             <p>
             Fostering social and human perspectives in engineering: Projects, Partnerships, Professional Learning.
-            With <i className="landing-i">250</i> projects to choose from and over <i className="landing-i">100</i> successful partnerships! Now aided by <strong>AI</strong>.
+            With <i className="landing-i">{totalProjects}</i> projects to choose from and over <i className="landing-i">25</i> successful partnerships! Now aided by <strong>AI</strong>.
             </p>
           </div>
         </div>
