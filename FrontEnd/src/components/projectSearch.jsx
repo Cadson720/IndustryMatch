@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Modal from './modal';
 import "../styles/projectSearch.css"; // Import the CSS for this component
 
 const disciplinesByIndustry = {
@@ -121,6 +122,11 @@ const ProjectSearch = () => {
   const [error, setError] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userInput, setUserInput] = useState('');
+  const [selectedProjectId, setSelectedProjectId] = useState(null);
+
+
   // Function to check if all required fields are present
   const isProjectValid = (project) => {
     return (
@@ -223,6 +229,18 @@ const ProjectSearch = () => {
       //.replace(/ - /g, "\n - ");
   };
 
+  // Function to handle the opening of the modal
+  const openModal = (projectId) => {
+    setSelectedProjectId(projectId);
+    setIsModalOpen(true);
+  };
+
+  // Function to handle the closing of the modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setUserInput(''); // Reset user input when modal closes
+  };
+
   // Handle project click to display detailed view
   const handleProjectClick = (project) => {
     setSelectedProject(project);
@@ -300,6 +318,21 @@ const ProjectSearch = () => {
           </select>
         </div>
       )}
+      {/* Modal for Applying */}
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <h2>Applying to: {selectedProject ? selectedProject.title : 'Project Title'}</h2>
+        <div className="modal_p">
+          <p>Limit of 250 words</p>
+        </div>
+        <textarea 
+          placeholder="Type here"
+          value={userInput}
+          onChange={(e) => setUserInput(e.target.value)}
+          rows={4} 
+          cols={30}
+        />
+        <button className="confirm-button" onClick={() => { /* Handle apply logic here */ }}>Apply</button>
+      </Modal>
 
       <div className="project-columns">
         {/* Left Side: Project Previews */}
@@ -355,6 +388,7 @@ const ProjectSearch = () => {
                       <p1><strong>  - </strong> {extractSuburb(selectedProject.address)}</p1>
                     )}
                   </p>
+                  <button className="apply-button" onClick={() => openModal()}>Apply</button>
                 </div>
               </div>
 

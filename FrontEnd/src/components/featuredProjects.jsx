@@ -5,6 +5,11 @@ const FeaturedProjects = () => {
   // State to store the fetched projects
   const [projects, setProjects] = useState([]);
 
+  const getPreviewDescription = (description) => {
+    const cutOffIndex = description.indexOf('Project Objectives:');
+    return cutOffIndex > -1 ? description.substring(0, cutOffIndex) : description;
+  };
+
   // Fetch data when the component mounts
   useEffect(() => {
     // Fetch all projects from the API
@@ -28,7 +33,9 @@ const FeaturedProjects = () => {
           projects.map((project) => (
             <div key={project.id} className="project-box">
               <h3>{project.title}</h3>
-              <p>{project.description}</p>
+              <p>
+                <em>{getPreviewDescription(project.description).slice(0, -2)}..</em>
+              </p>
             </div>
           ))
         ) : (

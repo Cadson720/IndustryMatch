@@ -114,6 +114,30 @@ option {
   font-weight: bold;
 }
 
+.modal_content p {
+  font-size: 1rem;
+  color: black;
+}
+
+.modal_p p {
+  font-size: 0.8em; 
+  color: rgb(138, 138, 138); 
+  text-align: left; 
+  font-style: italic; 
+  margin-left: 30px;
+}
+
+textarea {
+  width: 75%; 
+  height: 150px; 
+  padding: 0.5em; 
+  border: 1px solid #000000; 
+  border-radius: 5px; 
+  font-size: 1em; 
+  resize: none; 
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 /* Search Button Styling */
 .search-button {
   background-color: #6A5ACD; /* Purple background */
@@ -133,6 +157,43 @@ option {
 
 .search-button:active {
   transform: translateY(2px); /* Press down effect */
+}
+
+.apply-button {
+  background-color: #c3c3c3; 
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.apply-button:hover {
+  background-color: #989898; 
+  transform: translateY(-3px);
+}
+
+.apply-button:active {
+  transform: translateY(2px);
+}
+
+.confirm-button {
+  background-color: #c3c3c3; 
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 10px;
+}
+
+.confirm-button:hover {
+  background-color: #989898;
+  transform: translateY(-3px); 
 }
 
 /* Extended Search Criteria */
