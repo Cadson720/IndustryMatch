@@ -38,7 +38,7 @@ const EOI = sequelize.define('EOIs', {
     type: DataTypes.DATE,
     allowNull: false
   },
-  class_size: {
+  proposal_description: {
     type: DataTypes.STRING,
     allowNull: false
   },

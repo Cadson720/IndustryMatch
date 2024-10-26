@@ -120,11 +120,38 @@ const ProjectSearch = () => {
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedProject, setSelectedProject] = useState(null);
 
+  const [academicId, setAcademicId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userInput, setUserInput] = useState('');
-  const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [modalError, setModalError] = useState('');
+  // Function to decode JWT and set academic_id
+  useEffect(() => {
+    const decodeToken = async () => {
+      const token = localStorage.getItem('jwtToken');
+      if (token) {
+        try {
+          const response = await fetch('http://localhost:3000/api/academic/profile', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          });
+          if (!response.ok) throw new Error('Unable to decode token');
+          const data = await response.json();
+          setAcademicId(data.academic_id); // Assuming the profile response has academic_id
+        } catch (decodeError) {
+          console.error('Failed to decode token:', decodeError);
+        }
+      }
+    };
+    decodeToken();
+  }, []);
+  // function to handle applications
+  const handleApplyClick = (projectId) => {
+    history.push(`/project/${projectId}`);
+  };
 
 
   // Function to check if all required fields are present
@@ -223,22 +250,10 @@ const ProjectSearch = () => {
   // Function to format detailed description with new lines at specific points
   const formatDetailedDescription = (description) => {
     return description
-      .replace(/Project Objectives:/g, "\nProject Objectives:\n")
-      .replace(/Technical Knowledge:/g, "\nTechnical Knowledge:\n")
-      .replace(/Student Year Recommendation:/g, "\nStudent Year Recommendation\n")
+      .replace(/Project Objectives:/g, "Project Objectives:")
+      .replace(/Technical Knowledge:/g, "Technical Knowledge:")
+      .replace(/Student Year Recommendation:/g, "Student Year Recommendation")
       //.replace(/ - /g, "\n - ");
-  };
-
-  // Function to handle the opening of the modal
-  const openModal = (projectId) => {
-    setSelectedProjectId(projectId);
-    setIsModalOpen(true);
-  };
-
-  // Function to handle the closing of the modal
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setUserInput(''); // Reset user input when modal closes
   };
 
   // Handle project click to display detailed view
@@ -318,21 +333,6 @@ const ProjectSearch = () => {
           </select>
         </div>
       )}
-      {/* Modal for Applying */}
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2>Applying to: {selectedProject ? selectedProject.title : 'Project Title'}</h2>
-        <div className="modal_p">
-          <p>Limit of 250 words</p>
-        </div>
-        <textarea 
-          placeholder="Type here"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          rows={4} 
-          cols={30}
-        />
-        <button className="confirm-button" onClick={() => { /* Handle apply logic here */ }}>Apply</button>
-      </Modal>
 
       <div className="project-columns">
         {/* Left Side: Project Previews */}
@@ -383,17 +383,19 @@ const ProjectSearch = () => {
                   </p>
                   <p>
                     <img src="/location.png" alt="location icon" className="location-icon" />
-                    <strong> </strong> {selectedProject.location_type}
+                    <strong>  </strong> {selectedProject.location_type}
                     {(selectedProject.location_type === 'Flexible' || selectedProject.location_type === 'On-site') && selectedProject.address && (
                       <p1><strong>  - </strong> {extractSuburb(selectedProject.address)}</p1>
                     )}
                   </p>
-                  <button className="apply-button" onClick={() => openModal()}>Apply</button>
+                  <a href={`/src/html-pages/projectDetail.html?projectId=${selectedProject.project_id}`}>
+                    <button>Apply</button>
+                  </a>
                 </div>
               </div>
 
               {/* Description with formatted new lines */}
-              <p><strong></strong> {formatDetailedDescription(selectedProject.description)}</p>
+              <p><strong></strong>{formatDetailedDescription(selectedProject.description)}</p>
 
               <div className="project-publish-info">
                 <p><strong>Published:</strong> {getProjectAgeInDays(selectedProject.publish_date)} days ago</p>

@@ -30,21 +30,21 @@ router.post('/login', async (req, res) => {
     // First check Academic users
     let user = await Academic.findOne({ where: { academic_email: email, academic_password: password } });
     if (user) {
-      const token = jwt.sign({ type: 'Academic', profile: user }, jwtSecret, { expiresIn: '10m' });
+      const token = jwt.sign({ type: 'Academic', profile: user }, jwtSecret, { expiresIn: '30m' });
       return res.json({ token });
     }
 
     // Then check Industry users
     user = await Industry.findOne({ where: { industry_email: email, industry_password: password } });
     if (user) {
-      const token = jwt.sign({ type: 'Industry', profile: user }, jwtSecret, { expiresIn: '10m' });
+      const token = jwt.sign({ type: 'Industry', profile: user }, jwtSecret, { expiresIn: '30m' });
       return res.json({ token });
     }
 
     // Lastly, check Admin users
     user = await Admin.findOne({ where: { admin_email: email, admin_password: password } });
     if (user) {
-      const token = jwt.sign({ type: 'Admin', profile: user }, jwtSecret, { expiresIn: '10m' });
+      const token = jwt.sign({ type: 'Admin', profile: user }, jwtSecret, { expiresIn: '30m' });
       return res.json({ token });
     }
 
