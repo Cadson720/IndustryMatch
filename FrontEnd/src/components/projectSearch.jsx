@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Modal from './modal';
 import "../styles/projectSearch.css"; // Import the CSS for this component
+import Loader from '../components/loader.jsx';
+import Header from '../components/header.jsx';
 
 const disciplinesByIndustry = {
   'Business': [
@@ -171,29 +172,35 @@ const ProjectSearch = () => {
 
   // Fetch all projects from the backend when the component mounts
   useEffect(() => {
-    fetch('http://localhost:3000/api/project')
-      .then((response) => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/project');
         if (!response.ok) {
           throw new Error('Failed to fetch project data');
         }
-        return response.json();
-      })
-      .then((data) => {
+        
+        const data = await response.json();
         const validProjects = data.filter(isProjectValid);
-        setProjects(validProjects);
-        setFilteredProjects(validProjects);
-        setLoading(false);
 
-        // Set the first project as selected by default after fetch
-        if (validProjects.length > 0) {
-          setSelectedProject(validProjects[0]);
-        }
-      })
-      .catch((error) => {
+        // Introduce a 1.5-second delay before updating the state
+        setTimeout(() => {
+          setProjects(validProjects);
+          setFilteredProjects(validProjects);
+          setLoading(false);
+
+          // Set the first project as selected by default after fetch
+          if (validProjects.length > 0) {
+            setSelectedProject(validProjects[0]);
+          }
+        }, 750); // 0.75-second delay
+      } catch (error) {
         console.error('Error fetching data:', error);
         setError(error);
         setLoading(false);
-      });
+      }
+    };
+
+    fetchProjects();
   }, []);
 
   // Function to toggle the extended search criteria
@@ -261,11 +268,14 @@ const ProjectSearch = () => {
     setSelectedProject(project);
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
+  {!loading && <Header />}
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="project-search-container">
+    <div>
+      {!loading && <Header />} {/* Render Header only after loading is false */}
+      <div className="project-search-container">
       <div className="search-bar">
         {/* Hamburger Menu Icon */}
         <div className="hamburger-menu" onClick={toggleExtendedCriteria}>
@@ -406,6 +416,7 @@ const ProjectSearch = () => {
             <p>Please select a project to see details.</p>
           )}
         </div>
+      </div>
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from './modal';
-import Loader from '../components/loader.jsx'; // Import the Loader component
 import Header from '../components/header.jsx'; // Import Header
 import Footer from '../components/footer.jsx'; // Import Footer
 import "../styles/loader.css";
@@ -28,9 +27,9 @@ function Landing() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [selectedUserType, setSelectedUserType] = useState(null);
-  const [loading, setLoading] = useState(false); // Add a loading state
   const navigate = useNavigate();
   const [totalProjects, setTotalProjects] = useState(0);
+  const isLoggedIn = !!localStorage.getItem('jwtToken'); // Check if the user is logged in by verifying the token
   
 
   const academicFields = [
@@ -40,7 +39,7 @@ function Landing() {
 
   const industryFields = [
     { name: 'organisation', placeholder: 'Organisation', options: ['OrgA', 'OrgB'], required: true },
-    { name: 'discipline', placeholder: 'Discipline', options: ['Engineering', 'Software', 'Medicin'], required: true },
+    { name: 'discipline', placeholder: 'Discipline', options: ['Engineering', 'Software', 'Medicine'], required: true },
   ];
 
   useEffect(() => {
@@ -107,13 +106,9 @@ function Landing() {
         path = '/src/html-pages/adminRedirect.html';
       }
 
-      // Show the loading screen for 1 second before navigating
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-        navigate(path);
-        window.location.reload();
-      }, 1000); // 1-second delay
+      // Immediately navigate to the determined path without loader
+      navigate(path);
+      window.location.reload();
     } catch (error) {
       console.error('Login error:', error);
       alert(error.message);  // Display the error message
@@ -152,12 +147,7 @@ function Landing() {
     }
   };
 
-  if (loading) {
-    // Show the loader while loading
-    return <Loader />;
-  }
-
-  // Show the Header, Footer, and the main content when not loading
+  // Show the Header, Footer, and the main content
   return (
     <>
       <Header />
@@ -228,16 +218,21 @@ function Landing() {
         </Modal>
 
         <div className="diagonal-line"></div> 
-        <div className="left-column">
-          <div className="text-container">
-            <div className="text">Academic to Industry Match</div>
-              <button onClick={() => setIsLoginModalOpen(true)} className="auth-button">Login</button>
-              <button onClick={() => setIsRegisterModalOpen(true)} className="auth-button">Register</button>
-            <p>
-            Fostering social and human perspectives in engineering: Projects, Partnerships, Professional Learning.
-            With <i className="landing-i">{totalProjects}</i> projects to choose from and over <i className="landing-i">25</i> successful partnerships! Now aided by <strong>AI</strong>.
-            </p>
-          </div>
+          <div className="left-column">
+            <div className="text-container">
+              <div className="text">Industry Match</div>
+                {/* Conditionally render Login/Register buttons if the user is not logged in */}
+                {!isLoggedIn && (
+                  <>
+                    <button onClick={() => setIsLoginModalOpen(true)} className="auth-button">Login</button>
+                    <button onClick={() => setIsRegisterModalOpen(true)} className="auth-button">Register</button>
+                  </>
+                )}
+                <p>
+                  Fostering social and human perspectives in engineering: Projects, Partnerships, Professional Learning.
+                  With <i className="landing-i">{totalProjects}</i> projects to choose from and over <i className="landing-i">25</i> successful partnerships!
+                </p>
+              </div>
         </div>
         <div className="right-column">
           <img src="/landing_image.png" alt="Logo" className="image" />

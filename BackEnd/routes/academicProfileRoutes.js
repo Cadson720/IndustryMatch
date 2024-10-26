@@ -1,136 +1,80 @@
-import React, { useState, useEffect } from 'react';
-import "../styles/projectDetail.css"; // Separate CSS file for project details page
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const { Academic } = require('../models'); // Assuming Academic is your Sequelize model
+const router = express.Router();
+const jwtSecret = 'your_secret_key'; // Use your JWT secret key
 
-const ProjectDetail = () => {
-  const [project, setProject] = useState(null);
-  const [academic, setAcademic] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+// Middleware to authenticate and verify JWT token
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Bearer token format
 
-  // Get project ID from URL parameters
-  const urlParams = new URLSearchParams(window.location.search);
-  const projectId = urlParams.get('projectId');
+  if (!token) {
+    return res.status(401).json({ error: 'Unauthorized: No token provided' });
+  }
 
-  useEffect(() => {
-    const fetchProject = async () => {
-      try {
-        const response = await fetch(`http://localhost:3000/api/project/${projectId}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch project data');
-        }
-        const data = await response.json();
-        setProject(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProject();
-  }, [projectId]);
-
-  useEffect(() => {
-    const fetchAcademicData = async () => {
-      const token = localStorage.getItem('jwtToken');
-      if (!token) return;
-
-      try {
-        const response = await fetch('http://localhost:3000/api/academic/profile', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        if (!response.ok) throw new Error('Failed to fetch academic data');
-        const data = await response.json();
-        setAcademic(data); // assuming full academic data is returned
-      } catch (error) {
-        console.error('Error fetching academic profile:', error);
-      }
-    };
-
-    fetchAcademicData();
-  }, []);
-
-  // Helper function to format description text
-  const formatDetailedDescription = (description) => {
-    return description
-      .replace(/Project Objectives:/g, "Project Objectives:")
-      .replace(/Technical Knowledge:/g, "Technical Knowledge:")
-      .replace(/Student Year Recommendation:/g, "Student Year Recommendation");
-  };
-
-  // Helper function to add member details based on size
-  const formatSize = (size) => {
-    if (size === "Small") return `${size} (1 - 3 Members)`;
-    if (size === "Medium") return `${size} (4 - 7 Members)`;
-    if (size === "Large") return `${size} (8+ Members)`;
-    return size;
-  };
-
-  if (loading) return <p>Loading project details...</p>;
-  if (error) return <p>Error: {error}</p>;
-
-  return (
-    <div className="project-detail-page">
-      <div className="project-columns">
-        {/* Left Column: Project Details */}
-        <div className="project-detail-column">
-          {project ? (
-            <div className="project-detail">
-              <h2>{project.title}</h2>
-              <div className="project-detail-columns">
-                <div className="project-detail-left-column">
-                    <p>
-                        {project.industry}<strong>  -  </strong> {project.discipline}
-                    </p>
-                  <p>
-                    <img src="/team.png" alt="team icon" className="team-icon" />
-                    <strong>Size: </strong> {formatSize(project.size)}
-                  </p>
-                  <p>
-                    <img src="/clock.png" alt="duration icon" className="duration-icon" />
-                    <strong>Duration: </strong> {project.duration}
-                  </p>
-                  <p>
-                    <img src="/location.png" alt="location icon" className="location-icon" />
-                    <strong>Location: </strong> {project.location_type}
-                    {(project.location_type === 'Flexible' || project.location_type === 'On-site') && project.address && (
-                      <span> - {project.address}</span>
-                    )}
-                  </p>
-                  <br />
-                </div>
-              </div>
-              <p><strong>Description:</strong> {formatDetailedDescription(project.description)}</p>
-              <div className="project-publish-info">
-                <p><strong>Published:</strong> {project.publish_date}</p>
-                <p><strong>Organisation:</strong> {project.Industry && project.Industry.organisation}</p>
-              </div>
-            </div>
-          ) : (
-            <p>No project found</p>
-          )}
-        </div>
-
-        {/* Right Column: Application Form */}
-        <div className="application-column">
-          <h3>Apply for Project</h3>
-          <form className="application-form">
-            <label>Email:</label>
-            <input type="email" name="email" value={academic?.academic_email || ''} required readOnly />
-            <label>Phone Number:</label>
-            <input type="tel" name="phone" defaultValue={academic?.phone || ''} required />
-            <label>School:</label>
-            <input type="text" name="school" value={academic?.school || ''} required readOnly />
-            <label>Additional Information:</label>
-            <textarea name="additionalInfo"></textarea>
-            <button type="submit" className="apply-button">Submit Application</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
+  // Verify token
+  jwt.verify(token, jwtSecret, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ error: 'Forbidden: Invalid or expired token' });
+    }
+    req.user = decoded; // Attach the decoded user to the request
+    next();
+  });
 };
 
-export default ProjectDetail;
+// Route to get the logged-in academic user's profile information
+router.get('/academic/profile', authenticateToken, async (req, res) => {
+  try {
+    const academicId = req.user.profile.academic_id;
+
+    // Find the academic user by ID
+    const academic = await Academic.findByPk(academicId, {
+      attributes: ['academic_email', 'role', 'school'],
+    });
+
+    if (!academic) {
+      return res.status(404).json({ error: 'Academic user not found' });
+    }
+
+    // Return academic user data
+    return res.json(academic);
+  } catch (error) {
+    console.error('Error fetching academic data:', error);
+    return res.status(500).json({ error: 'Failed to retrieve academic profile' });
+  }
+});
+
+// Route to update the logged-in academic user's profile information
+router.put('/academic/profile', authenticateToken, async (req, res) => {
+  const { email, role, school } = req.body;
+  const academicId = req.user.profile.academic_id;
+
+  try {
+    // Update academic profile in the database
+    const academic = await Academic.findByPk(academicId);
+    if (!academic) {
+      return res.status(404).json({ error: 'Academic user not found' });
+    }
+
+    // Update the fields
+    academic.academic_email = email;
+    academic.role = role;
+    academic.school = school;
+
+    // Save the updated academic details
+    await academic.save();
+
+    // Return updated academic profile
+    return res.json({
+      academic_email: academic.academic_email,
+      role: academic.role,
+      school: academic.school,
+    });
+  } catch (error) {
+    console.error('Error updating academic profile:', error);
+    return res.status(500).json({ error: 'Failed to update academic profile' });
+  }
+});
+
+module.exports = router;

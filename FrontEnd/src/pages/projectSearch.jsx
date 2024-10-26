@@ -8,7 +8,6 @@ import Header from '../components/header.jsx';
 //import App from './App';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Header />
     <ProjectSearch />
   </StrictMode>,
 )

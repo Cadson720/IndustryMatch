@@ -127,7 +127,7 @@ const ProjectDetail = () => {
 
         {/* Right Column: Application Form */}
         <div className="application-column">
-          <h3>Apply for Project</h3>
+          <h3>Your Details</h3>
           <form className="application-form">
             <label>Email:</label>
             <input type="email" name="email" value={academic.academic_email} readOnly />
