@@ -1,0 +1,78 @@
+version: "3.1"
+
+nlu:
+  # Expanded examples for ask_project
+  - intent: ask_project
+    examples: |
+      - Any [remote](location_type) [Healthcare](industry) projects in [occupational therapy](keyword)?
+      - Are there any [biochemistry](discipline) projects available [onsite](location_type) focused on [enzyme reactions](keyword)?
+      - [Data science](discipline) project for [12 Weeks](duration) on [data visualization](keyword) that’s [remote](location_type)?
+      - Looking for a [Creative Arts](discipline) project lasting [8 weeks](duration) that’s [Medium](size).
+      - [Engineering](industry) project on [environmental sustainability](keyword) that is [Flexible](location_type).
+      - Can I find a [Large](size) [Business](industry) project that lasts [6 weeks](duration)?
+      - Do you have any [On-site](location_type) [Physics](discipline) projects on [quantum computing](keyword)?
+      - I need a [Flexible](location_type) project for [Nursing](discipline) on [patient care](keyword) lasting [12 Weeks](duration).
+      - [Graphic Design](discipline) projects that are [remote](location_type) with a focus on [digital painting](keyword).
+      - Looking for [Law](discipline) projects on [Criminal Justice](keyword) that can be completed [online](location_type).
+      - Are there [Food & Hospitality](industry) projects that are [Large](size) and [Flexible](location_type)?
+      - A project about [business analytics](keyword) within [IT & Computer Science](industry) that’s [Flexible](location_type).
+      - Show me any [12-week](duration) [Computer Science](discipline) projects on [coding](keyword) that are [online](location_type).
+      - [Education](industry) projects available for [6 Weeks](duration) that are [Flexible](location_type)?
+      - [Remote](location_type) [Engineering](industry) project on [robotics](keyword) that lasts [24 weeks](duration).
+      - I need a [Remote](location_type) [Marketing](discipline) project on [SEO](keyword) for [4 weeks](duration).
+      - Are there [IT & Computer Science](industry) projects that are [Flexible](location_type)?
+      - Show me [6-week](duration) [Nursing](discipline) projects.
+      - Can you find [Flexible](location_type) projects in [Chemistry](discipline) for [6 weeks](duration)?
+      - Any [Law](discipline) projects for [corporate law](keyword) that are [Medium](size) and [On-site](location_type)?
+      - Do you have projects in [Biology](discipline) lasting [8 weeks](duration)?
+      - Show me projects in [Physics](discipline) for [4 Weeks](duration).
+      - I’m looking for a project in [Primary Teaching](discipline) that’s [Flexible](location_type).
+      - [Environmental Engineering](discipline) projects that are [Flexible](location_type) and focused on [molecular analysis](keyword).
+      - I need [Physics](discipline) projects for [Large](size) groups focused on [particle physics](keyword).
+      - Any [Remote](location_type) [Marine Science](discipline) projects focused on [marine biology](keyword)?
+      - Show me [medium](size) projects in [Hospitality](discipline).
+      - [Secondary Teaching](discipline) project for [8 weeks](duration) that’s [Flexible](location_type).
+      - Can I get [Psychology](discipline) projects on [mental health](keyword) that are [online](location_type)?
+
+  # Expanded examples for greet
+  - intent: greet
+    examples: |
+      - hello
+      - hi
+      - hey
+      - good morning
+      - good afternoon
+      - greetings
+      - howdy
+      - hello bot
+      - hi there
+      - what's up
+      - yo
+      - hey!
+      - how’s it going?
+      - hello there
+      - hey bot
+      - nice to meet you
+      - salutations
+
+  # Expanded examples for nlu_fallback
+  - intent: nlu_fallback
+    examples: |
+      - random text
+      - gibberish
+      - ?!@#
+      - what the!
+      - I don't know what to type
+      - blah blah blah
+      - asdfasdf
+      - gvfthjoik
+      - sdfgh
+      - oiehfi
+      - akljewq
+      - jkasd!
+      - hgiof
+      - huh??
+      - I'm lost
+      - ?????
+      - I'm confused
+      - make sense of this

@@ -1,23 +1,12 @@
 version: "3.1"
+
 stories:
   - story: User requests project search
     steps:
       - intent: ask_project
-      - slot_was_set:
-          - keywords: "marketing"
-      - slot_was_set:
-          - discipline: "Marketing, Advertising & Public Relations"
-      - slot_was_set:
-          - location_type: "Online (Remote)"
-      - slot_was_set:
-          - duration: "4 weeks"
-      - slot_was_set:
-          - size: "Large"
-      - slot_was_set:
-          - industry: "Business & Management"
       - action: action_search_projects
   
   - story: Fallback after inactivity
     steps:
       - action: action_search_projects
-      - action: action_fallback_prompt 
+      - action: action_fallback_prompt

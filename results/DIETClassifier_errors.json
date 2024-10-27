@@ -1,0 +1,543 @@
+[
+  {
+    "text": "Any remote Healthcare projects in occupational therapy?",
+    "entities": [
+      {
+        "start": 4,
+        "end": 10,
+        "value": "remote",
+        "entity": "location_type"
+      },
+      {
+        "start": 11,
+        "end": 21,
+        "value": "Healthcare",
+        "entity": "industry"
+      },
+      {
+        "start": 34,
+        "end": 54,
+        "value": "occupational therapy",
+        "entity": "keyword"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "location_type",
+        "start": 4,
+        "end": 10,
+        "value": "Remote (online)",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 34,
+        "end": 54,
+        "value": "Occupational Therapy",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 11,
+        "end": 21,
+        "confidence_entity": 0.9178587198257446,
+        "value": "Healthcare",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 34,
+        "end": 54,
+        "confidence_entity": 0.9997420907020569,
+        "value": "Occupational Therapy",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Graphic Design projects that are remote with a focus on digital painting.",
+    "entities": [
+      {
+        "start": 0,
+        "end": 14,
+        "value": "Graphic Design",
+        "entity": "discipline"
+      },
+      {
+        "start": 33,
+        "end": 39,
+        "value": "remote",
+        "entity": "location_type"
+      },
+      {
+        "start": 56,
+        "end": 72,
+        "value": "digital painting",
+        "entity": "keyword"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "location_type",
+        "start": 33,
+        "end": 39,
+        "value": "Remote (online)",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 8,
+        "end": 14,
+        "confidence_entity": 0.9411045908927917,
+        "value": "Design",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "location_type",
+        "start": 33,
+        "end": 39,
+        "confidence_entity": 0.9999722242355347,
+        "value": "Remote (online)",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 56,
+        "end": 72,
+        "confidence_entity": 0.9999570846557617,
+        "value": "digital painting",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Looking for Law projects on Criminal Justice that can be completed online.",
+    "entities": [
+      {
+        "start": 12,
+        "end": 15,
+        "value": "Law",
+        "entity": "discipline"
+      },
+      {
+        "start": 28,
+        "end": 44,
+        "value": "Criminal Justice",
+        "entity": "keyword"
+      },
+      {
+        "start": 67,
+        "end": 73,
+        "value": "online",
+        "entity": "location_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "location_type",
+        "start": 67,
+        "end": 73,
+        "value": "Remote (online)",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 28,
+        "end": 44,
+        "value": "Criminal Justice",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 12,
+        "end": 15,
+        "confidence_entity": 0.922868013381958,
+        "value": "Law",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 28,
+        "end": 44,
+        "confidence_entity": 0.9999409914016724,
+        "value": "Criminal Justice",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 67,
+        "end": 73,
+        "confidence_entity": 0.9999798536300659,
+        "value": "Remote (online)",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Remote Engineering project on robotics that lasts 24 weeks.",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "Remote",
+        "entity": "location_type"
+      },
+      {
+        "start": 7,
+        "end": 18,
+        "value": "Engineering",
+        "entity": "industry"
+      },
+      {
+        "start": 30,
+        "end": 38,
+        "value": "robotics",
+        "entity": "keyword"
+      },
+      {
+        "start": 50,
+        "end": 58,
+        "value": "24 weeks",
+        "entity": "duration"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "duration",
+        "start": 50,
+        "end": 58,
+        "value": "24 Weeks",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 0,
+        "end": 6,
+        "value": "Remote (online)",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 7,
+        "end": 18,
+        "value": "Engineering",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 7,
+        "end": 18,
+        "confidence_entity": 0.999870777130127,
+        "value": "Engineering",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 30,
+        "end": 38,
+        "confidence_entity": 0.9999712705612183,
+        "value": "robotics",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "duration",
+        "start": 50,
+        "end": 58,
+        "confidence_entity": 0.9999943971633911,
+        "value": "24 Weeks",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "I need a Remote Marketing project on SEO for 4 weeks.",
+    "entities": [
+      {
+        "start": 9,
+        "end": 15,
+        "value": "Remote",
+        "entity": "location_type"
+      },
+      {
+        "start": 16,
+        "end": 25,
+        "value": "Marketing",
+        "entity": "discipline"
+      },
+      {
+        "start": 37,
+        "end": 40,
+        "value": "SEO",
+        "entity": "keyword"
+      },
+      {
+        "start": 45,
+        "end": 52,
+        "value": "4 weeks",
+        "entity": "duration"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "duration",
+        "start": 45,
+        "end": 52,
+        "value": "4 Weeks",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 9,
+        "end": 15,
+        "value": "Remote (online)",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 37,
+        "end": 40,
+        "confidence_entity": 0.999963641166687,
+        "value": "SEO",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "duration",
+        "start": 45,
+        "end": 52,
+        "confidence_entity": 0.9999964237213135,
+        "value": "4 Weeks",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Show me medium projects in Hospitality.",
+    "entities": [
+      {
+        "start": 8,
+        "end": 14,
+        "value": "medium",
+        "entity": "size"
+      },
+      {
+        "start": 27,
+        "end": 38,
+        "value": "Hospitality",
+        "entity": "discipline"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "size",
+        "start": 8,
+        "end": 14,
+        "value": "Medium",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "size",
+        "start": 8,
+        "end": 14,
+        "confidence_entity": 0.9999234676361084,
+        "value": "Medium",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 27,
+        "end": 38,
+        "confidence_entity": 0.9935060739517212,
+        "value": "Hospitality",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Secondary Teaching project for 8 weeks that’s Flexible.",
+    "entities": [
+      {
+        "start": 0,
+        "end": 18,
+        "value": "Secondary Teaching",
+        "entity": "discipline"
+      },
+      {
+        "start": 31,
+        "end": 38,
+        "value": "8 weeks",
+        "entity": "duration"
+      },
+      {
+        "start": 46,
+        "end": 54,
+        "value": "Flexible",
+        "entity": "location_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "duration",
+        "start": 31,
+        "end": 38,
+        "value": "8 Weeks",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 46,
+        "end": 54,
+        "value": "Flexible",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 0,
+        "end": 18,
+        "value": "Secondary Teaching",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 10,
+        "end": 18,
+        "confidence_entity": 0.8981890678405762,
+        "value": "Teaching",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "duration",
+        "start": 31,
+        "end": 38,
+        "confidence_entity": 0.9993376135826111,
+        "value": "8 Weeks",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 46,
+        "end": 54,
+        "confidence_entity": 0.9999953508377075,
+        "value": "Flexible",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "nice to meet you",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "keyword",
+        "start": 8,
+        "end": 16,
+        "confidence_entity": 0.9751308560371399,
+        "value": "meet you",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "make sense of this",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "keyword",
+        "start": 11,
+        "end": 18,
+        "confidence_entity": 0.8697750568389893,
+        "value": "of this",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  }
+]

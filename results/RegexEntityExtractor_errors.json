@@ -1,0 +1,1575 @@
+[
+  {
+    "text": "Any remote Healthcare projects in occupational therapy?",
+    "entities": [
+      {
+        "start": 4,
+        "end": 10,
+        "value": "remote",
+        "entity": "location_type"
+      },
+      {
+        "start": 11,
+        "end": 21,
+        "value": "Healthcare",
+        "entity": "industry"
+      },
+      {
+        "start": 34,
+        "end": 54,
+        "value": "occupational therapy",
+        "entity": "keyword"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "location_type",
+        "start": 4,
+        "end": 10,
+        "value": "Remote (online)",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 34,
+        "end": 54,
+        "value": "Occupational Therapy",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 11,
+        "end": 21,
+        "confidence_entity": 0.9178587198257446,
+        "value": "Healthcare",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 34,
+        "end": 54,
+        "confidence_entity": 0.9997420907020569,
+        "value": "Occupational Therapy",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Are there any biochemistry projects available onsite focused on enzyme reactions?",
+    "entities": [
+      {
+        "start": 14,
+        "end": 26,
+        "value": "biochemistry",
+        "entity": "discipline"
+      },
+      {
+        "start": 46,
+        "end": 52,
+        "value": "onsite",
+        "entity": "location_type"
+      },
+      {
+        "start": 64,
+        "end": 80,
+        "value": "enzyme reactions",
+        "entity": "keyword"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "discipline",
+        "start": 14,
+        "end": 26,
+        "value": "Biochemistry",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 14,
+        "end": 26,
+        "confidence_entity": 0.9994126558303833,
+        "value": "Biochemistry",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 46,
+        "end": 52,
+        "confidence_entity": 0.9999887943267822,
+        "value": "On-site",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 64,
+        "end": 80,
+        "confidence_entity": 0.9999634027481079,
+        "value": "enzyme reactions",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Data science project for 12 Weeks on data visualization that’s remote?",
+    "entities": [
+      {
+        "start": 0,
+        "end": 12,
+        "value": "Data science",
+        "entity": "discipline"
+      },
+      {
+        "start": 25,
+        "end": 33,
+        "value": "12 Weeks",
+        "entity": "duration"
+      },
+      {
+        "start": 37,
+        "end": 55,
+        "value": "data visualization",
+        "entity": "keyword"
+      },
+      {
+        "start": 63,
+        "end": 69,
+        "value": "remote",
+        "entity": "location_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "duration",
+        "start": 25,
+        "end": 33,
+        "value": "12 Weeks",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 63,
+        "end": 69,
+        "value": "Remote (online)",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 5,
+        "end": 12,
+        "value": "Science",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 0,
+        "end": 12,
+        "value": "Data Science",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 0,
+        "end": 12,
+        "confidence_entity": 0.828366219997406,
+        "value": "Data Science",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "duration",
+        "start": 25,
+        "end": 33,
+        "confidence_entity": 0.9997230172157288,
+        "value": "12 Weeks",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 37,
+        "end": 55,
+        "confidence_entity": 0.9756105542182922,
+        "value": "data visualization",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 63,
+        "end": 69,
+        "confidence_entity": 0.9999666213989258,
+        "value": "Remote (online)",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Engineering project on environmental sustainability that is Flexible.",
+    "entities": [
+      {
+        "start": 0,
+        "end": 11,
+        "value": "Engineering",
+        "entity": "industry"
+      },
+      {
+        "start": 23,
+        "end": 51,
+        "value": "environmental sustainability",
+        "entity": "keyword"
+      },
+      {
+        "start": 60,
+        "end": 68,
+        "value": "Flexible",
+        "entity": "location_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "location_type",
+        "start": 60,
+        "end": 68,
+        "value": "Flexible",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 0,
+        "end": 11,
+        "value": "Engineering",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 0,
+        "end": 11,
+        "confidence_entity": 0.9994569420814514,
+        "value": "Engineering",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 23,
+        "end": 51,
+        "confidence_entity": 0.9490522146224976,
+        "value": "environmental sustainability",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 60,
+        "end": 68,
+        "confidence_entity": 0.9999948740005493,
+        "value": "Flexible",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Do you have any On-site Physics projects on quantum computing?",
+    "entities": [
+      {
+        "start": 16,
+        "end": 23,
+        "value": "On-site",
+        "entity": "location_type"
+      },
+      {
+        "start": 24,
+        "end": 31,
+        "value": "Physics",
+        "entity": "discipline"
+      },
+      {
+        "start": 44,
+        "end": 61,
+        "value": "quantum computing",
+        "entity": "keyword"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "location_type",
+        "start": 16,
+        "end": 23,
+        "value": "On-site",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 24,
+        "end": 31,
+        "value": "Physics",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 16,
+        "end": 23,
+        "confidence_entity": 0.9999164342880249,
+        "value": "On-site",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 24,
+        "end": 31,
+        "confidence_entity": 0.999909520149231,
+        "value": "Physics",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 44,
+        "end": 61,
+        "confidence_entity": 0.9999631643295288,
+        "value": "quantum computing",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "I need a Flexible project for Nursing on patient care lasting 12 Weeks.",
+    "entities": [
+      {
+        "start": 9,
+        "end": 17,
+        "value": "Flexible",
+        "entity": "location_type"
+      },
+      {
+        "start": 30,
+        "end": 37,
+        "value": "Nursing",
+        "entity": "discipline"
+      },
+      {
+        "start": 41,
+        "end": 53,
+        "value": "patient care",
+        "entity": "keyword"
+      },
+      {
+        "start": 62,
+        "end": 70,
+        "value": "12 Weeks",
+        "entity": "duration"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "duration",
+        "start": 62,
+        "end": 70,
+        "value": "12 Weeks",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 9,
+        "end": 17,
+        "value": "Flexible",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 30,
+        "end": 37,
+        "value": "Nursing",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 9,
+        "end": 17,
+        "confidence_entity": 0.9999964237213135,
+        "value": "Flexible",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 30,
+        "end": 37,
+        "confidence_entity": 0.9996905326843262,
+        "value": "Nursing",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 41,
+        "end": 53,
+        "confidence_entity": 0.9972922205924988,
+        "value": "patient care",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "duration",
+        "start": 62,
+        "end": 70,
+        "confidence_entity": 0.9999978542327881,
+        "value": "12 Weeks",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Graphic Design projects that are remote with a focus on digital painting.",
+    "entities": [
+      {
+        "start": 0,
+        "end": 14,
+        "value": "Graphic Design",
+        "entity": "discipline"
+      },
+      {
+        "start": 33,
+        "end": 39,
+        "value": "remote",
+        "entity": "location_type"
+      },
+      {
+        "start": 56,
+        "end": 72,
+        "value": "digital painting",
+        "entity": "keyword"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "location_type",
+        "start": 33,
+        "end": 39,
+        "value": "Remote (online)",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 8,
+        "end": 14,
+        "confidence_entity": 0.9411045908927917,
+        "value": "Design",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "location_type",
+        "start": 33,
+        "end": 39,
+        "confidence_entity": 0.9999722242355347,
+        "value": "Remote (online)",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 56,
+        "end": 72,
+        "confidence_entity": 0.9999570846557617,
+        "value": "digital painting",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Looking for Law projects on Criminal Justice that can be completed online.",
+    "entities": [
+      {
+        "start": 12,
+        "end": 15,
+        "value": "Law",
+        "entity": "discipline"
+      },
+      {
+        "start": 28,
+        "end": 44,
+        "value": "Criminal Justice",
+        "entity": "keyword"
+      },
+      {
+        "start": 67,
+        "end": 73,
+        "value": "online",
+        "entity": "location_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "location_type",
+        "start": 67,
+        "end": 73,
+        "value": "Remote (online)",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 28,
+        "end": 44,
+        "value": "Criminal Justice",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 12,
+        "end": 15,
+        "confidence_entity": 0.922868013381958,
+        "value": "Law",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 28,
+        "end": 44,
+        "confidence_entity": 0.9999409914016724,
+        "value": "Criminal Justice",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 67,
+        "end": 73,
+        "confidence_entity": 0.9999798536300659,
+        "value": "Remote (online)",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "A project about business analytics within IT & Computer Science that’s Flexible.",
+    "entities": [
+      {
+        "start": 16,
+        "end": 34,
+        "value": "business analytics",
+        "entity": "keyword"
+      },
+      {
+        "start": 42,
+        "end": 63,
+        "value": "IT & Computer Science",
+        "entity": "industry"
+      },
+      {
+        "start": 71,
+        "end": 79,
+        "value": "Flexible",
+        "entity": "location_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "location_type",
+        "start": 71,
+        "end": 79,
+        "value": "Flexible",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 16,
+        "end": 24,
+        "value": "Business",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 42,
+        "end": 63,
+        "value": "IT & Computer Science",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 16,
+        "end": 34,
+        "confidence_entity": 0.9986168146133423,
+        "value": "business analytics",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 42,
+        "end": 63,
+        "confidence_entity": 0.9997243285179138,
+        "value": "IT & Computer Science",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 71,
+        "end": 79,
+        "confidence_entity": 0.9999960660934448,
+        "value": "Flexible",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Show me any 12-week Computer Science projects on coding that are online.",
+    "entities": [
+      {
+        "start": 12,
+        "end": 19,
+        "value": "12-week",
+        "entity": "duration"
+      },
+      {
+        "start": 20,
+        "end": 36,
+        "value": "Computer Science",
+        "entity": "discipline"
+      },
+      {
+        "start": 49,
+        "end": 55,
+        "value": "coding",
+        "entity": "keyword"
+      },
+      {
+        "start": 65,
+        "end": 71,
+        "value": "online",
+        "entity": "location_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "location_type",
+        "start": 65,
+        "end": 71,
+        "value": "Remote (online)",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 29,
+        "end": 36,
+        "value": "Science",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "duration",
+        "start": 12,
+        "end": 19,
+        "confidence_entity": 0.9953362345695496,
+        "value": "12-week",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 20,
+        "end": 36,
+        "confidence_entity": 0.9998235106468201,
+        "value": "Computer Science",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 49,
+        "end": 55,
+        "confidence_entity": 0.999923825263977,
+        "value": "coding",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 65,
+        "end": 71,
+        "confidence_entity": 0.999994158744812,
+        "value": "Remote (online)",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Remote Engineering project on robotics that lasts 24 weeks.",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "Remote",
+        "entity": "location_type"
+      },
+      {
+        "start": 7,
+        "end": 18,
+        "value": "Engineering",
+        "entity": "industry"
+      },
+      {
+        "start": 30,
+        "end": 38,
+        "value": "robotics",
+        "entity": "keyword"
+      },
+      {
+        "start": 50,
+        "end": 58,
+        "value": "24 weeks",
+        "entity": "duration"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "duration",
+        "start": 50,
+        "end": 58,
+        "value": "24 Weeks",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 0,
+        "end": 6,
+        "value": "Remote (online)",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 7,
+        "end": 18,
+        "value": "Engineering",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 7,
+        "end": 18,
+        "confidence_entity": 0.999870777130127,
+        "value": "Engineering",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 30,
+        "end": 38,
+        "confidence_entity": 0.9999712705612183,
+        "value": "robotics",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "duration",
+        "start": 50,
+        "end": 58,
+        "confidence_entity": 0.9999943971633911,
+        "value": "24 Weeks",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "I need a Remote Marketing project on SEO for 4 weeks.",
+    "entities": [
+      {
+        "start": 9,
+        "end": 15,
+        "value": "Remote",
+        "entity": "location_type"
+      },
+      {
+        "start": 16,
+        "end": 25,
+        "value": "Marketing",
+        "entity": "discipline"
+      },
+      {
+        "start": 37,
+        "end": 40,
+        "value": "SEO",
+        "entity": "keyword"
+      },
+      {
+        "start": 45,
+        "end": 52,
+        "value": "4 weeks",
+        "entity": "duration"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "duration",
+        "start": 45,
+        "end": 52,
+        "value": "4 Weeks",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 9,
+        "end": 15,
+        "value": "Remote (online)",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 37,
+        "end": 40,
+        "confidence_entity": 0.999963641166687,
+        "value": "SEO",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "duration",
+        "start": 45,
+        "end": 52,
+        "confidence_entity": 0.9999964237213135,
+        "value": "4 Weeks",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Show me 6-week Nursing projects.",
+    "entities": [
+      {
+        "start": 8,
+        "end": 14,
+        "value": "6-week",
+        "entity": "duration"
+      },
+      {
+        "start": 15,
+        "end": 22,
+        "value": "Nursing",
+        "entity": "discipline"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "discipline",
+        "start": 15,
+        "end": 22,
+        "value": "Nursing",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "duration",
+        "start": 8,
+        "end": 14,
+        "confidence_entity": 0.995352029800415,
+        "value": "6-week",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 15,
+        "end": 22,
+        "confidence_entity": 0.9997996687889099,
+        "value": "Nursing",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Any Law projects for corporate law that are Medium and On-site?",
+    "entities": [
+      {
+        "start": 4,
+        "end": 7,
+        "value": "Law",
+        "entity": "discipline"
+      },
+      {
+        "start": 21,
+        "end": 34,
+        "value": "corporate law",
+        "entity": "keyword"
+      },
+      {
+        "start": 44,
+        "end": 50,
+        "value": "Medium",
+        "entity": "size"
+      },
+      {
+        "start": 55,
+        "end": 62,
+        "value": "On-site",
+        "entity": "location_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "size",
+        "start": 44,
+        "end": 50,
+        "value": "Medium",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 55,
+        "end": 62,
+        "value": "On-site",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 21,
+        "end": 34,
+        "value": "Corporate Law",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 4,
+        "end": 7,
+        "confidence_entity": 0.9999586343765259,
+        "value": "Law",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 21,
+        "end": 34,
+        "confidence_entity": 0.9976558685302734,
+        "value": "Corporate Law",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "size",
+        "start": 44,
+        "end": 50,
+        "confidence_entity": 0.9999934434890747,
+        "value": "Medium",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 55,
+        "end": 62,
+        "confidence_entity": 0.9999967813491821,
+        "value": "On-site",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Environmental Engineering projects that are Flexible and focused on molecular analysis.",
+    "entities": [
+      {
+        "start": 0,
+        "end": 25,
+        "value": "Environmental Engineering",
+        "entity": "discipline"
+      },
+      {
+        "start": 44,
+        "end": 52,
+        "value": "Flexible",
+        "entity": "location_type"
+      },
+      {
+        "start": 68,
+        "end": 86,
+        "value": "molecular analysis",
+        "entity": "keyword"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "location_type",
+        "start": 44,
+        "end": 52,
+        "value": "Flexible",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 14,
+        "end": 25,
+        "value": "Engineering",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 0,
+        "end": 25,
+        "value": "Environmental Engineering",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 0,
+        "end": 25,
+        "confidence_entity": 0.6448529362678528,
+        "value": "Environmental Engineering",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 44,
+        "end": 52,
+        "confidence_entity": 0.9999951124191284,
+        "value": "Flexible",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 68,
+        "end": 86,
+        "confidence_entity": 0.9999806880950928,
+        "value": "molecular analysis",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "I need Physics projects for Large groups focused on particle physics.",
+    "entities": [
+      {
+        "start": 7,
+        "end": 14,
+        "value": "Physics",
+        "entity": "discipline"
+      },
+      {
+        "start": 28,
+        "end": 33,
+        "value": "Large",
+        "entity": "size"
+      },
+      {
+        "start": 52,
+        "end": 68,
+        "value": "particle physics",
+        "entity": "keyword"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "size",
+        "start": 28,
+        "end": 33,
+        "value": "Large",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 7,
+        "end": 14,
+        "value": "Physics",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 61,
+        "end": 68,
+        "value": "Physics",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 7,
+        "end": 14,
+        "confidence_entity": 0.9999260902404785,
+        "value": "Physics",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "size",
+        "start": 28,
+        "end": 33,
+        "confidence_entity": 0.999984860420227,
+        "value": "Large",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 52,
+        "end": 68,
+        "confidence_entity": 0.9999865293502808,
+        "value": "particle physics",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Any Remote Marine Science projects focused on marine biology?",
+    "entities": [
+      {
+        "start": 4,
+        "end": 10,
+        "value": "Remote",
+        "entity": "location_type"
+      },
+      {
+        "start": 11,
+        "end": 25,
+        "value": "Marine Science",
+        "entity": "discipline"
+      },
+      {
+        "start": 46,
+        "end": 60,
+        "value": "marine biology",
+        "entity": "keyword"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "location_type",
+        "start": 4,
+        "end": 10,
+        "value": "Remote (online)",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 18,
+        "end": 25,
+        "value": "Science",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 11,
+        "end": 25,
+        "value": "Marine Science",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 53,
+        "end": 60,
+        "value": "Biology",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 4,
+        "end": 10,
+        "confidence_entity": 0.8612078428268433,
+        "value": "Remote (online)",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 11,
+        "end": 25,
+        "confidence_entity": 0.9944209456443787,
+        "value": "Marine Science",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 46,
+        "end": 60,
+        "confidence_entity": 0.9999523162841797,
+        "value": "marine biology",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Show me medium projects in Hospitality.",
+    "entities": [
+      {
+        "start": 8,
+        "end": 14,
+        "value": "medium",
+        "entity": "size"
+      },
+      {
+        "start": 27,
+        "end": 38,
+        "value": "Hospitality",
+        "entity": "discipline"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "size",
+        "start": 8,
+        "end": 14,
+        "value": "Medium",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "size",
+        "start": 8,
+        "end": 14,
+        "confidence_entity": 0.9999234676361084,
+        "value": "Medium",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 27,
+        "end": 38,
+        "confidence_entity": 0.9935060739517212,
+        "value": "Hospitality",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Can I get Psychology projects on mental health that are online?",
+    "entities": [
+      {
+        "start": 10,
+        "end": 20,
+        "value": "Psychology",
+        "entity": "discipline"
+      },
+      {
+        "start": 33,
+        "end": 46,
+        "value": "mental health",
+        "entity": "keyword"
+      },
+      {
+        "start": 56,
+        "end": 62,
+        "value": "online",
+        "entity": "location_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "location_type",
+        "start": 56,
+        "end": 62,
+        "value": "Remote (online)",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "industry",
+        "start": 40,
+        "end": 46,
+        "value": "Health",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 10,
+        "end": 20,
+        "value": "Psychology",
+        "extractor": "RegexEntityExtractor",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "discipline",
+        "start": 10,
+        "end": 20,
+        "confidence_entity": 0.9994995594024658,
+        "value": "Psychology",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "keyword",
+        "start": 33,
+        "end": 46,
+        "confidence_entity": 0.9378311634063721,
+        "value": "mental health",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "location_type",
+        "start": 56,
+        "end": 62,
+        "confidence_entity": 0.9999940395355225,
+        "value": "Remote (online)",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,154 @@
+[
+  {
+    "text": "nice to meet you",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "ask_project",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "random text",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 8.286662341561168e-05
+    }
+  },
+  {
+    "text": "gibberish",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 4.5754259190289304e-05
+    }
+  },
+  {
+    "text": "?!@#",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.0030243622604757547
+    }
+  },
+  {
+    "text": "what the!",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 2.9767377782263793e-05
+    }
+  },
+  {
+    "text": "I don't know what to type",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 1.9011549738934264e-06
+    }
+  },
+  {
+    "text": "blah blah blah",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 2.9118796192051377e-06
+    }
+  },
+  {
+    "text": "asdfasdf",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.00010182976984651759
+    }
+  },
+  {
+    "text": "gvfthjoik",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 7.11260800017044e-05
+    }
+  },
+  {
+    "text": "sdfgh",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 7.033035217318684e-05
+    }
+  },
+  {
+    "text": "oiehfi",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 7.260756683535874e-05
+    }
+  },
+  {
+    "text": "akljewq",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 6.444589234888554e-05
+    }
+  },
+  {
+    "text": "jkasd!",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 6.114531424827874e-05
+    }
+  },
+  {
+    "text": "hgiof",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.00013096208567731082
+    }
+  },
+  {
+    "text": "huh??",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.00015370125765912235
+    }
+  },
+  {
+    "text": "I'm lost",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "ask_project",
+      "confidence": 0.779321551322937
+    }
+  },
+  {
+    "text": "?????",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.0030243622604757547
+    }
+  },
+  {
+    "text": "I'm confused",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.026459120213985443
+    }
+  },
+  {
+    "text": "make sense of this",
+    "intent": "nlu_fallback",
+    "intent_prediction": {
+      "name": "ask_project",
+      "confidence": 1.0
+    }
+  }
+]

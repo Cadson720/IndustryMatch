@@ -4,6 +4,7 @@ intents:
   - greet
   - nlu_fallback
   - ask_project
+
 entities:
   - discipline
   - keywords

@@ -121,68 +121,373 @@ nlu:
       - Bricklaying & Stonemasonry
       - Surveying
 
-  # Synonyms for common terms
+  - lookup: keywords
+    examples: |
+      - data visualization
+      - machine learning
+      - robotics
+      - AI
+      - sustainability
+      - quantum computing
+      - neural networks
+      - automation
+      - analytics
+      - blockchain
+      - cybersecurity
+      - cloud
+      - circuits
+      - biology
+      - chemistry
+      - diagnostics
+      - algorithms
+      - enzyme reactions
+      - coding
+      - SEO
+      - robotics
+      - physics
+      - genetics
+      - patient care
+      - urban planning
+      - biophysics
+      - nanotech
+      - pharmacology
+      - ethics
+      - modeling
+      - visualization
+      - CRM
+      - construction
+      - management
+      - sensors
+      - manufacturing
+      - UX
+      - big data
+      - sustainability assessment
+      - deep learning
+      - simulations
+      - virtualization
+      - NLP
+      - electrical
+      - circuits
+      - mechanics
+      - supply chain
+      - healthcare
+      - biometrics
+      - blockchain
+      - consulting
+      - strategy
+      - compliance
+      - diagnostics
+      - mobile development
+      - marketing
+      - encryption
+      - geospatial
+      - survey
+      - mapping
+      - energy
+      - economics
+      - resource management
+      - space exploration
+      - automotive
+      - finance
+      - sustainability
+      - environmental engineering
+      - water resources
+      - chemistry
+      - law
+      - ethics
+      - VR
+      - AR
+      - mixed reality
+      - coding
+      - digital marketing
+      - production
+      - fashion
+      - product design
+      - forensics
+      - database
+      - AI ethics
+      - marine biology
+      - biochemistry
+      - web development
+      - biomedicine
+      - event planning
+      - social work
+      - psychology
+      - music
+      - film
+      - digital painting
+      - criminal justice
+      - structural design
+      - consulting
+      - auditing
+      - compliance
+      - security
+      - network security
+      - logistics
+      - journalism
+      - horticulture
+      - waste management
+      - food safety
+      - hospitality
+      - epidemiology
+      - auditing
+      - database management
+      - robotics
+      - marine biology
+      - statistics
+      - biotech
+      - genomics
+      - water treatment
+      - counseling
+      - exercise
+      - nutrition
+      - inventory
+      - communications
+      - animation
+      - geology
+      - travel
+      - ethics
+      - coding
+      - microscopy
+      - neuroscience
+      - risk management
+      - compliance
+      - agriculture
+      - human resources
+      - translation
+      - pediatrics
+      - biotechnology
+      - agronomy
+      - cyber security
+      - NLP
+      - policy analysis
+      - healthcare management
+      - environmental science
+      - automation
+      - multimedia
+      - curriculum
+      - design
+      - analysis
+      - law enforcement
+      - pedagogy
+      - counseling
+      - horticulture
+      - ergonomics
+      - biomedicine
+      - anthropology
+      - logistics
+      - assessment
+      - prototyping
+      - machine learning
+      - app development
+      - simulation
+      - behavioral science
+      - pharmacodynamics
+      - social media
+      - advertising
+      - journalism
+      - intelligence
+      - database
+      - quantum physics
+      - 3D modeling
+      - music production
+      - materials science
+      - aerodynamics
+      - transportation
+      - nuclear
+      - ecology
+      - philosophy
+      - marine
+      - navigation
+      - structural
+      - cognitive science
+      - law
+      - education
+      - teaching
+      - language processing
+      - public health
+      - therapy
+      - accounting
+      - robotics
+      - compliance
+      - auditing
+      - validation
+      - visualization
+      - journalism
+      - speech recognition
+      - ethics
+      - linguistics
+      - engineering
+      - climate change
+      - entrepreneurship
+      - retail
+      - product management
+      - surveying
+      - nanotechnology
+      - electrical
+      - food science
+      - architecture
+      - graphic design
+      - journalism
+      - risk management
+      - marketing strategy
+      - operations
+      - culinary
+      - HVAC
+      - analysis
+      - anthropology
+      - sustainability
+      - geography
+      - international relations
+
+  # Expanded Synonyms for common terms
   - synonym: Remote (online)
     examples: |
       - remote
-      - Remote
       - online
-      - Online
+      - virtual
+      - digital
+      - home based
+      - remotely
+      - online based
 
   - synonym: On-site
     examples: |
-      - On-site
+      - onsite
+      - on site
+      - physical location
+      - in person
+      - on-premises
+      - in-office
+      - at the location
+      - in-house
+      - in the office
 
   - synonym: Flexible
     examples: |
-      - Flexible
+      - adaptable
+      - flexible schedule
+      - custom schedule
+      - any time
+      - self-paced
+      - open timing
 
   - synonym: Small
     examples: |
-      - Small
+      - smaller
+      - compact
+      - minor
+      - concise
+      - petite
+      - light
 
   - synonym: Medium
     examples: |
-      - Medium
+      - average
+      - mid-sized
+      - moderate
+      - middle-sized
+      - fair-sized
 
   - synonym: Large
     examples: |
-      - Large
+      - big
+      - bigger
+      - extensive
+      - full-sized
+      - high volume
+      - broad scope
+      - major
+      - significant
+      - extra large
 
-  #Intents
+    #Intents
   - intent: ask_project
     examples: |
-      - Got any [remote](location_type) projects in [Nursing](discipline) that last [12 Weeks](duration)?
-      - Can I find an [On-site](location_type) project in [Civil Engineering](discipline) that focuses on [bridge design](keyword) and runs for [24 Weeks](duration)?
-      - I need a [Small](size) [Marketing](discipline) project that I can do [online](location_type).
-      - Show me available [IT & Computer Science](industry) projects focused on [data analytics](keyword) that are [online](location_type).
-      - Are there [Medium](size) [Business](industry) projects that last [4 Weeks](duration)?
-      - Find me a [Software Engineering](discipline) project focused on [machine learning](keyword) that lasts [12 Weeks](duration).
-      - I want an [8-week](duration) [On-site](location_type) project in [Electrical Engineering](discipline). Got anything?
-      - Any [Creative Arts](discipline) projects that are [Flexible](location_type) and last [6 Weeks](duration)?
-      - What projects are available for [Food Science](discipline) that deal with [food safety](keyword) and last [12 Weeks](duration)?
-      - I'm looking for a [Flexible](location_type) project in [Marine Science](discipline) that's [Medium](size) and lasts [6 Weeks](duration).
-      - Do you have [Large](size) projects in [Law](discipline) that run for [12 Weeks](duration)?
-      - Can I get a [Remote](location_type) project in [Civil Engineering](discipline) that lasts [12 Weeks](duration)?
-      - I need an [On-site](location_type) [Paramedics](discipline) project focused on [emergency medical care](keyword) that runs for [6 Weeks](duration).
-      - Show me [Small](size) projects for [Midwifery](discipline).
-      - Got any [online](location_type) [Small](size) projects in [Software Engineering](discipline) for [machine learning](keyword)?
-      - Find me a [Medium](size) project in [Healthcare](industry) that focuses on [Occupational Therapy](discipline).
-      - Any short [4-week](duration) [Business](industry) projects available right now?
-      - Looking for a [Flexible](location_type) [24-week](duration) project related to [Plumbing](discipline). Anything like that?
-      - Can I find a [6-week](duration) [On-site](location_type) [Carpentry](discipline) project focused on [woodworking](keyword)?
-      - What [Remote)](location_type) [Engineering](discipline) projects do you have that last for [12 Weeks](duration)?
-      - I need a [Remote](location_type) project in [Marketing](discipline) that focuses on [SEO](keyword) and lasts [12 Weeks](duration).
-      - Show me the latest [Small](size), [Flexible](location_type) [IT](industry) projects.
-      - Are there any [Small](size) [Creative Arts](discipline) projects I can do [online](location_type) for [6 Weeks](duration)?
-      - Do you have a [Flexible](location_type) project in [Graphic Design](discipline) that focuses on [digital painting](keyword)?
-      - What [Large](size) [Engineering](discipline) projects are available in [automation](keyword)?
-      - Find me a [Remote)](location_type) project in [Computer Science](discipline) that runs for [12 Weeks](duration).
-      - Any [Remote)](location_type) [Nursing](discipline) projects that focus on [emergency care](keyword) for [12 Weeks](duration)?
-      - I'm looking for a [Medium](size) project in [Dentistry](discipline) that focuses on [orthodontics](keyword).
-      - Show me a project related to [environmental law](keyword) that lasts for [12 Weeks](duration).
-      - What [On-site](location_type) projects do you have for [Biology](discipline) that focus on [lab research](keyword)?
-
+      - [Healthcare](industry) projects for [occupational therapy](discipline) available [online](location_type)?
+      - Are there any [biochemistry](discipline) projects [onsite](location_type) that focus on [enzyme reactions](keywords)?
+      - Looking for a [remote](location_type) [data science](discipline) project for [12 Weeks](duration) on [data visualization](keywords).
+      - Show me projects in the [Creative Arts](discipline) that last for [8 weeks](duration) and are [Medium](size).
+      - I’m interested in a project about [environmental sustainability](keywords) within [Engineering](industry) that’s [Flexible](location_type).
+      - Can you find a [Large](size) project for [Business](industry) that lasts [6 weeks](duration)?
+      - Any [On-site](location_type) [Physics](discipline) projects focused on [quantum computing](keywords)?
+      - I need a [Flexible](location_type) [Nursing](discipline) project on [patient care](keywords) for about [12 Weeks](duration).
+      - Are there any projects on [digital painting](keywords) within [Graphic Design](discipline) for [6 weeks](duration) that are [remote](location_type)?
+      - Any [Law](discipline) projects for [Criminal Justice](discipline) that can be done [online](location_type)?
+      - I'm searching for a [4-week](duration) [Music & Performing Arts](discipline) project [onsite](location_type).
+      - Can you show [Psychology](discipline) projects focused on [mental health](keywords) that are [Medium](size) and [online](location_type)?
+      - Do you have [Food & Hospitality](industry) projects that are [Flexible](location_type) for a [Large](size) group?
+      - Can you locate a project for [Marketing](discipline) focused on [SEO](keywords) for [4 Weeks](duration)?
+      - Do you have [Engineering](industry) projects available for [mechatronics](discipline) that are [onsite](location_type) and [Medium](size)?
+      - I'm looking for [12-week](duration) [Cyber Security](discipline) projects that can be done [remotely](location_type).
+      - Are there any [Remote](location_type) [Environmental Engineering](discipline) projects for [Large](size) groups?
+      - Find [12-week](duration) projects on [coding](keywords) in [Computer Science](discipline) that are [online](location_type).
+      - Show me [Education](industry) projects that are [Flexible](location_type) with a focus on [Special Education](discipline).
+      - Are there [Flexible](location_type) projects in [Chemistry](discipline) for [6 weeks](duration) on [molecular analysis](keywords)?
+      - Any [Business](industry) projects on [strategic management](keywords) for [8 weeks](duration) that are [Flexible](location_type)?
+      - Are there [Flexible](location_type) [Physics](discipline) projects that are [8 Weeks](duration) for [Large](size) groups?
+      - I’d like a project about [robotics](keywords) for [Engineering](industry) lasting [24 weeks](duration) that’s [onsite](location_type).
+      - Any [Law](discipline) projects for [corporate law](discipline) that are [Medium](size) and [on-site](location_type)?
+      - Can you find a project in [Genetics](discipline) for [8 weeks](duration) with a focus on [genome editing](keywords)?
+      - I need a [Flexible](location_type) [Veterinary Science](discipline) project related to [animal behavior](keywords).
+      - Are there projects in [Computer Graphics](discipline) on [animation](keywords) that are [remote](location_type) and [Large](size)?
+      - I’m looking for [Flexible](location_type) [Civil Engineering](discipline) projects with a focus on [urban planning](keywords) lasting [6 weeks](duration).
+      - Do you have [Medical Science](discipline) projects on [cardiology](keywords) that last [8 weeks](duration) and are [online](location_type)?
+      - Any projects on [renewable energy](keywords) for [Environmental Science](discipline) that are [onsite](location_type)?
+      - Can you find a [Small](size) project in [Dentistry](discipline) that lasts [4 weeks](duration) and focuses on [dental hygiene](keywords)?
+      - I’d like a [Philosophy](discipline) project that's [remote](location_type) and lasts [6 weeks](duration).
+      - Are there [Flexible](location_type) [Physics](discipline) projects for a [Large](size) group on [particle physics](keywords)?
+      - Find me a project about [AI ethics](keywords) within [Computer Science](discipline) that lasts [12 weeks](duration) [online](location_type).
+      - Do you have [On-site](location_type) [Marine Science](discipline) projects focused on [marine biology](keywords) for [12 weeks](duration)?
+      - Any projects in [Primary Teaching](discipline) that are [Flexible](location_type) and last [6 weeks](duration)?
+      - I’m interested in [Flexible](location_type) projects on [business analytics](keywords) for [IT & Computer Science](industry).
+      - Find me [Science](industry) projects focused on [biochemistry](discipline) that are [onsite](location_type) and last [8 weeks](duration).
+      - Do you have projects on [supply chain management](keywords) within [Industrial Engineering](discipline) that are [Flexible](location_type)?
+      - I’m searching for an [online](location_type) project in [Education](industry) that's about [Special Education](discipline) and [Medium](size).
+      - Are there [Flexible](location_type) [Secondary Teaching](discipline) projects for [8 weeks](duration)?
+      - Show me [Marketing](discipline) projects.
+      - Looking for a [remote](location_type) project.
+      - Any [4-week](duration) [Economics](discipline) projects available?
+      - I need a [Large](size) [Engineering](industry) project.
+      - Find [online](location_type) projects in [Computer Science](discipline).
+      - What [Flexible](location_type) projects are available?
+      - Show me [Small](size) [Creative Arts](discipline) projects.
+      - Are there any [IT & Computer Science](industry) projects that are [Flexible](location_type)?
+      - Do you have [8-week](duration) projects in [Environmental Science](discipline)?
+      - I want a [Large](size) project for [Biology](discipline).
+      - Any [Nursing](discipline) projects that last [12 Weeks](duration)?
+      - Can you find a [remote](location_type) [6-week](duration) project?
+      - I’m looking for a [Flexible](location_type) project on [machine learning](keywords).
+      - Are there any projects in [Physics](discipline) for [4 Weeks](duration)?
+      - Can I get a [Remote](location_type) project focused on [data analysis](keywords)?
+      - Any [Civil Engineering](discipline) projects that are [Medium](size)?
+      - I’m looking for an [Accounting](discipline) project that's [On-site](location_type).
+      - Do you have projects in [Food & Hospitality](industry)?
+      - Show me [Education](industry) projects available [online](location_type).
+      - I need an [On-site](location_type) project in [Human Resources](discipline).
+      - Do you have [10-week](duration) projects related to [robotics](keywords)?
+      - Find me [Engineering](industry) projects that last [6 weeks](duration).
+      - Are there any [medium](size) projects in [Hospitality](discipline)?
+      - Show me [Remote](location_type) projects in [Politics](discipline).
+      - Can you find a [remote](location_type) project that's [Large](size)?
+      - Any [4-week](duration) [Flexible](location_type) projects?
+      - Are there projects for [Small](size) teams in [Healthcare](industry)?
+      - Find projects on [cybersecurity](keywords) that are [Remote](location_type).
+      - I need [Physics](discipline) projects that last [8 Weeks](duration).
+      - Show me a project on [machine learning](keywords).
+      - What projects are there for [Special Education](discipline)?
+      - I need a project for [Primary Teaching](discipline) that's [online](location_type).
+      - Can I get [Nursing](discipline) projects that last [4 weeks](duration)?
+      - Are there any projects in [Secondary Education](discipline) for [6 weeks](duration)?
+      - Looking for [Flexible](location_type) projects in [Environmental Engineering](discipline).
+      - Do you have projects that last [12 Weeks](duration) in [Marine Science](discipline)?
+      - Show [Business](industry) projects that are [Remote](location_type).
+      - Are there any [Flexible](location_type) projects for [8 weeks](duration)?
+      - I’m looking for a project on [artificial intelligence](keywords).
+      - Any [Law](discipline) projects for [6 weeks](duration)?
+      - What projects are available [onsite](location_type) for [Dentistry](discipline)?
+      - Can I get a [Flexible](location_type) project for [Criminal Justice](discipline)?
+      - Find [Remote](location_type) projects for [Psychology](discipline).
 
   - intent: greet
     examples: |
@@ -195,10 +500,10 @@ nlu:
       - howdy
       - hello bot
       - hi there
-      - what's up
+      - whats up
       - yo
       - hey!
-      - how's it going?
+      - hows it going?
       - hello there
       - hey bot
 
@@ -218,6 +523,6 @@ nlu:
       - jkasd!
       - hgiof
       - huh??
-      - I'm lost
+      - Im lost
       - ????? 
-      - I'm confused
+      - Im confused

@@ -22,6 +22,31 @@ function parseJwt(token) {
   }
 }
 
+async function checkLoginStatus() {
+  const token = localStorage.getItem('jwtToken');
+  
+  if (!token) return false;
+
+  try {
+    // Send token to backend for verification
+    const response = await fetch('/api/protected', {
+      headers: { 'Authorization': `Bearer ${token}` },
+    });
+
+    if (response.status === 200) {
+      return true; // Token is valid
+    } else {
+      localStorage.removeItem('jwtToken'); // Remove invalid token
+      return false;
+    }
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    return false;
+  }
+}
+
+const isLoggedIn = await checkLoginStatus();
+
 function Landing() {
   const [userType, setUserType] = useState('Invalid');
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -29,7 +54,8 @@ function Landing() {
   const [selectedUserType, setSelectedUserType] = useState(null);
   const navigate = useNavigate();
   const [totalProjects, setTotalProjects] = useState(0);
-  const isLoggedIn = !!localStorage.getItem('jwtToken'); // Check if the user is logged in by verifying the token
+
+  
   
 
   const academicFields = [

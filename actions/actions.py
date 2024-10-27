@@ -3,7 +3,7 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from typing import Any, Text, Dict, List
 import logging
-import re  # Import for regex operations
+import re
 from rasa_sdk.events import SlotSet
 
 # Set up logging
@@ -25,12 +25,17 @@ class ActionSearchProjects(Action):
         industry = tracker.get_slot('industry')
         location_type = tracker.get_slot('location_type')
 
-        # Clean the slot values (if needed)
+        # Check if any slot is filled, else prompt for more details
+        if not any([keywords, discipline, duration, size, industry, location_type]):
+            dispatcher.utter_message(text="Could you specify more details for your project search?")
+            return []
+
+        # Clean the slot values if needed
         if size:
             size = size.capitalize()
         
         if duration:
-            # Ensure that duration is correctly formatted (e.g., "12 Weeks")
+            # Format duration to ensure consistency (e.g., "12 Weeks")
             match = re.search(r'(\d+)\s?weeks?', duration, re.IGNORECASE)
             if match:
                 duration = f"{match.group(1)} Weeks"
@@ -38,21 +43,15 @@ class ActionSearchProjects(Action):
         # Log slot values for debugging
         logger.debug(f"Slots - Keywords: {keywords}, Discipline: {discipline}, Duration: {duration}, Size: {size}, Industry: {industry}, Location_type: {location_type}")
 
-        # Build query parameters for the API call based on the input slots, but only include non-null slots
-        query_params = {}
-
-        if keywords:
-            query_params['keywords'] = keywords
-        if discipline:
-            query_params['discipline'] = discipline
-        if duration:
-            query_params['duration'] = duration
-        if size:
-            query_params['size'] = size
-        if industry:
-            query_params['industry'] = industry
-        if location_type:
-            query_params['location_type'] = location_type
+        # Build query parameters for the API call based on non-null slots
+        query_params = {k: v for k, v in {
+            'keywords': keywords,
+            'discipline': discipline,
+            'duration': duration,
+            'size': size,
+            'industry': industry,
+            'location_type': location_type
+        }.items() if v is not None}
 
         logger.debug(f"Query parameters for API: {query_params}")
 
@@ -76,7 +75,7 @@ class ActionSearchProjects(Action):
                         f"Size: {project['size']}\n"
                         f"Location Type: {project['location_type']}\n"
                         f"Description: {project['description']}\n"
-                        f"Address: {project['address']}\n"
+                        f"Address: {project.get('address', 'N/A')}\n"
                         f"Status: {project['status']}"
                         for project in projects
                     ])

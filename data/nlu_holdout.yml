@@ -1,0 +1,108 @@
+- intent: ask_project
+    examples: |
+    - Got any [remote](location_type) projects in [Nursing](discipline) that last [12 Weeks](duration)?
+    - Can I find an [On-site](location_type) project in [Civil Engineering](discipline) that focuses on [bridge design](keyword) and runs for [24 Weeks](duration)?
+    - I need a [Small](size) [Marketing](discipline) project that I can do [online](location_type).
+    - Show me available [IT & Computer Science](industry) projects focused on [data analytics](keyword) that are [online](location_type).
+    - Are there [Medium](size) [Business](industry) projects that last [4 Weeks](duration)?
+    - Find me a [Software Engineering](discipline) project focused on [machine learning](keyword) that lasts [12 Weeks](duration).
+    - I want an [8-week](duration) [On-site](location_type) project in [Electrical Engineering](discipline). Got anything?
+    - Any [Creative Arts](discipline) projects that are [Flexible](location_type) and last [6 Weeks](duration)?
+    - What projects are available for [Food Science](discipline) that deal with [food safety](keyword) and last [12 Weeks](duration)?
+    - I'm looking for a [Flexible](location_type) project in [Marine Science](discipline) that's [Medium](size) and lasts [6 Weeks](duration).
+    - Do you have [Large](size) projects in [Law](discipline) that run for [12 Weeks](duration)?
+    - Can I get a [Remote](location_type) project in [Civil Engineering](discipline) that lasts [12 Weeks](duration)?
+    - I need an [On-site](location_type) [Paramedics](discipline) project focused on [emergency medical care](keyword) that runs for [6 Weeks](duration).
+    - Show me [Small](size) projects for [Midwifery](discipline).
+    - Got any [online](location_type) [Small](size) projects in [Software Engineering](discipline) for [machine learning](keyword)?
+    - Find me a [Medium](size) project in [Healthcare](industry) that focuses on [Occupational Therapy](discipline).
+    - Any short [4-week](duration) [Business](industry) projects available right now?
+    - Looking for a [Flexible](location_type) [24-week](duration) project related to [Plumbing](discipline). Anything like that?
+    - Can I find a [6-week](duration) [On-site](location_type) [Carpentry](discipline) project focused on [woodworking](keyword)?
+    - What [Remote)](location_type) [Engineering](discipline) projects do you have that last for [12 Weeks](duration)?
+    - I need a [Remote](location_type) project in [Marketing](discipline) that focuses on [SEO](keyword) and lasts [12 Weeks](duration).
+    - Show me the latest [Small](size), [Flexible](location_type) [IT](industry) projects.
+    - Are there any [Small](size) [Creative Arts](discipline) projects I can do [online](location_type) for [6 Weeks](duration)?
+    - Do you have a [Flexible](location_type) project in [Graphic Design](discipline) that focuses on [digital painting](keyword)?
+    - What [Large](size) [Engineering](discipline) projects are available in [automation](keyword)?
+    - Find me a [Remote)](location_type) project in [Computer Science](discipline) that runs for [12 Weeks](duration).
+    - Any [Remote)](location_type) [Nursing](discipline) projects that focus on [emergency care](keyword) for [12 Weeks](duration)?
+    - I'm looking for a [Medium](size) project in [Dentistry](discipline) that focuses on [orthodontics](keyword).
+    - Show me a project related to [environmental law](keyword) that lasts for [12 Weeks](duration).
+    - What [On-site](location_type) projects do you have for [Biology](discipline) that focus on [lab research](keyword)?
+
+    - Do you have any [online](location_type) [Economics](discipline) projects lasting [12 Weeks](duration)?
+    - Are there any [Large](size) projects for [Marketing](discipline) I can do [remotely](location_type)?
+    - I'm looking for a [Flexible](location_type), [8-week](duration) project in [Data Science](discipline) that involves [machine learning](keyword).
+    - Show me [onsite](location_type) projects in [Environmental Engineering](discipline) for [6 Weeks](duration).
+    - Could you find a [Small](size) project for [Health](industry) focused on [nutrition](keyword)?
+    - What [remote](location_type) [Business](industry) projects do you have lasting [4 Weeks](duration)?
+    - Any [Electrical Engineering](discipline) projects available that are [Flexible](location_type)?
+    - I need a [Medium](size) size project for [Psychology](discipline) that I can do [onsite](location_type).
+    - Find me a [remote](location_type) [AI](discipline) project in [video processing](keyword) that’s [12 Weeks](duration).
+    - Are there [Creative Arts](discipline) projects I could do for [8 Weeks](duration)?
+    - Got anything [onsite](location_type) in [Graphic Design](discipline) focused on [branding](keyword)?
+    - Could you locate [6-week](duration) [Small](size) projects in [Law](discipline) for me?
+    - What are some [Flexible](location_type) projects for [Marketing](discipline) lasting [12 Weeks](duration)?
+    - I’d like a [Flexible](location_type) project in [Biology](discipline) that is [Medium](size) and spans [12 Weeks](duration).
+    - Show me any projects for [Carpentry](discipline) that are [4 Weeks](duration) and [onsite](location_type).
+    - Can you find a [Large](size) project in [Robotics](discipline) with a focus on [automation](keyword)?
+    - I need a [Healthcare](industry) project on [public health](keyword) for [10 weeks](duration).
+    - Find me [online](location_type) projects for [Management](discipline) lasting [8 Weeks](duration).
+    - Do you have projects in [Fashion Design](discipline) for [12 Weeks](duration) that are [onsite](location_type)?
+    - What [Flexible](location_type) projects are there for [Midwifery](discipline) and [patient care](keyword)?
+    - I need a [remote](location_type) project that involves [genetics research](keyword) for [Marine Science](discipline).
+    - I’m looking for a [6 Weeks](duration) [Flexible](location_type) project in [Physics](discipline).
+    - Can you locate a [Large](size) [Engineering](industry) project that involves [sensor design](keyword)?
+    - Find me [4-week](duration) projects in [Computer Science](discipline) that are [online](location_type).
+    - Any [remote](location_type) [Creative Arts](discipline) projects with a focus on [film editing](keyword) for [Medium](size)?
+    - Are there any [Flexible](location_type) [Software Engineering](discipline) projects on [app development](keyword) lasting [24 Weeks](duration)?
+    - I’d like a [6 Weeks](duration) project in [Marine Science](discipline) focused on [oceanography](keyword).
+    - What’s available for [remote](location_type) projects in [Civil Engineering](discipline) focused on [bridge construction](keyword)?
+    - Show me the available [On-site](location_type) projects in [Accounting](discipline) for a [Medium](size) group.
+    - Do you have [remote](location_type) projects in [Biochemistry](discipline) lasting [12 Weeks](duration) related to [cell research](keyword)?
+    - I'm looking for [remote](location_type) [Physics](discipline) projects that last [6 weeks](duration) and are related to [quantum mechanics](keyword).
+    - Can you find an [onsite](location_type) [Chemistry](discipline) project lasting [8 Weeks](duration) on [organic compounds](keyword)?
+
+# Expanded examples for greet
+- intent: greet
+  examples: |
+    - hello
+    - hi
+    - hey
+    - good morning
+    - good afternoon
+    - greetings
+    - howdy
+    - hello bot
+    - hi there
+    - what's up
+    - yo
+    - hey!
+    - how’s it going?
+    - hello there
+    - hey bot
+    - nice to meet you
+    - salutations
+
+# Expanded examples for nlu_fallback
+- intent: nlu_fallback
+  examples: |
+    - random text
+    - gibberish
+    - ?!@#
+    - what the!
+    - I don't know what to type
+    - blah blah blah
+    - asdfasdf
+    - gvfthjoik
+    - sdfgh
+    - oiehfi
+    - akljewq
+    - jkasd!
+    - hgiof
+    - huh??
+    - I'm lost
+    - ?????
+    - I'm confused
+    - make sense of this
