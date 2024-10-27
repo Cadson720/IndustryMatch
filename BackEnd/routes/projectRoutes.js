@@ -44,10 +44,10 @@ router.get('/project', async (req, res) => {
 router.get('/project/search', async (req, res) => {
   try {
     // Extract query parameters for filtering
-    const { keywords, discipline, duration, size, industry, location } = req.query;
+    const { keywords, discipline, duration, size, industry, location_type } = req.query;
 
     // Log incoming query parameters for debugging
-    console.log("Search parameters received:", { keywords, discipline, duration, size, industry, location });
+    console.log("Search parameters received:", { keywords, discipline, duration, size, industry, location_type });
 
     // Create a dynamic filter object based on the user's input
     let filters = {};
@@ -56,7 +56,8 @@ router.get('/project/search', async (req, res) => {
     if (keywords && keywords.trim() !== '') {
       filters[Op.or] = [
         { title: { [Op.iLike]: `%${keywords}%` } },  // Case-insensitive search in project title
-        { discipline: { [Op.iLike]: `%${keywords}%` } }  // Case-insensitive search in discipline
+        { discipline: { [Op.iLike]: `%${keywords}%` } },  // Case-insensitive search in discipline
+        { description: { [Op.iLike]: `%${keywords}%` } } // Additional search in description
       ];
     }
 
@@ -76,8 +77,8 @@ router.get('/project/search', async (req, res) => {
       filters.industry = { [Op.iLike]: `%${industry}%` }; // Case-insensitive match for industry
     }
 
-    if (location && location.trim() !== '') {
-      filters.location_type = { [Op.iLike]: `%${location}%` }; // Case-insensitive match for location
+    if (location_type && location_type.trim() !== '') {
+      filters.location_type = { [Op.iLike]: `%${location_type}%` }; // Case-insensitive match for location_type
     }
 
     // Log filters before executing the query
@@ -104,6 +105,7 @@ router.get('/project/search', async (req, res) => {
     res.status(500).json({ error: 'Failed to retrieve projects', details: error.message });
   }
 });
+
 
 // Other project routes like get by ID, create, update, delete, etc.
 router.get('/project/:id', async (req, res) => {
