@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from './modal';
-import Header from '../components/header.jsx'; // Import Header
-import Footer from '../components/footer.jsx'; // Import Footer
+import Header from '../pages/header.jsx'
+import Header from '../pages/footer.jsx'
 import "../styles/loader.css";
-import FeaturedProjects from './featuredProjects';
 
 // Helper function to decode JWT token manually
 function parseJwt(token) {
@@ -247,24 +246,22 @@ function Landing() {
           <div className="left-column">
             <div className="text-container">
               <div className="text">Industry Match</div>
-                {/* Conditionally render Login/Register buttons if the user is not logged in */}
-                {!isLoggedIn && (
-                  <>
-                    <button onClick={() => setIsLoginModalOpen(true)} className="auth-button">Login</button>
-                    <button onClick={() => setIsRegisterModalOpen(true)} className="auth-button">Register</button>
-                  </>
-                )}
-                <p>
-                  Fostering social and human perspectives in engineering: Projects, Partnerships, Professional Learning.
-                  With <i className="landing-i">{totalProjects}</i> projects to choose from and over <i className="landing-i">25</i> successful partnerships!
-                </p>
-              </div>
+
+              {/* Always render Login/Register buttons */}
+              <button onClick={() => setIsLoginModalOpen(true)} className="auth-button">Login</button>
+              <button onClick={() => setIsRegisterModalOpen(true)} className="auth-button">Register</button>
+
+              <p>
+                Fostering social and human perspectives in engineering: Projects, Partnerships, Professional Learning.
+                With <i className="landing-i">{totalProjects}</i> projects to choose from and over <i className="landing-i">25</i> successful partnerships!
+              </p>
+            </div>
+          </div>
+          <div className="right-column">
+            <img src="/landing_image.png" alt="Logo" className="image" />
+          </div>
+          <div className="seperator"></div>
         </div>
-        <div className="right-column">
-          <img src="/landing_image.png" alt="Logo" className="image" />
-        </div>
-        <div className="seperator"></div> 
-      </div>
       <Footer />
     </>
   );

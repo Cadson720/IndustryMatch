@@ -6,6 +6,7 @@ import Landing from '../components/landing.jsx'
 import Header from '../components/header.jsx'
 import Footer from '../components/footer.jsx'
 import About from '../components/about.jsx';
+import '../styles/about.css'
 
 
 createRoot(document.getElementById('root')).render(
