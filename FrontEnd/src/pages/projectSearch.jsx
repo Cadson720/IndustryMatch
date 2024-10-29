@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "../styles/projectSearch.css"; // Import the CSS for this component
 import "../styles/loader.css";
 import Loader from '../pages/loader.jsx';
+
 // import Header from '../pages/header.jsx';
 
 const disciplinesByIndustry = {
