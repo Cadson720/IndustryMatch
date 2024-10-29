@@ -127,7 +127,7 @@ function Landing() {
       if (decodedToken.type === 'Academic') {
         path = '/projectSearch';
       } else if (decodedToken.type === 'Industry') {
-        path = '/industryRedirect';
+        path = '/industry';
       } else if (decodedToken.type === 'Admin') {
         path = '/adminRedirect';
       }

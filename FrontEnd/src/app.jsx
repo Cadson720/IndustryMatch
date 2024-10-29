@@ -8,7 +8,7 @@ import Academic_Profile from './pages/academicProfile.jsx';
 import Project_Detail from './pages/projectDetail.jsx';
 import CreateProject from './pages/projectCreation.jsx'; 
 import Industry_Profile from './pages/industryProfile.jsx';
-// import Industry from './pages/industry.jsx';
+import Industry from './pages/industry.jsx';
 // import '../src/styles/about.css';
 import '../src/styles/header.css';
 import '../src/styles/landing.css';
@@ -38,7 +38,7 @@ function App() {
         <Route path="/projectDetail" element={<Project_Detail />} />
         <Route path="/industryProfile" element={<Industry_Profile />} />
         <Route path="/projectCreation" element={<CreateProject />} />
-        {/* <Route path="/industryRedirect" element={<Industry />} /> */}
+        <Route path="/industry" element={<Industry />} />
 
 
         {/* Uncomment and add more routes as needed */}
