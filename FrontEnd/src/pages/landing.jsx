@@ -4,6 +4,7 @@ import Modal from './modal';
 import Footer from '../pages/footer.jsx'; // Import Footer
 import "../styles/loader.css";
 import "../styles/landing.css";
+import FeaturedProjects from './featuredProject';
 
 // Helper function to decode JWT token manually
 function parseJwt(token) {
@@ -261,6 +262,7 @@ function Landing() {
           </div>
           <div className="seperator"></div>
         </div>
+      <FeaturedProjects />
       <Footer />
     </>
   );

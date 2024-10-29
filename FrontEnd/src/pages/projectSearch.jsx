@@ -399,7 +399,7 @@ const ProjectSearch = () => {
                       <p1><strong>  - </strong> {extractSuburb(selectedProject.address)}</p1>
                     )}
                   </p>
-                  <a href={`/src/html-pages/projectDetail.html?projectId=${selectedProject.project_id}`}>
+                  <a href={`/projectDetail?projectId=${selectedProject.project_id}`}>
                     <button>Apply</button>
                   </a>
                 </div>
