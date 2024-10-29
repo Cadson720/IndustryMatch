@@ -3,8 +3,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './pages/landing.jsx';
 import Header from './pages/header.jsx'; // Import the Header component
 import About from './pages/about.jsx';
-import '../src/styles/about.css';
+import ProjectSearch from './pages/projectSearch.jsx';
+import Academic_Profile from './pages/academicProfile.jsx';
+// import '../src/styles/about.css';
 import '../src/styles/header.css';
+import '../src/styles/landing.css';
+// import '../src/styles/projectSearch.css';
+// import '../src/styles/industryProfile.css';
+
 // import About from './pages/about.jsx';
 // import AcademicProfile from './pages/academicProfile.jsx';
 // import AdminRedirect from './pages/adminRedirect.jsx';
@@ -23,16 +29,17 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/about" element={<About />} />
+        <Route path="/projectSearch" element={<ProjectSearch />} />
+        <Route path="/academicProfile" element={<Academic_Profile />} />
         {/* Uncomment and add more routes as needed */}
         {/* <Route path="/about" element={<About />} />
-        <Route path="/academic-profile" element={<AcademicProfile />} />
         <Route path="/admin-redirect" element={<AdminRedirect />} />
         <Route path="/industry-profile" element={<IndustryProfile />} />
         <Route path="/industry-redirect" element={<IndustryRedirect />} />
         <Route path="/matchmaker" element={<MatchMaker />} />
         <Route path="/project-creation" element={<ProjectCreation />} />
         <Route path="/project-detail" element={<ProjectDetail />} />
-        <Route path="/project-search" element={<ProjectSearch />} />
+        
         <Route path="/saved-project" element={<SavedProject />} /> */}
       </Routes>
     </Router>

@@ -124,11 +124,11 @@ function Landing() {
 
       // Determine the next path based on user type
       if (decodedToken.type === 'Academic') {
-        path = '/src/html-pages/projectSearch.html';
+        path = '/projectSearch';
       } else if (decodedToken.type === 'Industry') {
-        path = '/src/html-pages/industryRedirect.html';
+        path = '/industryRedirect';
       } else if (decodedToken.type === 'Admin') {
-        path = '/src/html-pages/adminRedirect.html';
+        path = '/adminRedirect';
       }
 
       // Immediately navigate to the determined path without loader

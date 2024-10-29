@@ -57,8 +57,9 @@ const Header = () => {
           {userType === 'Academic' && (
             <>
               <Link to="/" className="nav-link">Home</Link>
-              <Link to="/project-search" className="nav-link">Project Search</Link>
-              <Link to="/saved-project" className="nav-link">Saved Projects</Link>
+              <Link to="/about" className="nav-link">About</Link>
+              <Link to="/projectSearch" className="nav-link">Project Search</Link>
+              <Link to="/savedProject" className="nav-link">Saved Projects</Link>
             </>
           )}
           
@@ -66,8 +67,8 @@ const Header = () => {
             <>
               <Link to="/" className="nav-link">Home</Link>
               <Link to="/about" className="nav-link">About</Link>
-              <Link to="/project-search" className="nav-link">Project Search</Link>
-              <Link to="/project-creation" className="nav-link">Create Projects</Link>
+              <Link to="/projectSearch" className="nav-link">Project Search</Link>
+              <Link to="/projectCreation" className="nav-link">Create Projects</Link>
             </>
           )}
 
@@ -80,15 +81,15 @@ const Header = () => {
                 <div className="dropdown-menu" style={{ left: `calc(50% - ${menuPosition}px)` }}>
                   {userType === 'Academic' && (
                     <>
-                      <Link to="/academic-profile" className="dropdown-item">Profile</Link>
-                      <Link to="/saved-project" className="dropdown-item">Saved Projects</Link>
+                      <Link to="/academicProfile" className="dropdown-item">Profile</Link>
+                      <Link to="/savedProject" className="dropdown-item">Saved Projects</Link>
                       <Link to="/applications-academic" className="dropdown-item">Applications</Link>
                       <Link to="/recommended-projects" className="dropdown-item">Recommended Projects</Link>
                     </>
                   )}
                   {userType === 'Industry' && (
                     <>
-                      <Link to="/industry-profile" className="dropdown-item">Profile</Link>
+                      <Link to="/industryProfile" className="dropdown-item">Profile</Link>
                       <Link to="/view-applications" className="dropdown-item">View Applications</Link>
                       <Link to="/manage-projects" className="dropdown-item">Manage Projects</Link>
                       <Link to="/create-projects" className="dropdown-item">Create Projects</Link>
