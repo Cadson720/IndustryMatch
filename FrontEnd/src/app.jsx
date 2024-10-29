@@ -7,6 +7,8 @@ import ProjectSearch from './pages/projectSearch.jsx';
 import Academic_Profile from './pages/academicProfile.jsx';
 import Project_Detail from './pages/projectDetail.jsx';
 import CreateProject from './pages/projectCreation.jsx'; 
+import Industry_Profile from './pages/industryProfile.jsx';
+// import Industry from './pages/industry.jsx';
 // import '../src/styles/about.css';
 import '../src/styles/header.css';
 import '../src/styles/landing.css';
@@ -34,17 +36,17 @@ function App() {
         <Route path="/projectSearch" element={<ProjectSearch />} />
         <Route path="/academicProfile" element={<Academic_Profile />} />
         <Route path="/projectDetail" element={<Project_Detail />} />
+        <Route path="/industryProfile" element={<Industry_Profile />} />
         <Route path="/projectCreation" element={<CreateProject />} />
+        {/* <Route path="/industryRedirect" element={<Industry />} /> */}
 
 
         {/* Uncomment and add more routes as needed */}
-        {/* <Route path="/about" element={<About />} />
+        {/*
         <Route path="/admin-redirect" element={<AdminRedirect />} />
-        <Route path="/industry-profile" element={<IndustryProfile />} />
-        <Route path="/industry-redirect" element={<IndustryRedirect />} />
         <Route path="/matchmaker" element={<MatchMaker />} />
-        
-        <Route path="/saved-project" element={<SavedProject />} /> */}
+        <Route path="/saved-project" element={<SavedProject />} /> 
+        */}
       </Routes>
     </Router>
   );

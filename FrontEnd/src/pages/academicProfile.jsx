@@ -15,7 +15,7 @@ const Academic_Profile = () => {
   const handleSignOut = () => {
     localStorage.removeItem('jwtToken'); // Remove the token from localStorage
     setUserType(null); // Clear the user type in state
-    window.location.href = '/src/html-pages/landing.html'; // Redirect to landing page
+    window.location.href = '/'; // Redirect to landing page
   };
 
   useEffect(() => {
@@ -137,7 +137,7 @@ const Academic_Profile = () => {
         return (
           <div className="content-box">
             <h2>My Projects</h2>
-            <div className="add-project-btn" onClick={() => (window.location.href = '/src/html-pages/projectSearch')}>
+            <div className="add-project-btn" onClick={() => (window.location.href = '/projectSearch')}>
               <i> + </i> Search for Projects...
             </div>
           </div>
