@@ -10,6 +10,7 @@ import ProjectDetail from './pages/projectDetail.jsx';
 import CreateProject from './pages/projectCreation.jsx'; 
 import IndustryProfile from './pages/industryProfile.jsx';
 import Industry from './pages/industry.jsx';
+import MatchMaker from './pages/matchMaker.jsx';
 // import '../src/styles/about.css';
 import '../src/styles/header.css';
 import '../src/styles/landing.css';
@@ -40,6 +41,7 @@ function App() {
         <Route path="/projectCreation" element={<Layout><CreateProject /></Layout>} />
         <Route path="/industry" element={<Layout><Industry /></Layout>} />
         <Route path="/savedProject" element={<Layout><SavedProject /></Layout>} />
+        <Route path="/matchMaker" element={<Layout><MatchMaker /></Layout>} />
 
 
         {/* ProjectSearch loads without Layout */}
