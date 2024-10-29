@@ -1,9 +1,28 @@
 body {
-    margin: 0;
-    background-color: rgb(56, 100, 115);
+    margin: 0; /* Ensure no default body margin */
 }
 
-#root {
+.create_body {
+    background-color: rgb(56, 100, 115);
+    padding: 3em 0; /* Add top and bottom padding */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+}
+
+.comp {
+    position: relative;
+    z-index: 1;
+    padding: 2em; /* Padding inside the card */
+    border-radius: 15px;
+    width: 50%; /* Set width of the comp */
+    max-width: 600px; /* Max width for larger screens */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    background-color: rgb(56, 100, 115); /* Background color of the card */
+}
+
+
+
+.comp #root {
     justify-content: flex-start;
     width: 100%;
     max-width: 100%;
@@ -13,17 +32,17 @@ body {
     font-weight: bold;
 }
 
-.card {
+.comp .card {
     padding: 2em;
 }
 
-h1 {
+.comp h1 {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     color: rgb(0, 0, 0);
 }
 
-.behind {
+.comp .behind {
     position: absolute; 
     top: 0;
     left: 0; 
@@ -32,22 +51,10 @@ h1 {
     z-index: -1; 
     background-color: rgb(209, 209, 209);
     border-radius: 15px;
+    
 }
 
-.comp {
-    position: relative; 
-    z-index: 1; 
-    padding: 2em; 
-    border-radius: 15px; 
-    width: 50%; 
-    max-width: 600px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    margin-left: calc(50% - 25%);
-    margin-top: 3%;
-    margin-bottom: 3%;
-}
-
-.form-group {
+.comp .form-group {
     display: flex; /* Use flexbox for alignment */
     justify-content: space-between; /* Space between label and input */
     align-items: center; /* Center vertically */
@@ -55,7 +62,7 @@ h1 {
     width: 100%; /* Full width of the parent */
 }
 
-.label {
+.comp .label {
     color: rgb(0, 0, 0); /* Change label color */
     font-weight: bold; /* Make labels bold */
     width: 40%; /* Set a width for labels */
@@ -64,8 +71,8 @@ h1 {
     padding: 0.5em;
 }
 
-input[type="text"],
-input[type="date"]{
+.comp input[type="text"],
+.comp input[type="date"]{
     width: 75%; /* Adjust width for inputs and selects */
     padding: 0.5em; /* Padding for better touch */
     border: 1px solid #000000; /* Border for inputs */
@@ -73,7 +80,7 @@ input[type="date"]{
     font-size: 1em; /* Font size for better readability */
 }
 
-select {
+.comp select {
     width: 77%; /* Adjust width for inputs and selects */
     padding: 0.5em; /* Padding for better touch */
     border: 1px solid #000000; /* Border for inputs */
@@ -81,7 +88,7 @@ select {
     font-size: 1em; /* Font size for better readability */
 }
 
-textarea {
+.comp textarea {
     width: 75%; /* Adjust width as needed */
     height: 150px; /* Set desired height */
     padding: 0.5em; /* Padding for better touch */
@@ -93,15 +100,15 @@ textarea {
 }
 
 
-input[type="text"]:focus,
-input[type="date"]:focus,
-select:focus,
-textarea:focus {
+.comp input[type="text"]:focus,
+.comp input[type="date"]:focus,
+.comp select:focus,
+.comp textarea:focus {
     border-color: rgb(56, 100, 115); /* Change border color on focus */
     outline: none; /* Remove default outline */
 }
 
-button {
+.comp button {
     padding: 0.75em 1.5em; /* Padding for button */
     background-color: rgb(56, 100, 115); /* Button background color */
     color: white; /* Text color */
@@ -111,6 +118,6 @@ button {
     font-size: 1em; /* Font size for button */
 }
 
-button:hover {
+.comp button:hover {
     background-color: rgb(45, 80, 95); /* Darker shade on hover */
 }

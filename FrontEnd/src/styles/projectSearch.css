@@ -243,6 +243,7 @@ select:focus {
 .project-search-container .project-preview h3 {
   font-style: normal;
   padding-bottom: 5px;
+  color: black;
 }
 
 .project-search-container .project-preview-column::-webkit-scrollbar {
@@ -327,6 +328,7 @@ select:focus {
 .project-search-container .project-detail h2 {
   margin-top: 10px;
   font-style: normal;
+  color: rgb(42, 42, 42);
 }
 
 .project-search-container .project-detail p {
