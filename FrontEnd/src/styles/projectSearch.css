@@ -1,16 +1,22 @@
-.project-search-container body {
+.project-search-page {
   margin: 0;
   overflow: hidden; /* Prevent page scrolling */
   font-family: 'Roboto', Arial, Helvetica, sans-serif; /* Updated Font */
-}
-
-.project-search-container #root {
   justify-content: flex-start;
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  height: 100vh;
+}
+
+.project-search-page #root {
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
   font-weight: bold;
   font-family: 'Roboto', Arial, Helvetica, sans-serif; /* Use the new font */
 }
@@ -21,15 +27,17 @@
 }
 
 /* Container for the search form */
+/* Main Container */
 .project-search-container {
-  background-color: #1d4654; /* Dark green background */
+  background-color: #1d4654;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  position: relative; /* Positioning for layering the pseudo-element */
-  z-index: 1; /* Ensure content appears above background layers */
+  height: 100vh; /* Full viewport height */
+  overflow: hidden; /* Prevent page scrolling */
+  position: relative;
+  z-index: 1;
 }
 
 /* Adding the background image as an overlay */
@@ -214,16 +222,17 @@ select:focus {
   padding-top: 20px;
   display: flex;
   gap: 50px;
-  height: calc(100% - 150px);
-  max-width: 80%;
   width: 80%;
+  height: calc(100% - 200px); /* Allow space for search bar */
+  max-width: 80%;
+  overflow: hidden; /* Prevent columns container from scrolling */
 }
 
 /* Left Column: Project Previews */
 .project-search-container .project-preview-column {
   width: 40%;
-  height: 725px;
-  max-height: 725px;
+  height: 100%;
+  max-height: 100vh;
   overflow-y: auto;
   padding-right: 20px;
   padding-bottom: 20px;
@@ -321,7 +330,7 @@ select:focus {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
-  max-height: 700px;
+  max-height: 100%;
   width: 50%;
 }
 

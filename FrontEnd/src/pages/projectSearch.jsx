@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "../styles/projectSearch.css"; // Import the CSS for this component
 import "../styles/loader.css";
 import Loader from '../pages/loader.jsx';
-
-// import Header from '../pages/header.jsx';
+import Header from '../pages/header.jsx';
 
 const disciplinesByIndustry = {
   'Business': [
@@ -271,12 +270,11 @@ const ProjectSearch = () => {
   };
 
   if (loading) return <Loader />;
-  // {!loading && <Header />}
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div>
-      {/* {!loading && <Header />} Render Header only after loading is false */}
+    <div class="project-search-page">
+      {!loading && <Header />}
       <div className="project-search-container">
       <div className="search-bar">
         {/* Hamburger Menu Icon */}
@@ -410,6 +408,7 @@ const ProjectSearch = () => {
               <p><strong></strong>{formatDetailedDescription(selectedProject.description)}</p>
 
               <div className="project-publish-info">
+                <br />
                 <p><strong>Published:</strong> {getProjectAgeInDays(selectedProject.publish_date)} days ago</p>
                 <p><strong>Organisation:</strong> {selectedProject.Industry.organisation}</p>
               </div>

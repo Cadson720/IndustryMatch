@@ -1,17 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './pages/landing.jsx';
-import Header from './pages/header.jsx'; // Import the Header component
+//import Header from './pages/header.jsx'; // Import the Header component
 import About from './pages/about.jsx';
 import ProjectSearch from './pages/projectSearch.jsx';
-import Academic_Profile from './pages/academicProfile.jsx';
-import Project_Detail from './pages/projectDetail.jsx';
+import SavedProject from './pages/savedProject.jsx';
+import AcademicProfile from './pages/academicProfile.jsx';
+import ProjectDetail from './pages/projectDetail.jsx';
 import CreateProject from './pages/projectCreation.jsx'; 
-import Industry_Profile from './pages/industryProfile.jsx';
+import IndustryProfile from './pages/industryProfile.jsx';
 import Industry from './pages/industry.jsx';
 // import '../src/styles/about.css';
 import '../src/styles/header.css';
 import '../src/styles/landing.css';
+import Layout from './pages/layout.jsx';
 // import '../src/styles/projectSearch.css';
 // import '../src/styles/industryProfile.css';
 
@@ -29,17 +31,19 @@ import '../src/styles/landing.css';
 function App() {
   return (
     <Router>
-      <Header /> {/* Header is placed outside of Routes so it will display on every page */}
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/projectSearch" element={<ProjectSearch />} />
-        <Route path="/academicProfile" element={<Academic_Profile />} />
-        <Route path="/projectDetail" element={<Project_Detail />} />
-        <Route path="/industryProfile" element={<Industry_Profile />} />
-        <Route path="/projectCreation" element={<CreateProject />} />
-        <Route path="/industry" element={<Industry />} />
+        <Route path="/" element={<Layout><Landing /></Layout>} />
+        <Route path="/about" element={<Layout><About /></Layout>} />
+        <Route path="/academicProfile" element={<Layout><AcademicProfile /></Layout>} />
+        <Route path="/projectDetail" element={<Layout><ProjectDetail /></Layout>} />
+        <Route path="/industryProfile" element={<Layout><IndustryProfile /></Layout>} />
+        <Route path="/projectCreation" element={<Layout><CreateProject /></Layout>} />
+        <Route path="/industry" element={<Layout><Industry /></Layout>} />
+        <Route path="/savedProject" element={<Layout><SavedProject /></Layout>} />
 
+
+        {/* ProjectSearch loads without Layout */}
+        <Route path="/projectSearch" element={<ProjectSearch />} />
 
         {/* Uncomment and add more routes as needed */}
         {/*
