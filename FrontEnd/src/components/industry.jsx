@@ -1,13 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import "../styles/industry.css"; 
+import FeaturedProjects from './featuredProjects';
 
 
 const Industry = () => {
   return (
     <div className="industry-container">
       <div className="left-column">
-        <div className="title-text">Featured Projects</div>
+        {/* <div className="title-text">Featured Projects</div> */}
+        <FeaturedProjects/>
       </div>
       <div className="right-column">
         <div className="backdrop"></div>

@@ -64,7 +64,7 @@ function CreateProject() {
     size: '', // Update to match your DB field
     location_type: '',
     address: '',
-    description: '',
+    description: `Project Objectives:\n\n\nTechnical Knowledge:\n\n\nStudent Year Recommendation:\n\n`,
     status: '', // Update to match your DB field
     image_path: ''
   });
@@ -114,6 +114,14 @@ function CreateProject() {
       return;
     }
 
+    const requiredHeadings = ["Project Objectives:", "Technical Knowledge:", "Student Year Recommendation:"];
+    const missingHeadings = requiredHeadings.filter(heading => !formData.description.includes(heading));
+
+    if (missingHeadings.length > 0) {
+      setError(`Please do not remove the following headings: ${missingHeadings.join(', ')}`);
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:3000/api/project', {
         method: 'POST',
@@ -135,7 +143,7 @@ function CreateProject() {
           size: '', // Reset to match the new field
           location_type: '',
           address: '',
-          description: '',
+          description: `Project Objectives:\n\n\nTechnical Knowledge:\n\n\nStudent Year Recommendation:\n\n`,
           status: '', // Reset to match the new field
           image_path: ''
         });
@@ -215,9 +223,15 @@ function CreateProject() {
                 <input type="text" name="address" value={formData.address} onChange={handleChange} required />
             </div>
             <div className="form-group">
-                <label className="label">Description:</label>
-                <textarea name="description" value={formData.description} onChange={handleChange} required />
-            </div>
+          <label className="label">Description:</label>
+          <textarea 
+            name="description" 
+            value={formData.description} 
+            onChange={handleChange} 
+            rows="10"
+            required 
+          />
+        </div>
             <div className="form-group">
                 <label className="label">Project Status:</label>
                 <select name="status" value={formData.status} onChange={handleChange} required>

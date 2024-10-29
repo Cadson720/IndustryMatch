@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './pages/landing.jsx';
 import Header from './pages/header.jsx'; // Import the Header component
+import About from './pages/about.jsx';
+import '../src/styles/about.css';
 import '../src/styles/header.css';
 // import About from './pages/about.jsx';
 // import AcademicProfile from './pages/academicProfile.jsx';
@@ -20,6 +22,7 @@ function App() {
       <Header /> {/* Header is placed outside of Routes so it will display on every page */}
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/about" element={<About />} />
         {/* Uncomment and add more routes as needed */}
         {/* <Route path="/about" element={<About />} />
         <Route path="/academic-profile" element={<AcademicProfile />} />

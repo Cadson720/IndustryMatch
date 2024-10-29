@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from './modal';
 import Header from '../pages/header.jsx'
-import Header from '../pages/footer.jsx'
+import Footer from '../pages/footer.jsx'
 import "../styles/loader.css";
 
 // Helper function to decode JWT token manually
