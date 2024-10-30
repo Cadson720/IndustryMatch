@@ -18,6 +18,7 @@ body {
   color: rgb(0, 0, 0); /* Change text color for better contrast */
   height: 100vh; /* Full height of the viewport */
   overflow: hidden; /* Prevent overflow */
+  font-weight: 100;
 }
 
 .left-column {
