@@ -21,6 +21,10 @@ body {
 }
 
 
+.comp p{
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
 .comp #root {
     justify-content: flex-start;
