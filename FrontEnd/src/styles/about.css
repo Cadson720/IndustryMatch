@@ -1,4 +1,99 @@
-.about-text h1 {
+.about-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.about-top {
+    background-color: rgb(46, 85, 98);
+    color: white;
+    padding: 20px;
+    flex: 1;
+    display: flex; 
+}
+
+.about-upper-text {
+    display: flex;
+    justify-content: space-between; 
+    flex: 1; 
+}
+
+.about-bottom {
+    background-color: rgb(201, 201, 201);
+    color: black;
+    padding: 20px;
+    flex: 1; 
+    display: flex; 
+}
+
+.about-lower-text {
+    display: flex; 
+    justify-content: space-between; 
+    width: 100%; 
+}
+
+.about-top h1 {
+    padding-left: 5%;
     font-size: 50px;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+.about-bottom h1 {
+    padding-left: 5%;
+    font-size: 50px;
+    color: black;
+}
+
+.about-upper-text p {
+    margin: 1em 0; 
+    padding-left: 5%;
+    font-size: 20px;
+    font-weight: 100;
+
+}
+
+.about-lower-text p {
+    margin: 1em 0; 
+    padding-left: 5%;
+    font-size: 20px;
+    color: black;
+    font-weight: 100;
+}
+
+.about-top .left-column {
+    flex: 1; 
+    display: flex;
+    flex-direction: column; 
+    text-align: center;
+}
+
+.about-bottom .left-column {
+    flex: 1; 
+    display: flex;
+    flex-direction: column; 
+}
+
+.about-top .right-column {
+    flex: 1; 
+    display: flex;
+    flex-direction: column; 
+    padding-left: 20px; 
+    text-align: center;
+
+}
+
+.about-bottom .right-column {
+    flex: 2; 
+    display: flex;
+    flex-direction: column; 
+    padding-left: 0; 
+    padding-right: 5%;
+    margin-left: -250px; 
+    text-align: left; 
+}
+
+.about-bottom .logo {
+    padding-top: 10px;
+    max-width: 200px; 
+    height: auto;
+    margin-left: 7%; 
 }
