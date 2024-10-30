@@ -1,11 +1,11 @@
 /* Global Styles */
-body {
+.project-detail-page body {
     margin: 0;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
   }
   
   /* Root Element */
-  #root {
+  .project-detail-page #root {
     justify-content: flex-start;
     width: 100%;
     max-width: 100%;
@@ -16,7 +16,7 @@ body {
   }
   
   /* Card Component */
-  .card {
+  .project-detail-page .card {
     padding: 2em;
     font-family: 'Roboto', Arial, sans-serif;
   }
@@ -49,7 +49,7 @@ body {
   }
   
   /* Page Layout */
-  .project-columns {
+  .project-detail-page .project-columns {
     display: flex;
     gap: 50px;
     max-width: 80%;
@@ -57,7 +57,7 @@ body {
   }
   
   /* Left Column: Project Details */
-  .project-detail-column {
+  .project-detail-page .project-detail-column {
     flex: 0 0 40%;
     background-color: white;
     padding: 20px;
@@ -66,37 +66,37 @@ body {
     overflow-y: auto;
   }
   
-  .project-detail {
+  .project-detail-page .project-detail {
     text-align: left;
   }
   
-  .project-detail h2 {
+  .project-detail-page .project-detail h2 {
     font-size: 1.8em;
     margin-top: 0;
     color: #333;
   }
   
-  .project-detail p, .project-detail p1 {
+  .project-detail-page .project-detail p, .project-detail p1 {
     font-size: 1em;
     margin: 5px 0;
     line-height: 1.6;
     white-space: pre-wrap;
   }
   
-  .project-detail-columns {
+  .project-detail-page .project-detail-columns {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
   }
   
-  .project-detail-left-column {
+  .project-detail-page .project-detail-left-column {
     width: 100%;
     display: flex;
     flex-direction: column;
   }
   
   /* Right Column: Application Form */
-  .application-column {
+  .project-detail-page .application-column {
     flex: 0 0 55%;
     background-color: white;
     padding: 20px;
@@ -105,23 +105,23 @@ body {
     text-align: left;
   }
   
-  .application-column h3 {
+  .project-detail-page .application-column h3 {
     font-size: 1.5em;
     margin-bottom: 15px;
     color: #333;
   }
   
-  .application-form label {
+  .project-detail-page .application-form label {
     font-size: 1em;
     margin-top: 10px;
     display: block;
     color: #333;
   }
   
-  .application-form input[type="text"],
-  .application-form input[type="email"],
-  .application-form input[type="tel"],
-  .application-form textarea {
+  .project-detail-page .application-form input[type="text"],
+  .project-detail-page .application-form input[type="email"],
+  .project-detail-page .application-form input[type="tel"],
+  .project-detail-page .application-form textarea {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -132,12 +132,12 @@ body {
     font-family: 'Roboto', Arial, sans-serif;
   }
   
-  .application-form textarea {
+  .project-detail-page .application-form textarea {
     resize: none;
     height: 100px;
   }
   
-  .apply-button {
+  .project-detail-page .apply-button {
     background-color: #6A5ACD;
     color: white;
     border: none;
@@ -148,16 +148,16 @@ body {
     transition: background-color 0.3s ease, transform 0.3s ease;
   }
   
-  .apply-button:hover {
+  .project-detail-page .apply-button:hover {
     background-color: #5a4fcf;
     transform: translateY(-3px);
   }
   
-  .apply-button:active {
+  .project-detail-page .apply-button:active {
     transform: translateY(2px);
   }
   
-  .location-icon {
+  .project-detail-page .location-icon {
     padding-left: 1.5px;
     width: 18px;
     height: 23px;
@@ -165,7 +165,7 @@ body {
     vertical-align: middle;
   }
   
-  .team-icon {
+  .project-detail-page .team-icon {
     padding-left: 1.5px;
     width: 20px;
     height: 20px;
@@ -173,7 +173,7 @@ body {
     vertical-align: middle;
   }
   
-  .duration-icon {
+  .project-detail-page .duration-icon {
     width: 23px;
     height: 23px;
     margin-right: 5px;
@@ -181,39 +181,48 @@ body {
   }
   
   /* Specific Field Styling in Project Detail */
-  .project-publish-info p {
+  .project-detail-page .project-publish-info p {
     margin: 5px 0;
     font-size: 1em;
     color: #666;
+    /* color: black; */
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+
   }
   
   /* Custom Styling for Project Info */
-  .project-detail p1 {
+  .project-detail-page .project-detail p1 {
     font-weight: bold;
     font-size: 1.1em;
     display: block;
     margin-block-start: 1em;
     margin-block-end: 1em;
+    color: black;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
   }
   
-  .project-detail p {
+  .project-detail-page .project-detail p {
     text-align: left;
     line-height: 1.6;
+    color: black;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
   }
   
-  .project-detail-column p img {
+  .project-detail-page .project-detail-column p img {
     vertical-align: middle;
   }
   
   /* Additional Styling for Fields in Detail Column */
-  .project-detail-left-column p {
+  .project-detail-page .project-detail-left-column p {
     display: flex;
     align-items: center;
     line-height: 1.5;
+    color: black;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
   }
   
   /* Additional Styling for School/Role */
-  .application-column input[readonly] {
+  .project-detail-page .application-column input[readonly] {
     background-color: #f5f5f5;
     cursor: not-allowed;
   }

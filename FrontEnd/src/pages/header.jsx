@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useJwt } from 'react-jwt';
 import '../styles/header.css';
 
@@ -10,6 +10,7 @@ const Header = () => {
   const [userType, setUserType] = useState(null);
   const [userEmail, setUserEmail] = useState('User');
   const navigate = useNavigate();
+  const location = useLocation(); // Access the current path
 
   // Use the useJwt hook from react-jwt to decode the JWT from localStorage
   const { decodedToken, isExpired } = useJwt(localStorage.getItem('jwtToken'));
@@ -49,25 +50,27 @@ const Header = () => {
         <nav className="nav">
           {userType === null && (
             <>
-              <Link to="/" className="nav-link">Home</Link>
-              <Link to="/about" className="nav-link">About</Link>
+              <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Home</Link>
+              <Link to="/about" className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}>About</Link>
             </>
           )}
 
           {userType === 'Academic' && (
             <>
-              <Link to="/" className="nav-link">Home</Link>
-              <Link to="/project-search" className="nav-link">Project Search</Link>
-              <Link to="/saved-project" className="nav-link">Saved Projects</Link>
+              <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Home</Link>
+              <Link to="/about" className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}>About</Link>
+              <Link to="/projectSearch" className={`nav-link ${location.pathname === '/projectSearch' ? 'active' : ''}`}>Project Search</Link>
+              <Link to="/savedProject" className={`nav-link ${location.pathname === '/savedProject' ? 'active' : ''}`}>Saved Projects</Link>
+              <Link to="/matchMaker" className={`nav-link ${location.pathname === '/matchMaker' ? 'active' : ''}`}>MatchMaker AI</Link>
             </>
           )}
           
           {userType === 'Industry' && (
             <>
-              <Link to="/" className="nav-link">Home</Link>
-              <Link to="/about" className="nav-link">About</Link>
-              <Link to="/project-search" className="nav-link">Project Search</Link>
-              <Link to="/project-creation" className="nav-link">Create Projects</Link>
+              <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Home</Link>
+              <Link to="/about" className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}>About</Link>
+              <Link to="/projectSearch" className={`nav-link ${location.pathname === '/projectSearch' ? 'active' : ''}`}>Project Search</Link>
+              <Link to="/projectCreation" className={`nav-link ${location.pathname === '/projectCreation' ? 'active' : ''}`}>Create Projects</Link>
             </>
           )}
 
@@ -80,15 +83,15 @@ const Header = () => {
                 <div className="dropdown-menu" style={{ left: `calc(50% - ${menuPosition}px)` }}>
                   {userType === 'Academic' && (
                     <>
-                      <Link to="/academic-profile" className="dropdown-item">Profile</Link>
-                      <Link to="/saved-project" className="dropdown-item">Saved Projects</Link>
+                      <Link to="/academicProfile" className="dropdown-item">Profile</Link>
+                      <Link to="/savedProject" className="dropdown-item">Saved Projects</Link>
                       <Link to="/applications-academic" className="dropdown-item">Applications</Link>
                       <Link to="/recommended-projects" className="dropdown-item">Recommended Projects</Link>
                     </>
                   )}
                   {userType === 'Industry' && (
                     <>
-                      <Link to="/industry-profile" className="dropdown-item">Profile</Link>
+                      <Link to="/industryProfile" className="dropdown-item">Profile</Link>
                       <Link to="/view-applications" className="dropdown-item">View Applications</Link>
                       <Link to="/manage-projects" className="dropdown-item">Manage Projects</Link>
                       <Link to="/create-projects" className="dropdown-item">Create Projects</Link>

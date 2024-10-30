@@ -1,35 +1,43 @@
-body {
+.project-search-page {
   margin: 0;
   overflow: hidden; /* Prevent page scrolling */
   font-family: 'Roboto', Arial, Helvetica, sans-serif; /* Updated Font */
-}
-
-#root {
   justify-content: flex-start;
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  height: 100vh;
+}
+
+.project-search-page #root {
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
   font-weight: bold;
   font-family: 'Roboto', Arial, Helvetica, sans-serif; /* Use the new font */
 }
 
-.card {
+.project-search-container .card {
   padding: 2em;
   font-family: 'Roboto', Arial, sans-serif;
 }
 
 /* Container for the search form */
+/* Main Container */
 .project-search-container {
-  background-color: #1d4654; /* Dark green background */
+  background-color: #1d4654;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  position: relative; /* Positioning for layering the pseudo-element */
-  z-index: 1; /* Ensure content appears above background layers */
+  height: 100vh; /* Full viewport height */
+  overflow: hidden; /* Prevent page scrolling */
+  position: relative;
+  z-index: 1;
 }
 
 /* Adding the background image as an overlay */
@@ -49,7 +57,7 @@ body {
 }
 
 /* The search bar container */
-.search-bar {
+.project-search-container .search-bar {
   display: flex;
   gap: 10px;
   align-items: center;
@@ -57,14 +65,14 @@ body {
 }
 
 /* Hamburger Menu Styling */
-.hamburger-menu {
+.project-search-container .hamburger-menu {
   display: inline-block;
   cursor: pointer;
   margin-right: 15px;
   transition: transform 0.3s ease;
 }
 
-.hamburger-menu span {
+.project-search-container .hamburger-menu span {
   display: block;
   width: 25px;
   height: 2px;
@@ -73,20 +81,20 @@ body {
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.hamburger-menu:hover {
+.project-search-container .hamburger-menu:hover {
   transform: scale(1.1); /* Slightly enlarge on hover */
 }
 
-.hamburger-menu:hover span {
+.project-search-container .hamburger-menu:hover span {
   background-color: #6A5ACD; /* Change color on hover */
 }
 
-.hamburger-menu:active {
+.project-search-container .hamburger-menu:active {
   transform: rotate(90deg); /* Rotate the icon on click */
 }
 
 /* Styling for the input fields and select dropdowns */
-input[type="text"],
+.project-search-container input[type="text"],
 select {
   padding: 10px;
   border: 1px solid #ccc;
@@ -97,20 +105,20 @@ select {
   font-weight: bold;
 }
 
-input[type="text"]:hover,
+.project-search-container input[type="text"]:hover,
 select:hover {
   border-color: #6A5ACD; /* Change border color on hover */
   box-shadow: 0 0 8px rgba(106, 90, 205, 1); /* Add shadow effect */
 }
 
-input[type="text"]:focus,
+.project-search-container input[type="text"]:focus,
 select:focus {
   outline: none;
   border-color: #6A5ACD;
   box-shadow: 0 0 8px rgba(106, 90, 205, 0.6);
 }
 
-option {
+.project-search-container option {
   font-weight: bold;
 }
 
@@ -127,7 +135,7 @@ option {
   margin-left: 30px;
 }
 
-textarea {
+.project-search-container textarea {
   width: 75%; 
   height: 150px; 
   padding: 0.5em; 
@@ -139,7 +147,7 @@ textarea {
 }
 
 /* Search Button Styling */
-.search-button {
+.project-search-container .search-button {
   background-color: #6A5ACD; /* Purple background */
   color: white;
   border: none;
@@ -150,16 +158,16 @@ textarea {
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.search-button:hover {
+.project-search-container .search-button:hover {
   background-color: #5a4fcf; /* Darker purple on hover */
   transform: translateY(-3px); /* Slight lift on hover */
 }
 
-.search-button:active {
+.project-search-container .search-button:active {
   transform: translateY(2px); /* Press down effect */
 }
 
-.apply-button {
+.project-search-container .apply-button {
   background-color: #c3c3c3; 
   color: rgb(0, 0, 0);
   border: none;
@@ -170,16 +178,16 @@ textarea {
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.apply-button:hover {
+.project-search-container .apply-button:hover {
   background-color: #989898; 
   transform: translateY(-3px);
 }
 
-.apply-button:active {
+.project-search-container .apply-button:active {
   transform: translateY(2px);
 }
 
-.confirm-button {
+.project-search-container .confirm-button {
   background-color: #c3c3c3; 
   color: rgb(0, 0, 0);
   border: none;
@@ -191,13 +199,13 @@ textarea {
   margin-top: 10px;
 }
 
-.confirm-button:hover {
+.project-search-container .confirm-button:hover {
   background-color: #989898;
   transform: translateY(-3px); 
 }
 
 /* Extended Search Criteria */
-.extended-criteria {
+.project-search-container .extended-criteria {
   margin-top: 15px;
   display: flex;
   gap: 10px;
@@ -206,31 +214,32 @@ textarea {
   padding-right: 26px;
 }
 
-.project-list {
+.project-search-container .project-list {
   background-color: white;
 }
 
-.project-columns {
+.project-search-container .project-columns {
   padding-top: 20px;
   display: flex;
   gap: 50px;
-  height: calc(100% - 150px);
-  max-width: 80%;
   width: 80%;
+  height: calc(100% - 200px); /* Allow space for search bar */
+  max-width: 80%;
+  overflow: hidden; /* Prevent columns container from scrolling */
 }
 
 /* Left Column: Project Previews */
-.project-preview-column {
+.project-search-container .project-preview-column {
   width: 40%;
-  height: 725px;
-  max-height: 725px;
+  height: 100%;
+  max-height: 100vh;
   overflow-y: auto;
   padding-right: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
 }
 
-.project-preview {
+.project-search-container .project-preview {
   background-color: white;
   padding: 15px;
   margin-bottom: 15px;
@@ -240,20 +249,21 @@ textarea {
   transition: all 0.3s ease;
 }
 
-.project-preview h3 {
+.project-search-container .project-preview h3 {
   font-style: normal;
   padding-bottom: 5px;
+  color: black;
 }
 
-.project-preview-column::-webkit-scrollbar {
+.project-search-container .project-preview-column::-webkit-scrollbar {
   width: 0px; /* Set scrollbar width to 0 to hide it */
 }
 
-.project-preview:hover {
+.project-search-container .project-preview:hover {
   background-color: #f4f4f4;
 }
 
-.project-preview.active {
+.project-search-container .project-preview.active {
   /* Remove the border */
   border: none;
 
@@ -261,16 +271,18 @@ textarea {
   box-shadow: 0px 0px 8px 4px rgba(22, 178, 199, 0.75); /* Apply shadow evenly on all sides */
 }
 
-.project-preview p {
+.project-search-container .project-preview p {
   margin: 5px 0;
-  text-align: left;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;  text-align: left;
   padding-left: 10px;
   align-items: flex-end;
   display: flex;
   flex-direction: row;
+  color: black;
+  font-size: 1em;
 }
 
-.project-preview p1 {
+.project-search-container .project-preview p1 {
   margin: 5px 0;
   text-align: left;
   padding-left: 10px;
@@ -287,7 +299,7 @@ textarea {
   flex-direction: row;
 }
 
-.location-icon {
+.project-search-container .location-icon {
   padding-left: 1.5px;
   width: 18px;
   height: 23px;
@@ -295,7 +307,7 @@ textarea {
   vertical-align: middle;
 }
 
-.team-icon {
+.project-search-container .team-icon {
   padding-left: 1.5px;
   width: 20px;
   height: 20px;
@@ -303,7 +315,7 @@ textarea {
   vertical-align: middle;
 }
 
-.duration-icon {
+.project-search-container .duration-icon {
   width: 23px;
   height: 23px;
   margin-right: 5px;
@@ -311,36 +323,40 @@ textarea {
 }
 
 /* Right Column: Project Details */
-.project-detail-column {
+.project-search-container .project-detail-column {
   flex: 1;
   background-color: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
-  max-height: 700px;
+  max-height: 100%;
   width: 50%;
 }
 
-.project-detail h2 {
+.project-search-container .project-detail h2 {
   margin-top: 10px;
   font-style: normal;
+  color: rgb(42, 42, 42);
 }
 
-.project-detail p {
+.project-search-container .project-detail p {
   text-align: left;
   line-height: 1.6; /* Slightly increase line spacing for better readability */
   white-space: pre-wrap; /* Allow line breaks from the JSX formatting */
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  color: black;
+  font-size: 1em;
 }
 
 /* Two-column layout for project details */
-.project-detail-columns {
+.project-search-container .project-detail-columns {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
-.project-detail-left-column {
+.project-search-container .project-detail-left-column {
   width: 80%;
   display: flexbox;
   text-align: left;
@@ -349,23 +365,23 @@ textarea {
 }
 
 /* Ensure the text and icon are aligned vertically */
-.project-preview p, .project-detail-left-column p {
+.project-search-container .project-preview p, .project-detail-left-column p {
   display: flex;
   align-items: center;
   line-height: 1.5;
 }
 
-.project-detail-left-column p {
+.project-search-container .project-detail-left-column p {
   text-align: left;
   display: flex;
   flex-direction: row;
 }
 
-.project-publish-info {
+.project-search-container .project-publish-info {
   margin-top: 10px;
 }
 
-.project-publish-info p {
+.project-search-container .project-publish-info p {
   margin: 5px 0;
   justify-content: flex-start;
 }

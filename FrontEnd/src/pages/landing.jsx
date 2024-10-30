@@ -4,6 +4,7 @@ import Modal from './modal';
 import Footer from '../pages/footer.jsx'; // Import Footer
 import "../styles/loader.css";
 import "../styles/landing.css";
+import FeaturedProjects from './featuredProject';
 
 // Helper function to decode JWT token manually
 function parseJwt(token) {
@@ -124,11 +125,11 @@ function Landing() {
 
       // Determine the next path based on user type
       if (decodedToken.type === 'Academic') {
-        path = '/src/html-pages/projectSearch.html';
+        path = '/projectSearch';
       } else if (decodedToken.type === 'Industry') {
-        path = '/src/html-pages/industryRedirect.html';
+        path = '/industry';
       } else if (decodedToken.type === 'Admin') {
-        path = '/src/html-pages/adminRedirect.html';
+        path = '/adminRedirect';
       }
 
       // Immediately navigate to the determined path without loader
@@ -261,6 +262,7 @@ function Landing() {
           </div>
           <div className="seperator"></div>
         </div>
+      <FeaturedProjects />
       <Footer />
     </>
   );
