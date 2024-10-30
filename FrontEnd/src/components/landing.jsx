@@ -70,7 +70,7 @@ function Landing() {
   useEffect(() => {
     const fetchTotalProjects = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/project`); // Fetch all projects
+        const response = await fetch(`http://159.196.147.89:3000/api/project`); // Fetch all projects
         if (!response.ok) throw new Error('Failed to fetch projects');
         
         const data = await response.json();
@@ -94,7 +94,7 @@ function Landing() {
 
     try {
       // Try to login with one common API route
-      const response = await fetch(`http://localhost:3000/api/login`, {
+      const response = await fetch(`http://159.196.147.89:3000/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -153,7 +153,7 @@ function Landing() {
     
     // Handle registration logic here
     try {
-      const response = await fetch(`http://localhost:3000/api/register`, {
+      const response = await fetch(`http://159.196.147.89:3000/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, userType: selectedUserType })

@@ -8,34 +8,30 @@ const Academic_Profile = () => {
     role: '',
     school: ''
   });
-  const [loading, setLoading] = useState(true); // Loading state
-  const [editMode, setEditMode] = useState(false); // Edit mode state
-  const [error, setError] = useState(null); // Error state
+  const [loading, setLoading] = useState(true);
+  const [editMode, setEditMode] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSignOut = () => {
-    localStorage.removeItem('jwtToken'); // Remove the token from localStorage
-    setUserType(null); // Clear the user type in state
-    window.location.href = '/'; // Redirect to landing page
+    localStorage.removeItem('jwtToken');
+    window.location.href = '/';
   };
 
   useEffect(() => {
     const fetchAcademicProfile = async () => {
       try {
         const token = localStorage.getItem('jwtToken');
-        if (!token) {
-          throw new Error('No token found');
-        }
+        if (!token) throw new Error('No token found');
 
-        const response = await fetch('http://localhost:3000/api/academic/profile', {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/academic/profile`, {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${token}`, // Send the JWT token in the Authorization header
+            'Authorization': `Bearer ${token}`,
           },
         });
 
         if (!response.ok) {
-          const errorMessage = `Error: ${response.status} ${response.statusText}`;
-          throw new Error(errorMessage);
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
 
         const data = await response.json();
@@ -44,10 +40,10 @@ const Academic_Profile = () => {
           role: data.role,
           school: data.school,
         });
-        setLoading(false); // Stop loading once data is fetched
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching academic profile:', error);
-        setError('Failed to load academic profile'); // Set the error state
+        setError('Failed to load academic profile');
         setLoading(false);
       }
     };
@@ -59,26 +55,23 @@ const Academic_Profile = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('jwtToken');
-      if (!token) {
-        throw new Error('No token found');
-      }
+      if (!token) throw new Error('No token found');
 
-      const response = await fetch('http://localhost:3000/api/academic/profile', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/academic/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Send the JWT token in the Authorization header
+          'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(userDetails), // Send the updated details
+        body: JSON.stringify(userDetails),
       });
 
       if (!response.ok) {
-        const errorMessage = `Error: ${response.status} ${response.statusText}`;
-        throw new Error(errorMessage);
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
 
       setEditMode(false);
-      setError(null); // Clear any errors
+      setError(null);
       alert('Profile updated successfully');
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -87,13 +80,8 @@ const Academic_Profile = () => {
   };
 
   const renderContent = () => {
-    if (loading) {
-      return <p>Loading profile...</p>;
-    }
-
-    if (error) {
-      return <p>{error}</p>; // Display the error if one occurred
-    }
+    if (loading) return <p>Loading profile...</p>;
+    if (error) return <p>{error}</p>;
 
     switch (activeTab) {
       case 'details':
@@ -148,12 +136,6 @@ const Academic_Profile = () => {
             <h2>Applications</h2>
           </div>
         );
-      case 'drafts':
-        return (
-          <div className="content-box">
-            <h2>Saved Drafts</h2>
-          </div>
-        );
       default:
         return null;
     }
@@ -167,7 +149,7 @@ const Academic_Profile = () => {
           <button className={`tab-btn ${activeTab === 'details' ? 'active' : ''}`} onClick={() => setActiveTab('details')}>My Details</button>
           <button className={`tab-btn ${activeTab === 'projects' ? 'active' : ''}`} onClick={() => setActiveTab('projects')}>Saved Projects</button>
           <button className={`tab-btn ${activeTab === 'applications' ? 'active' : ''}`} onClick={() => setActiveTab('applications')}>My Applications</button>
-          <button className="logout-btn" onClick={handleSignOut }>Log Out</button>
+          <button className="logout-btn" onClick={handleSignOut}>Log Out</button>
         </div>
         <div className="right-column">
           {renderContent()}

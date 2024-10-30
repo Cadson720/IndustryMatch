@@ -26,7 +26,7 @@ const Academic_Profile = () => {
           throw new Error('No token found');
         }
 
-        const response = await fetch('http://localhost:3000/api/academic/profile', {
+        const response = await fetch('http://159.196.147.89:3000/api/academic/profile', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`, // Send the JWT token in the Authorization header

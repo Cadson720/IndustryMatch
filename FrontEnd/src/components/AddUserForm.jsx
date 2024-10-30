@@ -11,7 +11,7 @@ const AddUserForm = ({ refreshUsers }) => { // Add refreshUsers as a prop
     const newUser = { username, email, phno };
 
     try {
-      const response = await fetch('http://localhost:3000/api/users', {
+      const response = await fetch('http://159.196.147.89:3000/api/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

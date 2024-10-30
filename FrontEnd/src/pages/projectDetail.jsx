@@ -20,7 +20,7 @@ const ProjectDetail = () => {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/project/${projectId}`);
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project/${projectId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch project data');
         }
@@ -42,7 +42,7 @@ const ProjectDetail = () => {
       if (!token) return;
 
       try {
-        const response = await fetch('http://localhost:3000/api/academic/profile', {
+        const response = await fetch('${import.meta.env.VITE_API_BASE_URL}/api/academic/profile', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

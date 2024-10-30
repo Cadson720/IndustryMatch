@@ -13,12 +13,22 @@ const savedProjectRoutes = require('./routes/savedProjectRoutes');
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
+const path = require('path');
+const corsOptions = {
+  origin: '*',  // Temporary for testing
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+};
 
-// Enable CORS for all routes
-app.use(cors());
+app.use(cors(corsOptions));
+
+
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+
+// Serve static files from the dist directory
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // Authenticate and Sync the Database
 sequelize.authenticate()
@@ -62,10 +72,15 @@ app.use('/api', eoiRoutes);
 
 app.use('/api', savedProjectRoutes);
 
-// Health check endpoint
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
+// Fallback for any non-API routes to index.html (for frontend routing)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
+
+// Health check endpoint
+//app.get('/', (req, res) => {
+  //res.send('Hello, World!');
+//});
 
 // Start the server
 app.listen(PORT, () => {

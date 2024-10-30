@@ -134,7 +134,7 @@ const ProjectSearch = () => {
       const token = localStorage.getItem('jwtToken');
       if (token) {
         try {
-          const response = await fetch('http://localhost:3000/api/academic/profile', {
+          const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/academic/profile`, {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -175,7 +175,7 @@ const ProjectSearch = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/project');
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project`);
         if (!response.ok) {
           throw new Error('Failed to fetch project data');
         }

@@ -20,7 +20,7 @@ const Industry_Profile = () => {
           throw new Error('No token found');
         }
 
-        const response = await fetch('http://localhost:3000/api/industry/profile', {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/industry/profile`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`, // Send the JWT token in the Authorization header
