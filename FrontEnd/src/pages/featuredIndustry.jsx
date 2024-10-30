@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import "../styles/featuredProjects.css";
+import "../styles/featuredIndustry.css";
 
-const FeaturedProjects = () => {
+const FeaturedIndustry = () => {
   // State to store the fetched projects
   const [projects, setProjects] = useState([]);
 
@@ -26,7 +26,7 @@ const FeaturedProjects = () => {
   }, []);
 
   return (
-    <div className="featured-projects-container">
+    <div className="featured-industry-container">
       <h2>Featured Projects</h2>
       <div className="featured-projects">
         {projects.length > 0 ? (
@@ -46,4 +46,4 @@ const FeaturedProjects = () => {
   );
 };
 
-export default FeaturedProjects;
+export default FeaturedIndustry;

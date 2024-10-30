@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import "../styles/industry.css"; 
-import FeaturedProjects from './featuredProject';
+import FeaturedIndustry from './featuredIndustry';
 
 const Industry = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Industry = () => {
   return (
     <div className="industry-container">
       <div className="left-column">
-        <FeaturedProjects />
+        <FeaturedIndustry />
       </div>
       <div className="right-column">
         <div className="backdrop"></div>
