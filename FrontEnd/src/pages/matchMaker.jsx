@@ -44,26 +44,28 @@ const MatchMakerChat = () => {
     };
 
     return (
-        <div className="matchmaker-chat">
-            <h1>Chat with the MatchMaker Bot</h1>
-            
-            <div className="chat-box">
-                {messages.map((msg, index) => (
-                    <div key={index} className={`message ${msg.sender}`}>
-                        {msg.text}
-                    </div>
-                ))}
+        <div className="matchmaker-wrapper"> {/* Fullscreen background wrapper */}
+            <div className="matchmaker-chat">
+                <h1>Chat with the MatchMaker Bot</h1>
+                
+                <div className="chat-box">
+                    {messages.map((msg, index) => (
+                        <div key={index} className={`message ${msg.sender}`}>
+                            {msg.text}
+                        </div>
+                    ))}
+                </div>
+                
+                <form onSubmit={handleSubmit} className="chat-input">
+                    <input
+                        type="text"
+                        value={inputText}
+                        onChange={(e) => setInputText(e.target.value)}
+                        placeholder="Type your message here..."
+                    />
+                    <button type="submit">Send</button>
+                </form>
             </div>
-            
-            <form onSubmit={handleSubmit} className="chat-input">
-                <input
-                    type="text"
-                    value={inputText}
-                    onChange={(e) => setInputText(e.target.value)}
-                    placeholder="Type your message here..."
-                />
-                <button type="submit">Send</button>
-            </form>
         </div>
     );
 };
