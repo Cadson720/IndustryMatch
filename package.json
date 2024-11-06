@@ -8,14 +8,14 @@
     "start:actions": "rasa run actions --debug",
     "start:rasa": "rasa run --enable-api --cors '*'",
     "deploy": "npm run build:frontend && npm run copy:frontend && concurrently -k -n backend,actions,rasa \"npm run start:backend\" \"rasa run actions --debug\" \"rasa run --enable-api --cors \\\"*\\\"\""
-
   },
   "devDependencies": {
-    "nodemon": "^3.1.7",
-    "concurrently": "^8.0.1"
+    "concurrently": "^8.0.1",
+    "nodemon": "^3.1.7"
   },
   "dependencies": {
     "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
     "jwt-decode": "^4.0.0"
   }
 }
