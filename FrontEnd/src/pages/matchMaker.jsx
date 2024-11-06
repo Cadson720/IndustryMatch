@@ -16,7 +16,7 @@ const MatchMakerChat = () => {
         setMessages([...messages, { sender: 'user', text: inputText }]);
 
         try {
-            const response = await axios.post('http://localhost:5005/webhooks/rest/webhook', {
+            const response = await axios.post('http://159.196.147.89:5005/webhooks/rest/webhook', {
                 sender: 'user',
                 message: inputText
             });
