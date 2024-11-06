@@ -26,7 +26,7 @@ const Academic_Profile = () => {
           throw new Error('No token found');
         }
 
-        const response = await fetch('http://localhost:3000/api/academic/profile', {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/academic/profile`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`, // Send the JWT token in the Authorization header
@@ -63,7 +63,7 @@ const Academic_Profile = () => {
         throw new Error('No token found');
       }
 
-      const response = await fetch('http://localhost:3000/api/academic/profile', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/academic/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -3,6 +3,93 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const { EOI, Industry, Academic, Project } = require('../models'); // Import models
 
+// Route All
+router.get('/eoi', async (req, res) => {
+  try {
+    const eois = await EOI.findAll();
+    res.json(eois);
+  } catch (error) {
+    console.error('Error fetching EOIs:', error);
+    res.status(500).json({ error: 'Error retrieving EOIs' });
+  }
+});
+
+// Route EOI by Porject ID 
+router.get('/eoi/project/:projectId', async (req, res) => {
+  const { projectId } = req.params;
+
+  try {
+    const eois = await EOI.findAll({
+      where: { project_id: projectId },
+    });
+
+    if (eois.length === 0) {
+      return res.status(404).json({ message: 'No EOIs found for this project' });
+    }
+
+    res.json(eois); 
+  } catch (error) {
+    console.error('Error fetching EOIs by project ID:', error);
+    res.status(500).json({ error: 'Error retrieving EOIs' });
+  }
+});
+
+// Route to submit a new EOI (application)
+router.post('/eoi', authenticateToken, async (req, res) => {
+  const { industry_id, academic_id, project_id, eoi_date, proposal_description, eoi_status } = req.body;
+  try {
+    // Check for required fields
+    if (!eoi_date || !proposal_description || !eoi_status) {
+      return res.status(400).json({ error: 'Missing required fields: eoi_date, proposal_description, and eoi_status' });
+    }
+    // Create a new EOI entry in the database
+    const newEOI = await EOI.create({
+      industry_id,
+      academic_id,
+      project_id,
+      eoi_date,
+      proposal_description,
+      eoi_status,
+    });
+    // Respond with the newly created EOI entry
+    res.status(201).json(newEOI);
+    } catch (error) {
+      console.error('Error creating EOI:', error);
+      res.status(500).json({ error: 'Error creating EOI' });
+    }
+});
+
+
+// redundant due to /project
+// Route to get project details by project_id
+/*
+router.get('/project/:projectId', async (req, res) => {
+  const { projectId } = req.params;
+
+  try {
+    const project = await Project.findOne({
+      where: { project_id: projectId },
+      include: [
+        { model: Industry },
+        {
+          model: EOI,
+          include: [{ model: Academic }, { model: Industry }],
+        },
+      ],
+    });
+
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+
+    res.json(project);
+  } catch (error) {
+    console.error(`Error fetching project details for project ${projectId}:`, error);
+    res.status(500).json({ error: 'Error retrieving project details' });
+  }
+});
+
+*/
 // Secret key for signing JWT tokens
 const jwtSecret = 'your_secret_key';
 
@@ -37,73 +124,5 @@ router.get('/academic/profile', authenticateToken, async (req, res) => {
   }
 });
 
-// Route to get all EOIs
-router.get('/eoi', async (req, res) => {
-  try {
-    const eois = await EOI.findAll({
-      include: [
-        { model: Industry },
-        { model: Academic },
-        { model: Project },
-      ],
-    });
-    res.json(eois);
-  } catch (error) {
-    console.error('Error fetching EOIs:', error);
-    res.status(500).json({ error: 'Error retrieving EOIs' });
-  }
-});
-
-// Route to submit a new EOI (application)
-router.post('/eoi', authenticateToken, async (req, res) => {
-  const { industry_id, academic_id, project_id, eoi_date, proposal_description, eoi_status } = req.body;
-
-  try {
-    if (!eoi_date || !proposal_description || !eoi_status) {
-      return res.status(400).json({ error: 'Missing required fields: eoi_date, proposal_description, and eoi_status' });
-    }
-
-    const newEOI = await EOI.create({
-      industry_id,
-      academic_id,
-      project_id,
-      eoi_date,
-      proposal_description,
-      eoi_status,
-    });
-
-    res.status(201).json(newEOI);
-  } catch (error) {
-    console.error('Error creating EOI:', error);
-    res.status(500).json({ error: 'Error creating EOI' });
-  }
-});
-
-// Route to get project details by project_id
-router.get('/project/:projectId', async (req, res) => {
-  const { projectId } = req.params;
-
-  try {
-    const project = await Project.findOne({
-      where: { project_id: projectId },
-      include: [
-        { model: Industry },
-        {
-          model: EOI,
-          include: [{ model: Academic }, { model: Industry }],
-        },
-      ],
-    });
-
-    if (!project) {
-      return res.status(404).json({ error: 'Project not found' });
-    }
-
-    res.json(project);
-  } catch (error) {
-    console.error(`Error fetching project details for project ${projectId}:`, error);
-    res.status(500).json({ error: 'Error retrieving project details' });
-  }
-});
 
 module.exports = router;

@@ -13,7 +13,7 @@ const FeaturedProjects = () => {
   // Fetch data when the component mounts
   useEffect(() => {
     // Fetch all projects from the API
-    fetch('http://localhost:3000/api/project')
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project`)
       .then((response) => response.json())
       .then((data) => {
         // Take only the first 3 projects

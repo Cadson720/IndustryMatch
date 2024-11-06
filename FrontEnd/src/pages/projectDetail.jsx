@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import "../styles/projectDetail.css"; // Separate CSS file for project details page
+import axios from 'axios';
+import "../styles/projectDetail.css";
 
 const ProjectDetail = () => {
   const [project, setProject] = useState(null);
   const [academic, setAcademic] = useState({
+    academic_id: '', // Include academic_id in the initial state
     academic_email: '',
     role: '',
     school: '',
-    phone: '', // Optional additional fields
+    phone: '',
   });
+  const [proposalDescription, setProposalDescription] = useState(''); // For EOI proposal description
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -20,7 +23,7 @@ const ProjectDetail = () => {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/project/${projectId}`);
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project/${projectId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch project data');
         }
@@ -42,19 +45,20 @@ const ProjectDetail = () => {
       if (!token) return;
 
       try {
-        const response = await fetch('http://localhost:3000/api/academic/profile', {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/academic/profile`, {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`, // Send the JWT token in the Authorization header
           },
         });
         if (!response.ok) throw new Error('Failed to fetch academic data');
         const data = await response.json();
         setAcademic({
+          academic_id: data.academic_id, // Ensure academic_id is set here
           academic_email: data.academic_email,
           role: data.role,
           school: data.school,
-          phone: '', // Leave blank for manual input
+          phone: '',
         });
       } catch (error) {
         console.error('Error fetching academic profile:', error);
@@ -80,6 +84,35 @@ const ProjectDetail = () => {
     return size;
   };
 
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const eoiData = {
+      industry_id: project.industry_id,
+      academic_id: academic.academic_id, // Use academic_id here
+      project_id: projectId,
+      eoi_date: new Date().toISOString().split('T')[0], // Current date in YYYY-MM-DD format
+      proposal_description: proposalDescription,
+      eoi_status: 'Pending',
+    };
+
+    try {
+      const token = localStorage.getItem('jwtToken');
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/eoi`, eoiData, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      alert('EOI submitted successfully');
+      console.log('Response:', response.data);
+    } catch (error) {
+      console.error('Error submitting EOI:', error);
+      alert('Failed to submit EOI');
+    }
+  };
+
   if (loading) return <p>Loading project details...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -93,9 +126,9 @@ const ProjectDetail = () => {
               <h2>{project.title}</h2>
               <div className="project-detail-columns">
                 <div className="project-detail-left-column">
-                    <p>
-                        {project.industry} <strong>  -  </strong> {project.discipline}
-                    </p>
+                  <p>
+                    {project.industry} <strong>  -  </strong> {project.discipline}
+                  </p>
                   <p>
                     <img src="/team.png" alt="team icon" className="team-icon" />
                     <strong> </strong> {formatSize(project.size)}
@@ -128,7 +161,7 @@ const ProjectDetail = () => {
         {/* Right Column: Application Form */}
         <div className="application-column">
           <h3>Your Details</h3>
-          <form className="application-form">
+          <form className="application-form" onSubmit={handleSubmit}>
             <label>Email:</label>
             <input type="email" name="email" value={academic.academic_email} readOnly />
             
@@ -144,7 +177,11 @@ const ProjectDetail = () => {
             <h3>Proposal</h3>
 
             <label>Description:</label>
-            <textarea name="additionalInfo"></textarea>
+            <textarea 
+              name="proposal_description"
+              value={proposalDescription}
+              onChange={(e) => setProposalDescription(e.target.value)}
+            />
             
             <button type="submit" className="apply-button">Submit Application</button>
           </form>
