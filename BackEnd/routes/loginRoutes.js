@@ -62,4 +62,52 @@ router.get('/protected', authenticateToken, (req, res) => {
   res.json({ message: `Hello, ${req.user.profile.name}`, userType: req.user.type });
 });
 
+// Register endpoint
+router.post('/register', async (req, res) => {
+  const { email, password, userType, role, school, organisation, discipline } = req.body;
+
+  try {
+    let newUser;
+    if (userType === 'Academic') {
+      // Check if an Academic user with the email already exists
+      const existingAcademic = await Academic.findOne({ where: { academic_email: email } });
+      if (existingAcademic) {
+        return res.status(409).json({ message: 'User already exists' });
+      }
+
+      // Create new Academic user
+      newUser = await Academic.create({
+        academic_email: email,
+        academic_password: password, // Store password as plain text
+        role,
+        school
+      });
+    } else if (userType === 'Industry') {
+      // Check if an Industry user with the email already exists
+      const existingIndustry = await Industry.findOne({ where: { industry_email: email } });
+      if (existingIndustry) {
+        return res.status(409).json({ message: 'User already exists' });
+      }
+
+      // Create new Industry user
+      newUser = await Industry.create({
+        industry_email: email,
+        industry_password: password, // Store password as plain text
+        organisation,
+        industry_discipline: discipline
+      });
+    } else {
+      return res.status(400).json({ message: 'Invalid user type' });
+    }
+
+    // Automatically log in the user by generating a JWT token
+    const token = jwt.sign({ type: userType, profile: newUser }, jwtSecret, { expiresIn: '1h' });
+    
+    // Respond with success and the JWT token
+    res.status(201).json({ message: 'Registration and login successful', token });
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 module.exports = router;

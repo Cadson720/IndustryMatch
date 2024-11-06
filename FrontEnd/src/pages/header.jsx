@@ -92,8 +92,7 @@ const Header = () => {
                   {userType === 'Industry' && (
                     <>
                       <Link to="/industryProfile" className="dropdown-item">Profile</Link>
-                      <Link to="/view-applications" className="dropdown-item">View Applications</Link>
-                      <Link to="/manage-projects" className="dropdown-item">Manage Projects</Link>
+                      <Link to="/manageProject" className="dropdown-item">Manage Projects</Link>
                       <Link to="/create-projects" className="dropdown-item">Create Projects</Link>
                     </>
                   )}
