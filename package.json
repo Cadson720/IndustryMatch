@@ -3,9 +3,12 @@
   "private": true,
   "scripts": {
     "build:frontend": "cd frontend && npm run build",
-    "copy:frontend": "rm -rf backend/dist || rmdir /s /q backend\\dist && cp -r frontend/dist backend/ || xcopy frontend\\dist backend\\dist /e /i",
+    "copy:frontend": "rmdir /s /q backend\\dist && xcopy frontend\\dist backend\\dist /e /i",
     "start:backend": "cd backend && npm start",
-    "deploy": "npm run build:frontend && npm run copy:frontend && npm run start:backend"
+    "start:actions": "rasa run actions --debug",
+    "start:rasa": "rasa run --enable-api --cors '*'",
+    "deploy": "npm run build:frontend && npm run copy:frontend && concurrently -k -n backend,actions,rasa \"npm run start:backend\" \"rasa run actions --debug\" \"rasa run --enable-api --cors \\\"*\\\"\""
+
   },
   "devDependencies": {
     "nodemon": "^3.1.7",
