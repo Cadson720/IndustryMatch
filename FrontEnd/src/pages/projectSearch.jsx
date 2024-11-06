@@ -310,7 +310,7 @@ const ProjectSearch = () => {
 
         <select value={location} onChange={(e) => setLocation(e.target.value)}>
           <option value="">Any Location</option>
-          <option value="Online (Remote)">Online (Remote)</option>
+          <option value="Remote (online)">Remote (online)</option>
           <option value="On-site">On-site</option>
           <option value="Flexible">Flexible</option>
         </select>

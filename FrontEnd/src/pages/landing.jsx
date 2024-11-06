@@ -66,12 +66,8 @@ function Landing() {
     let path;
 
     try {
-<<<<<<< HEAD
       // Try to login with one common API route
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/login`, {
-=======
-      const response = await fetch(`http://localhost:3000/api/login`, {
->>>>>>> a7dfa1cde2a89d4cb8ef24f0e470abca02a204b7
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
