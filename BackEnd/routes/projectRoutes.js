@@ -229,4 +229,20 @@ router.get('/project/industry/:industryId', async (req, res) => {
   }
 });
 
+router.get('/project/:projectId/eois', async (req, res) => {
+  const { projectId } = req.params;
+  try {
+    const eois = await EOI.findAll({ where: { project_id: projectId } }); // Assuming you have an EOI model with project_id field
+
+    if (!eois || eois.length === 0) {
+      return res.status(404).json({ message: 'No EOIs found for this project' });
+    }
+
+    res.json(eois);
+  } catch (error) {
+    console.error('Error retrieving EOIs:', error);
+    res.status(500).json({ error: 'Failed to retrieve EOIs for the project' });
+  }
+});
+
 module.exports = router;

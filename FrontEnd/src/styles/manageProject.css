@@ -1,0 +1,107 @@
+.manage-project-page {
+    padding: 20px;
+    background-color: #1d4654;
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #333;
+  }
+  
+  .manage-project-page h2 {
+    color: #ffffff;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .manage-project-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .project-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .project-card h3 {
+    color: black;
+    font-size: 20px;
+    margin-top: 0;
+  }
+  
+  .project-card p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 16px;
+  }
+  
+  .project-card .icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  
+  .project-card .description {
+    color: #333;
+    font-size: 14px;
+  }
+  
+  .project-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .project-actions .edit-button,
+  .project-actions .eoi-button {
+    padding: 8px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .project-actions .edit-button {
+    background-color: #6A5ACD;
+    color: white;
+  }
+  
+  .project-actions .edit-button:hover {
+    background-color: #5a4fcf;
+  }
+  
+  .project-actions .eoi-button {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .project-actions .eoi-button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Add the same background styles as in projectSearch.css */
+  .manage-project-page::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.1;
+    z-index: -1;
+  }
+  
