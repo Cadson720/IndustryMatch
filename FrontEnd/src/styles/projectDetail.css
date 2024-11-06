@@ -24,6 +24,7 @@
   /* Background Styling */
   .project-detail-page {
     background-color: #1d4654;
+    height: calc(100vh);
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -53,7 +54,7 @@
     display: flex;
     gap: 50px;
     max-width: 80%;
-    width: 80%;
+    width: 100%;
   }
   
   /* Left Column: Project Details */
@@ -61,9 +62,12 @@
     flex: 0 0 40%;
     background-color: white;
     padding: 20px;
+    margin: 20px;
+    margin-bottom: 0px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    height:calc(100vh - 40px);
   }
   
   .project-detail-page .project-detail {
@@ -83,10 +87,10 @@
     white-space: pre-wrap;
   }
   
-  .project-detail-page .project-detail-columns {
+  .project-detail-page .project-detail-column {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
   }
   
   .project-detail-page .project-detail-left-column {
@@ -97,12 +101,15 @@
   
   /* Right Column: Application Form */
   .project-detail-page .application-column {
-    flex: 0 0 55%;
+    flex: 0 0 50%;
     background-color: white;
     padding: 20px;
+    margin: 20px;
+    margin-bottom: 0px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: left;
+    height:calc(100vh - 40px);
   }
   
   .project-detail-page .application-column h3 {
@@ -124,6 +131,7 @@
   .project-detail-page .application-form textarea {
     width: 100%;
     padding: 10px;
+    padding-right: 0px;
     margin-top: 5px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
