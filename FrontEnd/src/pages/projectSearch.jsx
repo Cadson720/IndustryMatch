@@ -264,6 +264,26 @@ const ProjectSearch = () => {
       //.replace(/ - /g, "\n - ");
   };
 
+  const saveProject = async (projectID) => {
+    console.log("Saving project:", projectID);
+    console.log("User:", academicId);
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/saveProject`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ academic_id, projectID }),
+    });
+    console.log("Response:", response);
+    if (response.ok) {
+        alert('Project saved!');
+    } else {
+        alert('Failed to save project.');
+    }
+  };
+
+
+
   // Handle project click to display detailed view
   const handleProjectClick = (project) => {
     setSelectedProject(project);
@@ -398,9 +418,12 @@ const ProjectSearch = () => {
                       <p1><strong>  - </strong> {extractSuburb(selectedProject.address)}</p1>
                     )}
                   </p>
-                  <a href={`/projectDetail?projectId=${selectedProject.project_id}`}>
-                    <button>Apply</button>
-                  </a>
+                  <div className='actions'>
+                    <a href={`/projectDetail?projectId=${selectedProject.project_id}`}>
+                      <button className='apply-button'>Apply</button>
+                    </a>
+                    <button onClick={() => saveProject(selectedProject.project_id)} className='save-button'>Save</button>
+                  </div>
                 </div>
               </div>
 

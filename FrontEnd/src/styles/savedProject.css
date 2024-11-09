@@ -13,7 +13,39 @@ body{
     height: 100%;
     max-height: 100%;
   }
+  .saved-projects-page {
+    padding: 20px;
+    color: #fff;
+  }
   
-  .card {
-    padding: 2em;
+  .saved-projects-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .project-card {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .project-card h3 {
+    font-size: 1.5em;
+  }
+  
+  .project-actions .view-button {
+    background-color: #a2a2a2;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+
+  .save_p p {
+    font-family: 'Roboto', Arial, sans-serif;
+    color: black
   }
