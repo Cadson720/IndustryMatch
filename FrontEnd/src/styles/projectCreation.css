@@ -1,17 +1,32 @@
-body {
-    margin: 0; /* Ensure no default body margin */
-}
+
 
 .create_body {
+    margin: 0; 
     background-color: rgb(56, 100, 115);
     padding: 3em 0; /* Add top and bottom padding */
     display: flex; /* Use flexbox for centering */
     justify-content: center; /* Center horizontally */
+    z-index: 1;
+}
+
+.create_body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/background.png');
+    background-size: cover; /* Ensure the image covers the entire element */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    opacity: 0.1; /* Set opacity for the image to see through it */
+    z-index: -1; /* Ensure the background image is behind the content */
 }
 
 .comp {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     padding: 2em; /* Padding inside the card */
     border-radius: 15px;
     width: 50%; /* Set width of the comp */

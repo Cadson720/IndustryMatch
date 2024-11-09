@@ -93,7 +93,7 @@ const Header = () => {
                     <>
                       <Link to="/industryProfile" className="dropdown-item">Profile</Link>
                       <Link to="/manageProject" className="dropdown-item">Manage Projects</Link>
-                      <Link to="/create-projects" className="dropdown-item">Create Projects</Link>
+                      <Link to="/projectCreation" className="dropdown-item">Create Projects</Link>
                     </>
                   )}
                   <span className="dropdown-item signout" onClick={handleSignOut}>Sign Out</span>

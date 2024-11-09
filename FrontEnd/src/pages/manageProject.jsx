@@ -38,6 +38,24 @@ const ManageProject = () => {
     navigate(`/manageEOIs/${projectId}`);
   };
 
+  const handleDeleteClick = (projectId) => {
+    fetch(`http://localhost:3000/api/project/${projectId}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to delete project');
+        }
+        // Update the projects list after deletion
+        setProjects((prevProjects) =>
+          prevProjects.filter((project) => project.project_id !== projectId)
+        );
+      })
+      .catch((error) => console.error('Error deleting project:', error));
+  };
+  
+
+
   if (error) return <p>Error: {error}</p>;
 
   return (
@@ -60,6 +78,7 @@ const ManageProject = () => {
             <div className="project-actions">
               <button onClick={() => handleEditClick(project.id)} className="edit-button">Edit</button>
               <button onClick={() => handleManageEOIsClick(project.id)} className="eoi-button">Manage EOIs</button>
+              <button onClick={() => handleDeleteClick(project.id)} className="delete-button">Delete</button>
             </div>
           </div>
         ))}

@@ -248,6 +248,9 @@ function Landing() {
                 Fostering social and human perspectives in engineering: Projects, Partnerships, Professional Learning.
                 With <i className="landing-i">{totalProjects}</i> projects to choose from and over <i className="landing-i">25</i> successful partnerships!
               </p>
+              <p>
+                Now with help from <strong>AI</strong>
+              </p>
             </div>
           </div>
           <div className="right-column">

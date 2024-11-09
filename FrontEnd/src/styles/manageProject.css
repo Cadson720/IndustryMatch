@@ -62,7 +62,8 @@
   }
   
   .project-actions .edit-button,
-  .project-actions .eoi-button {
+  .project-actions .eoi-button,
+  .project-actions .delete-button {
     padding: 8px 16px;
     font-size: 16px;
     border: none;
@@ -87,6 +88,15 @@
   
   .project-actions .eoi-button:hover {
     background-color: #45a049;
+  }
+
+  .project-actions .delete-button {
+    background-color: #b20808;
+    color: white;
+  }
+  
+  .project-actions .delete-button:hover {
+    background-color: #870b0b;
   }
   
   /* Add the same background styles as in projectSearch.css */

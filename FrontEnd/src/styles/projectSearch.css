@@ -385,3 +385,33 @@ select:focus {
   margin: 5px 0;
   justify-content: flex-start;
 }
+
+.actions .apply-button,
+.actions .save-button {
+  padding: 8px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 10px;
+}
+
+
+.actions .apply-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.actions .apply-button:hover {
+  background-color: #45a049;
+}
+
+.actions .save-button {
+  background-color: #cc9d11;
+  color: white;
+}
+
+.actions .save-button:hover {
+  background-color: #af870f;
+}
