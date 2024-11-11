@@ -193,7 +193,7 @@ const ProjectSearch = () => {
           if (validProjects.length > 0) {
             setSelectedProject(validProjects[0]);
           }
-        }, 750); // 0.75-second delay
+        }, 250); // 0.25-second delay
       } catch (error) {
         console.error('Error fetching data:', error);
         setError(error);
@@ -203,7 +203,6 @@ const ProjectSearch = () => {
 
     fetchProjects();
   }, []);
-
   // Function to toggle the extended search criteria
   const toggleExtendedCriteria = () => {
     setShowExtended(!showExtended);
@@ -261,7 +260,7 @@ const ProjectSearch = () => {
       .replace(/Project Objectives:/g, "Project Objectives:")
       .replace(/Technical Knowledge:/g, "Technical Knowledge:")
       .replace(/Student Year Recommendation:/g, "Student Year Recommendation")
-      //.replace(/ - /g, "\n - ");
+      // .replace(/ - /g, "\n - ");
   };
 
   const saveProject = async (projectID) => {
@@ -382,7 +381,7 @@ const ProjectSearch = () => {
                 </p>
                 <p1>
                   <img src="/location.png" alt="location icon" className="location-icon" />
-                  {project.location_type}
+                  <strong>  </strong>{project.location_type}
                 </p1>
                 <p>{getPreviewDescription(project.description).slice(0, -2)}..</p> {/* Remove last character and add ".." */}
               </div>
@@ -415,14 +414,20 @@ const ProjectSearch = () => {
                     <img src="/location.png" alt="location icon" className="location-icon" />
                     <strong>  </strong> {selectedProject.location_type}
                     {(selectedProject.location_type === 'Flexible' || selectedProject.location_type === 'On-site') && selectedProject.address && (
-                      <p1><strong>  - </strong> {extractSuburb(selectedProject.address)}</p1>
+                      <> - {extractSuburb(selectedProject.address)}</>
                     )}
                   </p>
-                  <div className='actions'>
-                    <a href={`/projectDetail?projectId=${selectedProject.project_id}`}>
-                      <button className='apply-button'>Apply</button>
-                    </a>
-                    <button onClick={() => saveProject(selectedProject.project_id)} className='save-button'>Save</button>
+                  <div className="actions">
+                    {academicId && ( // Only show buttons if an academic user is logged in
+                      <>
+                        <a href={`/projectDetail?projectId=${selectedProject.project_id}`}>
+                          <button className="apply-button">Apply</button>
+                        </a>
+                        <button onClick={() => saveProject(selectedProject.project_id)} className="save-button">
+                          Save
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

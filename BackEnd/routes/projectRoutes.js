@@ -1,164 +1,162 @@
 const express = require('express');
 const router = express.Router();
-const { Project, Industry } = require('../models');
-const { Op } = require('sequelize');
+const { Project, Industry, EOI } = require('../models'); // Include EOI model
+const jwt = require('jsonwebtoken');
+const { Op } = require('sequelize'); // Import Op from Sequelize
 
-/*
-// Middleware to authenticate and verify JWT token
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1]; // Bearer token format
-
+// Middleware to extract `industry_id` from the token
+const authenticateAndExtractIndustryId = (req, res, next) => {
+  const token = req.headers['authorization']?.split(' ')[1];
   if (!token) {
-    return res.status(401).json({ error: 'Unauthorized: No token provided' });
+    return res.status(401).json({ message: 'Access token missing' });
   }
 
-  // Verify token
-  jwt.verify(token, jwtSecret, (err, decoded) => {
+  // Verify and decode the token
+  jwt.verify(token, 'your_secret_key', (err, decoded) => {
     if (err) {
-      return res.status(403).json({ error: 'Forbidden: Invalid or expired token' });
+      return res.status(403).json({ message: 'Invalid or expired token' });
     }
-    req.user = decoded; // Attach the decoded user to the request
+    if (decoded.type !== 'Industry') {
+      return res.status(403).json({ message: 'Unauthorized access for non-industry users' });
+    }
+
+    // Extract `industry_id` and ensure it is a number
+    req.industry_id = Number(decoded.profile.industry_id);
+    if (isNaN(req.industry_id)) {
+      return res.status(400).json({ message: 'Invalid industry ID' });
+    }
     next();
   });
 };
-*/
 
-// Get all projects with associated Industry (member) information
+// Route to fetch all projects for the logged-in industry user
+router.get('/project/industry', authenticateAndExtractIndustryId, async (req, res) => {
+  const { industry_id } = req; // `industry_id` should be a number
+
+  try {
+    // Use Sequelize `where` clause to ensure `industry_id` is used correctly as a number
+    const projects = await Project.findAll({
+      where: { industry_id: { [Op.eq]: industry_id } }, // Explicitly use `Op.eq` for equality
+      include: {
+        model: Industry,
+        as: 'Industry',
+      },
+    });
+
+    if (!projects || projects.length === 0) {
+      return res.status(404).json({ message: 'No projects found for your industry' });
+    }
+
+    res.json(projects);
+  } catch (error) {
+    console.error('Error retrieving projects by industry ID:', error);
+    res.status(500).json({ error: 'Failed to retrieve projects for the industry' });
+  }
+});
+
+
+// Middleware to extract `academic_id` from the token
+const authenticateAndExtractAcademicId = (req, res, next) => {
+  const token = req.headers['authorization']?.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ message: 'Access token missing' });
+  }
+
+  // Verify and decode the token
+  jwt.verify(token, 'your_secret_key', (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ message: 'Invalid or expired token' });
+    }
+    req.academic_id = decoded.profile.academic_id; // Extract and attach `academic_id` to the request
+    next();
+  });
+};
+
+// Route to fetch all projects for the `ProjectSearch` component
 router.get('/project', async (req, res) => {
   try {
     const projects = await Project.findAll({
       include: {
-        model: Industry, // Include the Industry model
-        as: 'Industry'   // Alias used in the association
+        model: Industry,
+        as: 'Industry' // Ensure alias matches Sequelize model association
       }
     });
+
+    if (!projects || projects.length === 0) {
+      return res.status(404).json({ message: 'No projects found' });
+    }
+
     res.json(projects);
   } catch (error) {
-    console.error('Error retrieving projects:', error);
-    res.status(500).json({ error: 'Error retrieving projects' });
+    console.error('Error fetching projects:', error);
+    res.status(500).json({ error: 'Failed to fetch projects' });
   }
 });
 
-// Search projects based on query parameters
-router.get('/project/search', async (req, res) => {
+// Route to fetch project details by project ID
+router.get('/project/:projectId', async (req, res) => {
+  const { projectId } = req.params;
+
   try {
-    // Extract query parameters for filtering
-    const { keywords, discipline, duration, size, industry, location_type } = req.query;
-
-    // Log incoming query parameters for debugging
-    console.log("Search parameters received:", { keywords, discipline, duration, size, industry, location_type });
-
-    // Create a dynamic filter object based on the user's input
-    let filters = {};
-
-    // Add conditions to the filters object based on the provided query parameters
-    if (keywords && keywords.trim() !== '') {
-      filters[Op.or] = [
-        { title: { [Op.iLike]: `%${keywords}%` } },  // Case-insensitive search in project title
-        { discipline: { [Op.iLike]: `%${keywords}%` } },  // Case-insensitive search in discipline
-        { description: { [Op.iLike]: `%${keywords}%` } } // Additional search in description
-      ];
-    }
-
-    if (discipline && discipline.trim() !== '') {
-      filters.discipline = { [Op.iLike]: `%${discipline}%` }; // Case-insensitive partial match for discipline
-    }
-
-    if (duration && duration.trim() !== '') {
-      filters.duration = duration; // Exact match for duration
-    }
-
-    if (size && size.trim() !== '') {
-      filters.size = size; // Exact match for size (small, medium, large)
-    }
-
-    if (industry && industry.trim() !== '') {
-      filters.industry = { [Op.iLike]: `%${industry}%` }; // Case-insensitive match for industry
-    }
-
-    if (location_type && location_type.trim() !== '') {
-      filters.location_type = { [Op.iLike]: `%${location_type}%` }; // Case-insensitive match for location_type
-    }
-
-    // Log filters before executing the query
-    console.log("Filters applied:", filters);
-
-    // Fetch filtered projects from the database
-    const projects = await Project.findAll({
-      where: filters, // Apply the dynamic filters object
-      limit: 5, // Optionally limit the result to 5 projects
-    });
-
-    // Log query result
-    console.log("Projects found:", projects.length);
-
-    // Return the filtered projects
-    if (projects.length > 0) {
-      res.json(projects);
-    } else {
-      res.status(404).json({ message: 'No matching projects found based on your search criteria.' });
-    }
-  } catch (error) {
-    // Log the error details for debugging
-    console.error('Error retrieving projects:', error);
-    res.status(500).json({ error: 'Failed to retrieve projects', details: error.message });
-  }
-});
-
-
-// Other project routes like get by ID, create, update, delete, etc.
-router.get('/project/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    const project = await Project.findByPk(id, {
+    const project = await Project.findByPk(projectId, {
       include: {
         model: Industry,
-        as: 'Industry'
-      }
+        as: 'Industry',
+      },
     });
+
     if (!project) {
       return res.status(404).json({ error: 'Project not found' });
     }
+
     res.json(project);
   } catch (error) {
     console.error('Error retrieving project:', error);
-    res.status(500).json({ error: 'Error retrieving project' });
+    res.status(500).json({ error: 'Failed to retrieve project' });
   }
 });
 
-// Route to create a new project
-router.post('/project', /*authenticateToken,*/  async (req, res) => {
-  const industryId = req.user.profile.industry_id;
+// Route to get academic profile
+router.get('/academic/profile', authenticateAndExtractAcademicId, async (req, res) => {
   try {
-    const newProject = await Project.create(req.body);
-    //newProject.industry_id = industryId;
-    res.status(201).json(newProject);
+    // Mock data for academic profile; replace with actual database query as needed
+    const academicProfile = {
+      academic_id: req.academic_id,
+      academic_email: 'academic@example.com',
+      role: 'Professor',
+      school: 'School of Engineering',
+    };
+    res.json(academicProfile);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to create project' });
+    console.error('Error retrieving academic profile:', error);
+    res.status(500).json({ error: 'Failed to retrieve academic profile' });
   }
 });
 
-// Delete a project by ID
-router.delete('/project/:id', async (req, res) => {
-  const { id } = req.params;
+// Route to submit an EOI (Expression of Interest)
+router.post('/eoi', async (req, res) => {
+  const { industry_id, academic_id, project_id, eoi_date, proposal_description, eoi_status } = req.body;
+
   try {
-    const project = await Project.findByPk(id);
-    if (!project) {
-      return res.status(404).json({ error: 'Project not found' });
-    }
-    await project.destroy(); // Delete the project
-    res.status(204).send(); // Send 204 No Content response after deletion
+    const newEOI = await EOI.create({
+      industry_id,
+      academic_id,
+      project_id,
+      eoi_date,
+      proposal_description,
+      eoi_status,
+    });
+
+    res.status(201).json(newEOI);
   } catch (error) {
-    console.error('Error deleting project:', error);
-    res.status(500).json({ error: 'Failed to delete project' });
+    console.error('Error submitting EOI:', error);
+    res.status(500).json({ error: 'Failed to submit EOI' });
   }
 });
 
 // Route to update an existing project
-router.put('/project/:id', async (req, res) => {
-  const projectId = req.params.id;
+router.put('/editProject/:id', async (req, res) => {
+  const { id } = req.params;
   const {
     title,
     publish_date,
@@ -174,9 +172,7 @@ router.put('/project/:id', async (req, res) => {
   } = req.body;
 
   try {
-    // Find the project by ID
-    const project = await Project.findByPk(projectId);
-
+    const project = await Project.findByPk(id);
     if (!project) {
       return res.status(404).json({ error: 'Project not found' });
     }
@@ -204,35 +200,12 @@ router.put('/project/:id', async (req, res) => {
   }
 });
 
-// Get all projects by Industry ID
-router.get('/project/industry/:industryId', async (req, res) => {
-  const { industryId } = req.params;
-  try {
-    const projects = await Project.findAll({
-      where: {
-        industry_id: industryId,  // Filter by industry_id
-      },
-      include: {
-        model: Industry,
-        as: 'Industry'
-      }
-    });
-    
-    if (!projects || projects.length === 0) {
-      return res.status(404).json({ message: 'No projects found for this industry' });
-    }
-
-    res.json(projects); // Send back the list of projects
-  } catch (error) {
-    console.error('Error retrieving projects by industry ID:', error);
-    res.status(500).json({ error: 'Failed to retrieve projects for the industry' });
-  }
-});
-
-router.get('/project/:projectId/eois', async (req, res) => {
+// Route to manage EOIs for a specific project
+router.get('/manageEOIs/:projectId', async (req, res) => {
   const { projectId } = req.params;
+
   try {
-    const eois = await EOI.findAll({ where: { project_id: projectId } }); // Assuming you have an EOI model with project_id field
+    const eois = await EOI.findAll({ where: { project_id: projectId } });
 
     if (!eois || eois.length === 0) {
       return res.status(404).json({ message: 'No EOIs found for this project' });
