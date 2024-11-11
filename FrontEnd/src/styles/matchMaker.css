@@ -56,8 +56,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 55vw;
-    width: 55vw;
+    max-width: 50vw;
+    width: 50vw;
     padding: 20px;
     background-color: white;
     border-radius: 10px;
@@ -78,7 +78,7 @@
 }
 
 .message {
-    padding: 10px;
+    padding: 20px;
     margin: 8px 0;
     border-radius: 10px;
     font-family: 'Roboto', Arial, sans-serif;
@@ -89,6 +89,9 @@
     background-color: #6A5ACD;
     color: white;
     font-weight: bold;
+    text-align: left;
+    max-width: 40%;
+    margin-left: auto; /* Push the message to the right */
 }
 
 .message.bot {
@@ -123,4 +126,57 @@
 
 .chat-input button:hover {
     background-color: #5a4fcf;
+}
+
+/* Bio Card Styles */
+/* Style for bot messages to display project cards */
+
+.message.bot {
+    align-self: flex-start;
+    background-color: #f1f1f1;
+    color: #1d4654;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    transition: all 0.3s ease;
+    max-width: 100%;
+    line-height: 2.2em;
+}
+
+/* Style for project titles */
+.message.bot h3 {
+    margin-top: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #1d4654;
+}
+
+/* Style for key project information */
+.message.bot p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Style for project description blurb */
+.message.bot .blurb {
+    font-style: italic;
+    color: #555;
+}
+
+/* Hover effect for the bot message cards */
+.message.bot:hover {
+    background-color: #e0f7fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Expanded content for more details */
+.expanded-content {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.5;
 }

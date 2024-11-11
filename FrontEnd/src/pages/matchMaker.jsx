@@ -6,6 +6,7 @@ const MatchMakerChat = () => {
     const [messages, setMessages] = useState([
         { sender: 'bot', text: 'Hello! How can I assist you with project searches today?' }
     ]);
+    const [projects, setProjects] = useState([]);
 
     const samplePrompts = [
         "Are there any marketing projects I can do online?",
@@ -36,12 +37,16 @@ const MatchMakerChat = () => {
             if (!response.ok) throw new Error('Failed to communicate with the bot.');
 
             const data = await response.json();
-            const botMessages = data.map((message) => ({
+            const botMessages = data.filter(d => !d.projects).map((message) => ({
                 sender: 'bot',
                 text: message.text
             }));
 
+            // Extract projects from bot response if available
+            const projectsData = data.find(d => d.projects)?.projects || [];
+
             setMessages((prevMessages) => [...prevMessages, ...botMessages]);
+            setProjects(projectsData);
         } catch (error) {
             console.error('Error sending message:', error);
             setMessages([...messages, { sender: 'bot', text: 'There was an issue connecting to the bot.' }]);

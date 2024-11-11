@@ -33,7 +33,7 @@ class ActionSearchProjects(Action):
         # Clean the slot values if needed
         if size:
             size = size.capitalize()
-        
+
         if duration:
             # Format duration to ensure consistency (e.g., "12 Weeks")
             match = re.search(r'(\d+)\s?weeks?', duration, re.IGNORECASE)
@@ -64,22 +64,24 @@ class ActionSearchProjects(Action):
             if response.status_code == 200:
                 projects = response.json()
                 if projects:
-                    # Format the output to display project details
-                    project_summaries = "\n\n".join([
-                        f"Project ID: {project['project_id']}\n"
-                        f"Title: {project['title']}\n"
-                        f"Discipline: {project['discipline']}\n"
-                        f"Industry: {project['industry']}\n"
-                        f"Publish Date: {project['publish_date']}\n"
-                        f"Duration: {project['duration']}\n"
-                        f"Size: {project['size']}\n"
-                        f"Location Type: {project['location_type']}\n"
-                        f"Description: {project['description']}\n"
-                        f"Address: {project.get('address', 'N/A')}\n"
-                        f"Status: {project['status']}"
-                        for project in projects
-                    ])
-                    dispatcher.utter_message(text=f"Here are some matching projects:\n{project_summaries}")
+                    # Format the output as bio-like cards with previews
+                    formatted_projects = []
+                    for project in projects:
+                        # Extract a short blurb from the description
+                        description_blurb = project['description'].split("Project Objectives:")[0].strip()
+
+                        # Construct the bio card information without extra spaces
+                        formatted_project = (
+                            f"{project['title']}\n"
+                            f"Industry: {project['industry']} - Discipline: {project['discipline']}\n"
+                            f"Duration: {project['duration']} - Size: {project['size']}\n"
+                            f"Location: {project['location_type']}\n"
+                            f"{description_blurb}..."
+                        )
+                        formatted_projects.append(formatted_project)
+
+                    # Join all bio cards into a single message with consistent spacing
+                    dispatcher.utter_message(text="Here are some matching projects:\n\n" + "\n\n".join(formatted_projects))
 
                     # Return events to update slots with new values
                     return [
