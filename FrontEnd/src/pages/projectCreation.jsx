@@ -100,63 +100,63 @@ function CreateProject() {
 
     // Validate required fields
     if (
-      !formData.publish_date.trim() || 
-      !formData.discipline.trim() || 
-      !formData.duration.trim() || 
-      !formData.size.trim() || 
-      !formData.location_type.trim() || 
-      !formData.address.trim() || 
-      !formData.description.trim() || 
-      !formData.status.trim() || 
-      !formData.image_path.trim()
+        !formData.publish_date.trim() || 
+        !formData.discipline.trim() || 
+        !formData.duration.trim() || 
+        !formData.size.trim() || 
+        !formData.location_type.trim() || 
+        !formData.address.trim() || 
+        !formData.description.trim() || 
+        !formData.status.trim() || 
+        !formData.image_path.trim()
     ) {
-      setError('Please fill all required fields');
-      console.log('Missing fields:', formData); // Debug missing fields
-      return;
+        setError('Please fill all required fields');
+        return;
     }
 
     const requiredHeadings = ["Project Objectives:", "Technical Knowledge:", "Student Year Recommendation:"];
     const missingHeadings = requiredHeadings.filter(heading => !formData.description.includes(heading));
 
     if (missingHeadings.length > 0) {
-      setError(`Please do not remove the following headings: ${missingHeadings.join(', ')}`);
-      return;
+        setError(`Please do not remove the following headings: ${missingHeadings.join(', ')}`);
+        return;
     }
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setSuccess(true);
-        setError(null);
-        setFormData({
-          title: '',
-          publish_date: getTodayDate(),
-          industry: '',
-          discipline: '',
-          duration: '',
-          size: '', // Reset to match the new field
-          location_type: '',
-          address: '',
-          description: `Project Objectives:\n\n\nTechnical Knowledge:\n\n\nStudent Year Recommendation:\n\n`,
-          status: '', // Reset to match the new field
-          image_path: ''
+        const token = localStorage.getItem('jwtToken'); // Retrieve token from local storage
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project/create`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Include the token in the request
+            },
+            body: JSON.stringify(formData),
         });
-      } else {
-        const errorData = await response.json();
-        setError(errorData.error || 'Failed to create project');
-      }
-    } catch (err) {
-      setError('Something went wrong while creating the project');
-    }
-  };
 
+        if (response.ok) {
+            setSuccess(true);
+            setError(null);
+            setFormData({
+                title: '',
+                publish_date: getTodayDate(),
+                industry: '',
+                discipline: '',
+                duration: '',
+                size: '',
+                location_type: '',
+                address: '',
+                description: `Project Objectives:\n\n\nTechnical Knowledge:\n\n\nStudent Year Recommendation:\n\n`,
+                status: '',
+                image_path: ''
+            });
+        } else {
+            const errorData = await response.json();
+            setError(errorData.error || 'Failed to create project');
+        }
+    } catch (err) {
+        setError('Something went wrong while creating the project');
+    }
+};
   return (
     <div className="create_body">
     <div className="comp">

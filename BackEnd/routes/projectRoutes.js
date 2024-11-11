@@ -29,6 +29,57 @@ const authenticateAndExtractIndustryId = (req, res, next) => {
   });
 };
 
+// Route to create a new project
+router.post('/project/create', authenticateAndExtractIndustryId, async (req, res) => {
+  try {
+    const {
+      title,
+      publish_date,
+      industry,
+      discipline,
+      duration,
+      size,
+      location_type,
+      address,
+      description,
+      status,
+      image_path
+    } = req.body;
+
+    // Use the `industry_id` extracted from the token
+    const industry_id = req.industry_id;
+
+    // Check if all required fields are provided
+    if (
+      !title || !publish_date || !industry || !discipline || !duration || 
+      !size || !location_type || !address || !description || !status || !image_path || !industry_id
+    ) {
+      return res.status(400).json({ error: 'Please fill all required fields' });
+    }
+
+    // Create the new project
+    const newProject = await Project.create({
+      industry_id,
+      title,
+      publish_date,
+      industry,
+      discipline,
+      duration,
+      size,
+      location_type,
+      address,
+      description,
+      status,
+      image_path
+    });
+
+    res.status(201).json(newProject);
+  } catch (error) {
+    console.error('Error creating project:', error);
+    res.status(500).json({ error: 'An error occurred while creating the project' });
+  }
+});
+
 // Route to fetch all projects for the logged-in industry user
 router.get('/project/industry', authenticateAndExtractIndustryId, async (req, res) => {
   const { industry_id } = req; // `industry_id` should be a number
@@ -71,6 +122,72 @@ const authenticateAndExtractAcademicId = (req, res, next) => {
     next();
   });
 };
+
+// Search projects based on query parameters
+router.get('/project/search', async (req, res) => {
+  try {
+    // Extract query parameters for filtering
+    const { keywords, discipline, duration, size, industry, location_type } = req.query;
+
+    // Log incoming query parameters for debugging
+    console.log("Search parameters received:", { keywords, discipline, duration, size, industry, location_type });
+
+    // Create a dynamic filter object based on the user's input
+    let filters = {};
+
+    // Add conditions to the filters object based on the provided query parameters
+    if (keywords && keywords.trim() !== '') {
+      filters[Op.or] = [
+        { title: { [Op.iLike]: `%${keywords}%` } },  // Case-insensitive search in project title
+        { discipline: { [Op.iLike]: `%${keywords}%` } },  // Case-insensitive search in discipline
+        { description: { [Op.iLike]: `%${keywords}%` } } // Additional search in description
+      ];
+    }
+
+    if (discipline && discipline.trim() !== '') {
+      filters.discipline = { [Op.iLike]: `%${discipline}%` }; // Case-insensitive partial match for discipline
+    }
+
+    if (duration && duration.trim() !== '') {
+      filters.duration = duration; // Exact match for duration
+    }
+
+    if (size && size.trim() !== '') {
+      filters.size = size; // Exact match for size (small, medium, large)
+    }
+
+    if (industry && industry.trim() !== '') {
+      filters.industry = { [Op.iLike]: `%${industry}%` }; // Case-insensitive match for industry
+    }
+
+    if (location_type && location_type.trim() !== '') {
+      filters.location_type = { [Op.iLike]: `%${location_type}%` }; // Case-insensitive match for location_type
+    }
+
+    // Log filters before executing the query
+    console.log("Filters applied:", filters);
+
+    // Fetch filtered projects from the database
+    const projects = await Project.findAll({
+      where: filters, // Apply the dynamic filters object
+      limit: 5, // Optionally limit the result to 5 projects
+    });
+
+    // Log query result
+    console.log("Projects found:", projects.length);
+
+    // Return the filtered projects
+    if (projects.length > 0) {
+      res.json(projects);
+    } else {
+      res.status(404).json({ message: 'No matching projects found based on your search criteria.' });
+    }
+  } catch (error) {
+    // Log the error details for debugging
+    console.error('Error retrieving projects:', error);
+    res.status(500).json({ error: 'Failed to retrieve projects', details: error.message });
+  }
+});
 
 // Route to fetch all projects for the `ProjectSearch` component
 router.get('/project', async (req, res) => {

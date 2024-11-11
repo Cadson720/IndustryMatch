@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import "../styles/matchMaker.css"; // Import the CSS for this component
-import axios from 'axios';
 
 const MatchMakerChat = () => {
     const [inputText, setInputText] = useState('');
     const [messages, setMessages] = useState([
         { sender: 'bot', text: 'Hello! How can I assist you with project searches today?' }
     ]);
+
+    const samplePrompts = [
+        "Are there any marketing projects I can do online?",
+        "Show me animation projects that are 12 weeks long",
+        "What about a journalism project to do with interviewing that uses a medium-sized team?",
+        "I want a small project that's 8 weeks long in transport engineering"
+    ];
 
     // Function to handle sending messages to the bot
     const sendMessage = async () => {
@@ -16,18 +22,26 @@ const MatchMakerChat = () => {
         setMessages([...messages, { sender: 'user', text: inputText }]);
 
         try {
-            const response = await axios.post('http://159.196.147.89:5005/webhooks/rest/webhook', {
-                sender: 'user',
-                message: inputText
+            const response = await fetch(`${import.meta.env.VITE_AI_API_BASE_URL}/webhooks/rest/webhook`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    sender: 'user',
+                    message: inputText
+                })
             });
 
-            // Process bot responses and update messages
-            const botMessages = response.data.map((message) => ({
+            if (!response.ok) throw new Error('Failed to communicate with the bot.');
+
+            const data = await response.json();
+            const botMessages = data.map((message) => ({
                 sender: 'bot',
                 text: message.text
             }));
-            setMessages((prevMessages) => [...prevMessages, ...botMessages]);
 
+            setMessages((prevMessages) => [...prevMessages, ...botMessages]);
         } catch (error) {
             console.error('Error sending message:', error);
             setMessages([...messages, { sender: 'bot', text: 'There was an issue connecting to the bot.' }]);
@@ -43,11 +57,26 @@ const MatchMakerChat = () => {
         sendMessage();
     };
 
+    // Function to handle clicking a sample prompt
+    const handleSamplePromptClick = (prompt) => {
+        setInputText(prompt); // Set the input field to the clicked prompt
+    };
+
     return (
-        <div className="matchmaker-wrapper"> {/* Fullscreen background wrapper */}
+        <div className="matchmaker-wrapper">
+            <div className="sample-prompts">
+                {samplePrompts.map((prompt, index) => (
+                    <div
+                        key={index}
+                        className="sample-prompt"
+                        onClick={() => handleSamplePromptClick(prompt)}
+                    >
+                        {prompt}
+                    </div>
+                ))}
+            </div>
+
             <div className="matchmaker-chat">
-                <h1>Chat with the MatchMaker Bot</h1>
-                
                 <div className="chat-box">
                     {messages.map((msg, index) => (
                         <div key={index} className={`message ${msg.sender}`}>
