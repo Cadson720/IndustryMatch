@@ -165,8 +165,6 @@ const Academic_Profile = () => {
       <div className="column-container">
         <div className="left-column">
           <button className={`tab-btn ${activeTab === 'details' ? 'active' : ''}`} onClick={() => setActiveTab('details')}>My Details</button>
-          <button className={`tab-btn ${activeTab === 'projects' ? 'active' : ''}`} onClick={() => setActiveTab('projects')}>Saved Projects</button>
-          <button className={`tab-btn ${activeTab === 'applications' ? 'active' : ''}`} onClick={() => setActiveTab('applications')}>My Applications</button>
           <button className="logout-btn" onClick={handleSignOut }>Log Out</button>
         </div>
         <div className="right-column">
