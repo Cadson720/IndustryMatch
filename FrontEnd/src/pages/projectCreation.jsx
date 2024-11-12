@@ -243,10 +243,6 @@ function CreateProject() {
                     <option value="Archived">Archived</option>
                 </select>
             </div>
-            <div className="form-group">
-                <label className="label">Image Path:</label>
-                <input type="text" name="image_path" value={formData.image_path} onChange={handleChange}/>
-            </div>
             <button type="submit">Create Project</button>
         </form>
         <div className="behind"></div>

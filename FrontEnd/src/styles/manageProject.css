@@ -1,14 +1,15 @@
-/* Prevent the main page from scrolling */
+/* Adjust main page to handle overflow and scrolling */
 .manage-project-page {
-  background-color: #1d4654; /* Page background color */
+  background-color: #1d4654;
   font-family: 'Roboto', Arial, sans-serif;
   color: #333;
   position: relative;
-  height: 100vh;
-  overflow: hidden; /* Hide scrolling on the main page */
+  height: calc(100vh - 20px); /* Use min-height instead of height to allow content expansion */
+  overflow: auto; /* Allow scrolling if content overflows */
+  padding-bottom: 20px; /* Add some padding at the bottom for comfort */
 }
 
-/* Adding the background image as an overlay */
+/* Background image overlay */
 .manage-project-page::before {
   content: "";
   position: absolute;
@@ -17,104 +18,95 @@
   right: 0;
   bottom: 0;
   background-image: url('/background.png');
-  background-size: cover; /* Ensure the image covers the entire element */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
-  opacity: 0.15; /* Adjust transparency as needed */
-  z-index: 0; /* Make sure it is behind the content but above the background color */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  z-index: 0;
 }
 
-/* Ensure content is above the background image */
+/* Content styling */
 .manage-project-container {
   position: relative;
-  z-index: 1; /* Bring content in front of the background image */
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 90%;
   max-width: 1400px;
   margin: 0 auto;
-  height: 100%; /* Use full height */
-  overflow: hidden; /* Prevent overflow on the main container */
+  padding: 20px 0; /* Add some vertical padding */
+  box-sizing: border-box;
 }
 
+/* Header styling */
 .manage-project-page h2 {
   color: #ffffff;
   font-size: 24px;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px; /* Increase spacing below the header */
 }
 
-/* Make the project cards a grid */
+/* Grid layout for project cards */
 .project-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns wide */
-  gap: 20px 50px; /* Space out the project cards */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Flexible grid layout */
+  gap: 20px; /* Add consistent spacing between cards */
   width: 100%;
-  height: calc(100vh - 160px); /* Adjust height to make space for the header */
+  max-height: 70vh; /* Set a max height for the card container */
   overflow-y: auto; /* Enable vertical scrolling */
-  scrollbar-width: none; /* Hide scrollbar for Firefox */
-  padding-right: 10px; /* Add padding to prevent content cutoff */
-  box-sizing: border-box; /* Include padding in width calculation */
+  padding-right: 10px; /* Add padding to avoid content cutoff */
+  box-sizing: border-box;
 }
 
-/* Hide the scrollbar for WebKit browsers (Chrome, Safari) */
+/* Hide the scrollbar for WebKit browsers */
 .project-cards::-webkit-scrollbar {
   width: 0;
-  background: transparent; /* Make scrollbar invisible */
+  background: transparent;
 }
 
+/* Project card styling */
 .project-card {
   background-color: #f8f8f8;
-  padding-bottom: 0px;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
-  max-width: 400px;
-  max-height: 322px;
+  max-width: 100%; /* Make sure cards are responsive */
+  box-sizing: border-box;
 }
 
 .project-card:hover {
-  transform: translateY(-1px); /* Lift card slightly on hover */
+  transform: translateY(-1px);
   background-color: rgb(247, 243, 243);
 }
 
+/* Text and icon styling */
 .project-card h3 {
-  color: #1d4654; /* Darker color for better readability */
+  color: #1d4654;
   font-size: 18px;
   margin-top: 0;
-  font-weight: bold; /* Emphasize project title */
+  font-weight: bold;
 }
 
 .project-card p {
   margin: 5px 0;
   color: #555;
-  font-size: 14px; /* Compact font size */
-}
-
-.project-card .highlight {
-  font-weight: bold;
-  color: #333; /* Darker color for important info */
-}
-
-.project-card .icon {
-  width: 14px;
-  height: 14px;
-  margin-right: 6px;
-  vertical-align: middle;
+  font-size: 14px;
 }
 
 .project-card .description {
   color: #666;
   font-size: 13px;
-  font-style: italic; /* Different style for descriptions */
+  font-style: italic;
   margin-bottom: 10px;
 }
 
+/* Action buttons styling */
 .project-actions {
+  display: flex;
+  justify-content: space-between;
   margin-top: 10px;
-  justify-content: center;
-  bottom: 10px;
 }
 
 .project-actions button {
@@ -124,9 +116,6 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  cursor: pointer;
-  position: relative;
-  gap: 20px;
 }
 
 .project-actions .edit-button {
@@ -134,17 +123,9 @@
   color: white;
 }
 
-.project-actions .edit-button:hover {
-  background-color: #5a4fcf;
-}
-
 .project-actions .eoi-button {
   background-color: #4caf50;
   color: white;
-}
-
-.project-actions .eoi-button:hover {
-  background-color: #45a049;
 }
 
 .project-actions .delete-button {
@@ -152,16 +133,12 @@
   color: white;
 }
 
-.project-actions .delete-button:hover {
-  background-color: #870b0b;
-}
-
-/* Styles for no projects message */
+/* Styles for the "no projects" message */
 .no-projects-message {
   text-align: center;
   color: #ffffff;
-  margin-top: 50px;
   font-size: 18px;
+  margin-top: 30px;
 }
 
 .create-project-button {
