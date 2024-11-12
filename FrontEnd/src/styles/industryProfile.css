@@ -152,3 +152,24 @@
 .ip-container label {
     color: black;
 }
+
+/* industryProfile.css */
+
+.content-box h2 {
+    color: #000; /* Ensure the heading is visible */
+  }
+  
+  .content-box ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .content-box li {
+    margin-bottom: 1rem;
+    color: #000; /* Set text color to black or another dark color */
+    font-size: 1rem;
+  }
+  
+  .content-box p, .content-box strong {
+    color: #000; /* Make sure all text elements are set to a visible color */
+  }

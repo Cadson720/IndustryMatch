@@ -6,11 +6,12 @@ const Industry_Profile = () => {
   const [userDetails, setUserDetails] = useState({
     email: '',
     industry: '',
-    organisation: ''  // Change department to organisation
+    organisation: '',
+    industry_id: '' // Store industry_id for fetching applications
   });
-  const [loading, setLoading] = useState(true); // Loading state
-  const [editMode, setEditMode] = useState(false); // Edit mode state
-  const [error, setError] = useState(null); // Error state
+  const [applications, setApplications] = useState([]); // State to store applications
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchIndustryProfile = async () => {
@@ -19,69 +20,89 @@ const Industry_Profile = () => {
         if (!token) {
           throw new Error('No token found');
         }
-
+  
         const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/industry/profile`, {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${token}`, // Send the JWT token in the Authorization header
+            'Authorization': `Bearer ${token}`,
           },
         });
-
+  
         if (!response.ok) {
           const errorMessage = `Error: ${response.status} ${response.statusText}`;
           throw new Error(errorMessage);
         }
-
+  
         const data = await response.json();
+        //console.log("Fetched profile data:", data); // Debugging to confirm industry_id is present
+  
         setUserDetails({
           email: data.industry_email,
-          industry: data.industry_discipline,  // Ensure you get the correct field
-          organisation: data.organisation,  // Fetch organisation instead of department
+          industry: data.industry_discipline,
+          organisation: data.organisation,
+          industry_id: data.industry_id, // Ensure industry_id is set here
         });
-        setLoading(false); // Stop loading once data is fetched
+  
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching industry profile:', error);
-        setError('Failed to load industry profile'); // Set the error state
+        setError('Failed to load industry profile');
         setLoading(false);
       }
     };
-
+  
     fetchIndustryProfile();
   }, []);
+  
 
-  const handleProfileUpdate = async (e) => {
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem('jwtToken');
-      if (!token) {
-        throw new Error('No token found');
+  // Fetch applications (EOIs) for the industry
+  useEffect(() => {
+    const fetchApplications = async () => {
+      try {
+        if (!userDetails.industry_id) {
+          console.log("industry_id is not available yet"); // Debugging
+          return;
+        }
+
+        const token = localStorage.getItem('jwtToken');
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/eoi/industry/${userDetails.industry_id}`, {
+          method: 'GET',
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+
+        if (!response.ok) throw new Error('Failed to load applications');
+
+        const data = await response.json();
+        //console.log('Fetched Applications:', data); // Log fetched applications
+        setApplications(data); // Set the applications state with the data
+      } catch (error) {
+        console.error('Error fetching applications:', error);
+        setError('Failed to load applications');
       }
+    };
 
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/industry/profile`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Send the JWT token in the Authorization header
-        },
-        body: JSON.stringify({
-          email: userDetails.email,
-          industry_discipline: userDetails.industry,  // Send industry_discipline instead of industry
-          organisation: userDetails.organisation  // Send organisation instead of department
-        }), // Send the updated details
-      });
-
-      if (!response.ok) {
-        const errorMessage = `Error: ${response.status} ${response.statusText}`;
-        throw new Error(errorMessage);
-      }
-
-      setEditMode(false);
-      setError(null); // Clear any errors
-      alert('Profile updated successfully');
-    } catch (error) {
-      console.error('Error updating profile:', error);
-      setError('Failed to update profile');
+    if (activeTab === 'applications') {
+      fetchApplications();
     }
+  }, [activeTab, userDetails.industry_id]);
+
+  const renderApplications = () => {
+    if (applications.length === 0) {
+      return <p>No applications found.</p>;
+    }
+  
+    return (
+      <ul>
+        {applications.map((app) => (
+          <li key={app.eoi_id} style={{ color: '#000', padding: '1rem', backgroundColor: '#fff', borderRadius: '8px' }}>
+            <strong>Project ID:</strong> {app.project_id} <br />
+            <strong>Application Date:</strong> {app.eoi_date} <br />
+            <strong>Status:</strong> {app.eoi_status} <br />
+            <strong>Description:</strong> {app.proposal_description}
+          </li>
+        ))}
+      </ul>
+    );
   };
 
   const renderContent = () => {
@@ -90,7 +111,7 @@ const Industry_Profile = () => {
     }
 
     if (error) {
-      return <p>{error}</p>; // Display the error if one occurred
+      return <p>{error}</p>;
     }
 
     switch (activeTab) {
@@ -98,37 +119,9 @@ const Industry_Profile = () => {
         return (
           <div className="content-box">
             <h2>My Details</h2>
-            {editMode ? (
-              <form onSubmit={handleProfileUpdate}>
-                <label>Email:</label>
-                <input
-                  type="email"
-                  value={userDetails.email}
-                  onChange={(e) => setUserDetails({ ...userDetails, email: e.target.value })}
-                />
-                <label>Industry:</label>
-                <input
-                  type="text"
-                  value={userDetails.industry}
-                  onChange={(e) => setUserDetails({ ...userDetails, industry: e.target.value })}
-                />
-                <label>Organisation:</label> {/* Change from Department to Organisation */}
-                <input
-                  type="text"
-                  value={userDetails.organisation}  // Change from department to organisation
-                  onChange={(e) => setUserDetails({ ...userDetails, organisation: e.target.value })}  // Handle change accordingly
-                />
-                <button type="submit" className="save-btn">Save</button>
-                <button type="button" className="cancel-btn" onClick={() => setEditMode(false)}>Cancel</button>
-              </form>
-            ) : (
-              <>
-                <p><strong>Email:</strong> {userDetails.email}</p>
-                <p><strong>Industry:</strong> {userDetails.industry}</p>
-                <p><strong>Organisation:</strong> {userDetails.organisation}</p> {/* Adjusted */}
-                <button className="edit-btn" onClick={() => setEditMode(true)}>Edit Details</button>
-              </>
-            )}
+            <p><strong>Email:</strong> {userDetails.email}</p>
+            <p><strong>Industry:</strong> {userDetails.industry}</p>
+            <p><strong>Organisation:</strong> {userDetails.organisation}</p>
           </div>
         );
       case 'projects':
@@ -144,12 +137,7 @@ const Industry_Profile = () => {
         return (
           <div className="content-box">
             <h2>Applications</h2>
-          </div>
-        );
-      case 'drafts':
-        return (
-          <div className="content-box">
-            <h2>Saved Drafts</h2>
+            {renderApplications()}
           </div>
         );
       default:

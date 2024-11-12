@@ -164,9 +164,6 @@ const ProjectDetail = () => {
           <form className="application-form" onSubmit={handleSubmit}>
             <label>Email:</label>
             <input type="email" name="email" value={academic.academic_email} readOnly />
-            
-            <label>Phone Number:</label>
-            <input type="tel" name="phone" value={academic.phone} onChange={(e) => setAcademic({...academic, phone: e.target.value})} />
 
             <label>School:</label>
             <input type="text" name="school" value={academic.school} readOnly />
@@ -184,6 +181,7 @@ const ProjectDetail = () => {
             />
             
             <button type="submit" className="apply-button">Submit Application</button>
+            <button type="button" className="upload-button" onClick={() => alert("File upload is not functional")}>Upload File</button>
           </form>
         </div>
       </div>
