@@ -24,6 +24,16 @@
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .status-color-band {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 8px;
   }
   
   .eoi-card p {

@@ -16,9 +16,6 @@ const ManageEOI = () => {
   const searchParams = location.state?.searchQuery || '';
 
   useEffect(() => {
-    console.log('Received Project ID from useParams:', projectId);
-
-    // Validate projectId
     if (!projectId || isNaN(parseInt(projectId, 10))) {
       setError('Invalid Project ID.');
       setLoading(false);
@@ -28,8 +25,6 @@ const ManageEOI = () => {
     const fetchEOIs = async () => {
       try {
         const apiUrl = `${import.meta.env.VITE_API_BASE_URL}/api/eoi/project/${projectId}`;
-        console.log('API URL:', apiUrl);
-
         const response = await fetch(apiUrl);
 
         if (!response.ok) {
@@ -37,13 +32,11 @@ const ManageEOI = () => {
         }
 
         const data = await response.json();
-        // Add a 250ms delay for a smoother loading experience
         setTimeout(() => {
           setEois(data);
           setLoading(false);
         }, 250);
       } catch (error) {
-        console.error('Error fetching EOIs:', error);
         setError('Failed to load EOIs. Please try again later.');
         setLoading(false);
       }
@@ -52,42 +45,44 @@ const ManageEOI = () => {
     fetchEOIs();
   }, [projectId]);
 
-  // Function to handle status change
   const handleStatusChange = async (eoiId, newStatus) => {
     try {
-      const token = localStorage.getItem('jwtToken');
-      if (!token) {
-        throw new Error('User not authenticated. Please log in.');
-      }
-
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/eoi/${eoiId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ eoi_status: newStatus }),
+        body: JSON.stringify({ eoi_status: newStatus }), // Correct status update
       });
-
-      if (!response.ok) {
-        throw new Error(`Failed to update EOI status. Status: ${response.status}`);
-      }
-
-      // Update status locally
+  
+      if (!response.ok) throw new Error(`Failed to update EOI status. Status: ${response.status}`);
+  
+      // Update the local state
       setEois((prevEois) =>
-        prevEois.map((eoi) =>
-          eoi.eoi_id === eoiId ? { ...eoi, eoi_status: newStatus } : eoi
-        )
+        prevEois.map((eoi) => (eoi.eoi_id === eoiId ? { ...eoi, eoi_status: newStatus } : eoi))
       );
     } catch (error) {
       console.error('Error updating EOI status:', error);
       setError('Failed to update EOI status. Please try again.');
     }
   };
-
-  // Navigate back to the Manage Projects page, keeping search parameters
+  
+  
+  
   const handleBackClick = () => {
     navigate('/manageProject', { state: { searchQuery: searchParams } });
+  };
+
+  const statusColor = (status) => {
+    switch (status) {
+      case 'Approved':
+        return '#4caf50';
+      case 'Rejected':
+        return '#f44336';
+      case 'Pending':
+      default:
+        return '#ff9800';
+    }
   };
 
   if (loading) return <Loader />;
@@ -104,6 +99,10 @@ const ManageEOI = () => {
           <div className="eoi-list">
             {eois.map((eoi) => (
               <div key={eoi.eoi_id} className="eoi-card">
+                <div
+                  className="status-color-band"
+                  style={{ backgroundColor: statusColor(eoi.eoi_status) }}
+                ></div>
                 <div
                   className="proposal-description"
                   dangerouslySetInnerHTML={{

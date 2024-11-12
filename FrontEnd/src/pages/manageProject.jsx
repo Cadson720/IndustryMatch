@@ -9,11 +9,10 @@ const ManageProject = () => {
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [loading, setLoading] = useState(true); // State to handle loading
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Fetch projects for the logged-in industry user with a delay
   useEffect(() => {
     const fetchProjects = async () => {
       const token = localStorage.getItem('jwtToken');
@@ -34,29 +33,26 @@ const ManageProject = () => {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         } else {
           const data = await response.json();
-          // Introduce a delay of 250ms using setTimeout
           setTimeout(() => {
             setProjects(data);
-            setFilteredProjects(data); // Set initial filtered projects
-            setLoading(false); // Set loading to false once data is fetched and delayed
+            setFilteredProjects(data);
+            setLoading(false);
           }, 250);
         }
       } catch (error) {
         console.error('Error fetching projects:', error);
         setError(error.message);
-        setLoading(false); // Set loading to false in case of an error
+        setLoading(false);
       }
     };
 
     fetchProjects();
   }, []);
 
-  // Handle search query change
   const handleSearchChange = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
 
-    // Filter projects based on the search query
     const filtered = projects.filter((project) =>
       project.title.toLowerCase().includes(query) ||
       project.industry.toLowerCase().includes(query) ||
@@ -66,17 +62,14 @@ const ManageProject = () => {
     setFilteredProjects(filtered);
   };
 
-  // Handle edit button click
   const handleEditClick = (projectId) => {
     navigate(`/editProject/${projectId}`);
   };
 
-  // Handle manage EOIs button click
   const handleManageEOIsClick = (projectId) => {
     navigate(`/manageEOI/${projectId}`);
   };
 
-  // Handle delete button click
   const handleDeleteClick = (projectId) => {
     const token = localStorage.getItem('jwtToken');
     if (!token) {
@@ -104,12 +97,24 @@ const ManageProject = () => {
       .catch((error) => console.error('Error deleting project:', error));
   };
 
-  if (loading) return <Loader />; // Display the Loader while loading
-  if (error) return <p>Error: {error}</p>;
+  const statusColor = (status) => {
+    switch (status) {
+      case 'Public':
+        return '#4caf50'; // Green for Public
+      case 'Private':
+        return '#ff9800'; // Orange for Private
+      case 'Archived':
+      default:
+        return '#f44336'; // Red for Archived
+    }
+  };
+
+  if (loading) return <Loader />;
+  if (error) return <p className="error-message">Error: {error}</p>;
 
   return (
     <div className="manage-project-page">
-      {!loading && <Header />} {/* Render Header only when not loading */}
+      {!loading && <Header />}
       <div className="manage-project-container">
         <h2>Manage Projects</h2>
         <input
@@ -130,6 +135,10 @@ const ManageProject = () => {
           ) : (
             filteredProjects.map((project) => (
               <div key={project.project_id} className="project-card">
+                <div
+                  className="status-color-band"
+                  style={{ backgroundColor: statusColor(project.status) }}
+                ></div>
                 <h3>{project.title}</h3>
                 <p><strong>Industry:</strong> {project.industry} - {project.discipline}</p>
                 <p>

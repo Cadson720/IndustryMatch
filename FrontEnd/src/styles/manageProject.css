@@ -4,9 +4,9 @@
   font-family: 'Roboto', Arial, sans-serif;
   color: #333;
   position: relative;
-  height: calc(100vh - 20px); /* Use min-height instead of height to allow content expansion */
-  overflow: auto; /* Allow scrolling if content overflows */
-  padding-bottom: 20px; /* Add some padding at the bottom for comfort */
+  min-height: calc(100vh - 20px);
+  overflow: hidden;
+  padding-bottom: 20px;
 }
 
 /* Background image overlay */
@@ -35,31 +35,28 @@
   width: 90%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 20px 0; /* Add some vertical padding */
+  padding: 20px 0;
   box-sizing: border-box;
 }
 
-/* Header styling */
 .manage-project-page h2 {
   color: #ffffff;
   font-size: 24px;
   text-align: center;
-  margin-bottom: 20px; /* Increase spacing below the header */
+  margin-bottom: 20px;
 }
 
-/* Grid layout for project cards */
 .project-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Flexible grid layout */
-  gap: 20px; /* Add consistent spacing between cards */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
   width: 100%;
-  max-height: 73vh; /* Set a max height for the card container */
-  overflow-y: auto; /* Enable vertical scrolling */
-  padding-right: 10px; /* Add padding to avoid content cutoff */
+  max-height: 73vh;
+  overflow-y: auto;
+  padding-right: 10px;
   box-sizing: border-box;
 }
 
-/* Hide the scrollbar for WebKit browsers */
 .project-cards::-webkit-scrollbar {
   width: 0;
   background: transparent;
@@ -78,8 +75,9 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  align-items: center; /* Center elements horizontally */
-  text-align: center; /* Center text elements */
+  align-items: center;
+  text-align: center;
+  position: relative; /* Added for status color band positioning */
 }
 
 .project-card:hover {
@@ -87,21 +85,29 @@
   background-color: rgb(247, 243, 243);
 }
 
-/* Text and icon styling */
+/* Status color band styling */
+.status-color-band {
+  width: 10px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
 .project-card h3 {
   color: #1d4654;
   font-size: 18px;
   margin-top: 0;
   font-weight: bold;
   min-height: 45px;
-  text-align: center; /* Center align the title */
 }
 
 .project-card p {
   margin: 5px 0;
   color: #555;
   font-size: 14px;
-  text-align: center; /* Center align the text */
 }
 
 .project-card .description {
@@ -109,7 +115,6 @@
   font-size: 13px;
   font-style: italic;
   margin-bottom: 10px;
-  text-align: center; /* Center align the description */
 }
 
 .project-card .icon {
@@ -122,11 +127,11 @@
 /* Action buttons styling */
 .project-actions {
   display: flex;
-  justify-content: space-around; /* Space out the buttons evenly */
-  width: 100%; /* Make the buttons span the full width */
+  justify-content: space-around;
+  width: 100%;
   margin-top: 10px;
   padding-top: 10px;
-  border-top: 1px solid #ddd; /* Optional: add a top border to separate from content */
+  border-top: 1px solid #ddd;
 }
 
 .project-actions button {
@@ -136,7 +141,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 80px; /* Set a fixed width to align buttons */
+  width: 80px;
 }
 
 .project-actions .edit-button {
@@ -166,7 +171,6 @@
   background-color: #870b0b;
 }
 
-/* Styles for the "no projects" message */
 .no-projects-message {
   text-align: center;
   color: #ffffff;

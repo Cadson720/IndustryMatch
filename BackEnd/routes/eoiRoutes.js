@@ -37,6 +37,32 @@ router.get('/eoi/project/:projectId', async (req, res) => {
   }
 });
 
+// Route to update EOI status without authentication
+router.put('/eoi/:eoiId', async (req, res) => {
+  const { eoiId } = req.params; // Corrected variable name
+  const { eoi_status } = req.body;
+
+  if (!eoi_status) {
+    return res.status(400).json({ error: 'Status is required' });
+  }
+
+  try {
+    const eoi = await EOI.findByPk(eoiId); // Use eoiId here
+
+    if (!eoi) {
+      return res.status(404).json({ error: 'EOI not found' });
+    }
+
+    // Update the EOI status
+    eoi.eoi_status = eoi_status;
+    await eoi.save();
+
+    res.status(200).json({ message: 'EOI status updated successfully', eoi });
+  } catch (error) {
+    console.error('Error updating EOI status:', error);
+    res.status(500).json({ error: 'Error updating EOI status' });
+  }
+});
 
 
 // Route All
