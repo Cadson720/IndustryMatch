@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import "../styles/loader.css";
+import Loader from '../pages/loader.jsx';
+import Header from '../pages/header.jsx';
 import "../styles/manageProject.css";
-
-
 
 const ManageProject = () => {
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true); // State to handle loading
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Fetch projects for the logged-in industry user
+  // Fetch projects for the logged-in industry user with a delay
   useEffect(() => {
     const fetchProjects = async () => {
+      const token = localStorage.getItem('jwtToken');
       try {
-        const token = localStorage.getItem('jwtToken');
-        if (!token) {
-          throw new Error('No token found. Please log in.');
-        }
-
         const response = await fetch(
           `${import.meta.env.VITE_API_BASE_URL}/api/project/industry`,
           {
@@ -33,16 +31,20 @@ const ManageProject = () => {
           setProjects([]);
           setFilteredProjects([]);
         } else if (!response.ok) {
-          const errorMessage = `Error: ${response.status} ${response.statusText}`;
-          throw new Error(errorMessage);
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
         } else {
           const data = await response.json();
-          setProjects(data);
-          setFilteredProjects(data); // Set initial filtered projects
+          // Introduce a delay of 250ms using setTimeout
+          setTimeout(() => {
+            setProjects(data);
+            setFilteredProjects(data); // Set initial filtered projects
+            setLoading(false); // Set loading to false once data is fetched and delayed
+          }, 250);
         }
       } catch (error) {
         console.error('Error fetching projects:', error);
         setError(error.message);
+        setLoading(false); // Set loading to false in case of an error
       }
     };
 
@@ -71,7 +73,7 @@ const ManageProject = () => {
 
   // Handle manage EOIs button click
   const handleManageEOIsClick = (projectId) => {
-    navigate(`/manageEOIs/${projectId}`);
+    navigate(`/manageEOI/${projectId}`);
   };
 
   // Handle delete button click
@@ -102,19 +104,12 @@ const ManageProject = () => {
       .catch((error) => console.error('Error deleting project:', error));
   };
 
-  if (error) {
-    return (
-      <div className="error-message">
-        <p>{error}</p>
-        <button onClick={() => navigate('/createProject')} className="create-project-button">
-          Create a New Project
-        </button>
-      </div>
-    );
-  }
+  if (loading) return <Loader />; // Display the Loader while loading
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="manage-project-page">
+      {!loading && <Header />} {/* Render Header only when not loading */}
       <div className="manage-project-container">
         <h2>Manage Projects</h2>
         <input

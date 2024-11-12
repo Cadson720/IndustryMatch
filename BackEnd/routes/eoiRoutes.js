@@ -3,6 +3,42 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const { EOI, Industry, Academic, Project } = require('../models'); // Import models
 
+// Route to fetch EOIs by projectId
+router.get('/eoi/project/:projectId', async (req, res) => {
+  const { projectId } = req.params;
+
+  // Validate projectId
+  if (!projectId || isNaN(parseInt(projectId, 10))) {
+    return res.status(400).json({ error: 'Invalid Project I' });
+  }
+
+  try {
+    // Fetch EOIs with the corresponding projectId and include academic email
+    const eois = await EOI.findAll({
+      where: { project_id: parseInt(projectId, 10) },
+      include: [
+        {
+          model: Academic,
+          attributes: ['academic_email'],
+        },
+      ],
+    });
+
+    // Check if EOIs are found
+    if (eois.length === 0) {
+      return res.status(404).json({ message: 'No EOIs found for this project' });
+    }
+
+    // Send the EOIs as a JSON response
+    res.json(eois);
+  } catch (error) {
+    console.error('Error fetching EOIs by project ID:', error);
+    res.status(500).json({ error: 'Error retrieving EOIs' });
+  }
+});
+
+
+
 // Route All
 router.get('/eoi', async (req, res) => {
   try {
@@ -10,26 +46,6 @@ router.get('/eoi', async (req, res) => {
     res.json(eois);
   } catch (error) {
     console.error('Error fetching EOIs:', error);
-    res.status(500).json({ error: 'Error retrieving EOIs' });
-  }
-});
-
-// Route EOI by Porject ID 
-router.get('/eoi/project/:projectId', async (req, res) => {
-  const { projectId } = req.params;
-
-  try {
-    const eois = await EOI.findAll({
-      where: { project_id: projectId },
-    });
-
-    if (eois.length === 0) {
-      return res.status(404).json({ message: 'No EOIs found for this project' });
-    }
-
-    res.json(eois); 
-  } catch (error) {
-    console.error('Error fetching EOIs by project ID:', error);
     res.status(500).json({ error: 'Error retrieving EOIs' });
   }
 });

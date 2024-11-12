@@ -1,0 +1,92 @@
+.manage-eoi-page {
+    background-color: #1d4654;
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #fff;
+    min-height: 100vh;
+  }
+  
+  .manage-eoi-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .eoi-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .eoi-card {
+    background-color: #f8f8f8;
+    color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .eoi-card p {
+    margin: 8px 0;
+    color: black;
+    font-size: 18px;
+    text-align: left;
+    line-height: 1.8em;
+  }
+  
+  .email-link {
+    color: #1d87e4;
+    text-decoration: none;
+  }
+  
+  .email-link:hover {
+    text-decoration: underline;
+  }
+  
+  .eoi-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .approve-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .approve-button:hover {
+    background-color: #45a049;
+  }
+  
+  .reject-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .reject-button:hover {
+    background-color: #e53935;
+  }
+  
+  .back-button {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .back-button:hover {
+    background-color: #5a6268;
+  }
+  

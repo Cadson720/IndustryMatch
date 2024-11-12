@@ -1,0 +1,116 @@
+/* Ensure the background spans the entire content */
+.project-edit-page {
+    background-color: #1d4654;
+    min-height: 100vh;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    z-index: 1;
+}
+
+.project-edit-page::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat-y;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+/* Styling for the edit box */
+.edit-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    text-align: left;
+    margin-top: 20px;
+}
+
+/* Heading styles */
+.edit-box h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1d4654;
+    margin-bottom: 20px;
+}
+
+/* Form input styles */
+.edit-box input,
+.edit-box select,
+.edit-box textarea {
+    width: 100%;
+    max-width: 785px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+.edit-box textarea {
+    resize: vertical;
+    height: 150px;
+}
+
+/* Button styles */
+.edit-update-button {
+    background-color: #6a5acd; /* Correct purple color */
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.edit-update-button:hover {
+    background-color: #5a4fcf;
+}
+
+.edit-cancel-button:hover {
+    background-color: #ff0000;
+    opacity: 1;
+}
+
+/* Cancel button styles */
+.edit-cancel-button {
+    background-color: #ff2828;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    font-weight: bold;
+    opacity: 1;
+}
+
+/* Error message styling */
+.error-message {
+    color: #d9534f;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+}

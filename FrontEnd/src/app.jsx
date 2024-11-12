@@ -12,6 +12,9 @@ import Industry from './pages/industry.jsx';
 import MatchMaker from './pages/matchMaker.jsx';
 import ManageProject from './pages/manageProject.jsx';
 import SavedProject from './pages/savedProject.jsx';
+import EditProject from './pages/editProject.jsx';
+import ManageEOI from './pages/manageEOI.jsx';
+
 // import EOIs from './pages/EOIs';
 // import EditProject from './pages/EditProject';
 
@@ -45,14 +48,17 @@ function App() {
         <Route path="/projectCreation" element={<Layout><CreateProject /></Layout>} />
         <Route path="/industry" element={<Layout><Industry /></Layout>} />
         <Route path="/matchMaker" element={<Layout><MatchMaker /></Layout>} />
-        <Route path="/manageProject" element={<Layout><ManageProject /></Layout>} />
+        
         {/* <Route path="/project/:projectId/eois" element={<EOIs />} />
         <Route path="/edit-project/:projectId" element={<EditProject />} /> */}
 
 
         {/* ProjectSearch loads without Layout */}
+        <Route path="/manageEOI/:projectId" element={<ManageEOI />} />
+        <Route path="/editProject/:id" element={<EditProject />} />
         <Route path="/projectSearch" element={<ProjectSearch />} />
         <Route path="/savedProject" element={<SavedProject />} />
+        <Route path="/manageProject" element={<ManageProject />} />
 
         {/* Uncomment and add more routes as needed */}
         {/*
