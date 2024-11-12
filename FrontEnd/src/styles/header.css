@@ -60,6 +60,26 @@
     transition: width 0.35s ease; /* Animate width */
 }
 
+/* Hover effect for inactive navigation links */
+.nav-link:not(.active):hover::after {
+    width: 100%;
+}
+
+.nav-link:not(.active):hover {
+    opacity: 1;
+}
+
+/* Active link styling */
+.nav-link.active {
+    opacity: 1;
+    font-weight: bold;
+}
+
+.nav-link.active::after {
+    width: 100%;
+}
+
+
 /* Hover effect for navigation links */
 .nav-link:hover::after {
     width: 100%;  /* Expand the line to 100% width on hover */
@@ -69,10 +89,6 @@
     opacity: 1;  /* Change opacity to full on hover */
 }
 
-/* Active link styling - full opacity */
-.nav-link.active {
-    opacity: 1;
-}
 
 /* Dropdown and dropdown menu for academic name */
 

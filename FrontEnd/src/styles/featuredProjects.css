@@ -1,6 +1,7 @@
 .featured-projects-container {
     padding: 20px;
     background-color: rgb(46, 85, 98);
+    padding-bottom: 2%;
   }
   
   .featured-projects {
@@ -15,19 +16,27 @@
     width: 30%;
     background-color: #d0d0d0;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
   }
   
   .project-box h3 {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     margin-bottom: 10px;
+    color: black;
   }
-  h2 {
-    color: #ffffff;
+
+  .featured-projects-container h2 {
+    color: #ededed;
     font-size: 2.5rem;
+    text-align: left;
+    padding-left: 3%;
   }
   
   .project-box p {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #000000;
+    font-weight: 100;
+    font-style: normal;
+    text-align: left;
   }
   

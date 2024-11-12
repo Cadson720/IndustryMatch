@@ -1,0 +1,155 @@
+.ip-container {
+    height: 100vh;
+    background-color: rgb(56, 100, 115);
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Added: to stack the heading on top of the content */
+}
+
+.ip-container .heading {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 20px; /* Added: spacing between heading and content */
+    background-color: rgb(42, 74, 85); 
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center; /* Optional: center-align heading text */
+}
+
+.ip-container .column-container {
+    display: flex;
+    flex: 1; /* Added: makes the column container fill the remaining height */
+}
+
+.ip-container .left-column {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #4a707e;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.ip-container .tab-btn {
+    background-color: #d1d1d1;
+    border: 2px solid black;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: left;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    /* width: 25%; */
+}
+
+.ip-container .tab-btn.active {
+    background-color: white;
+}
+
+.ip-container .logout-btn {
+    background-color: red;
+    color: white;
+    padding: 15px;
+    border: none;
+    margin-top: 15px; /* Ensures it appears after the tab buttons */
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.ip-container .right-column {
+    width: 75%;
+    background-color: #e0e0e0;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+.ip-container .save-btn, .cancel-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.ip-container .cancel-btn {
+    background-color: grey;
+}
+
+.ip-container input {
+    display: block;
+    margin-bottom: 15px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 400px;
+}
+
+
+.ip-container .content-box {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ip-container h2 {
+    margin-top: 0;
+    color: black;
+}
+
+.ip-container .edit-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.ip-container .add-project-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #d1d1d1;
+    border-radius: 10px;
+    border: 2px solid black;
+    padding: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    width: fit-content;
+    margin-top: 20px;
+    color: black;
+}
+
+.ip-container .add-project-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.ip-container .add-project-btn i {
+    display: block;
+    font-size: 36px;
+    margin-right: 10px;
+    border: 2px dashed black;
+    padding: 10px;
+    border-radius: 5px;
+    padding: 20px;
+    margin-right: 20px;
+    color: black;
+}
+
+.ip-container p {
+    color: black;
+    font-size: 1rem;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.ip-container label {
+    color: black;
+}

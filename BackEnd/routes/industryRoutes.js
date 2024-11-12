@@ -23,20 +23,20 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-// Route to get the logged-in industry user's profile
 router.get('/industry/profile', authenticateToken, async (req, res) => {
   try {
     const industryId = req.user.profile.industry_id;
 
     const industry = await Industry.findByPk(industryId, {
-      attributes: ['industry_email', 'industry_discipline', 'organisation'],
+      attributes: ['industry_id', 'industry_email', 'industry_discipline', 'organisation'], // Include industry_id here
     });
 
     if (!industry) {
+      console.log('Industry profile not found for industryId:', industryId); // Logging
       return res.status(404).json({ error: 'Industry profile not found' });
     }
-
     return res.json({
+      industry_id: industry.industry_id, // Include industry_id in the response
       industry_email: industry.industry_email,
       industry_discipline: industry.industry_discipline,
       organisation: industry.organisation,
@@ -46,6 +46,8 @@ router.get('/industry/profile', authenticateToken, async (req, res) => {
     return res.status(500).json({ error: 'Failed to retrieve industry profile' });
   }
 });
+
+
 
 // Route to update the logged-in industry user's profile information
 router.put('/industry/profile', authenticateToken, async (req, res) => {

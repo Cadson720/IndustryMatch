@@ -1,0 +1,192 @@
+/* Fullscreen wrapper with background image */
+.matchmaker-wrapper {
+    width: 100vw;
+    height: calc(100vh - 80px); /* Adjust height if there's a header/footer */
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #1d4654; /* Base color behind the overlay */
+}
+
+.matchmaker-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/background.png'); /* Background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+/* Sample Prompts Styling */
+.sample-prompts {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.bold {
+    font-weight: bolder;
+    color: #5a4fcf;
+}
+
+.sample-prompt {
+    background-color: #f1f1f1;
+    color: #1d4654;
+    padding: 15px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 120px;
+}
+
+.sample-prompt:hover {
+    background-color: #e0e0e0;
+}
+
+.matchmaker-chat {
+    margin-top: 8vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 50vw;
+    width: 50vw;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.chat-box {
+    width: 100%;
+    max-height: 80vh;
+    height: 60vh;
+    overflow-y: scroll;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+.message {
+    padding: 20px;
+    margin: 8px 0;
+    border-radius: 10px;
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+.message.user {
+    align-self: flex-end;
+    background-color: #6A5ACD;
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    max-width: 40%;
+    margin-left: auto; /* Push the message to the right */
+}
+
+.message.bot {
+    align-self: flex-start;
+    background-color: #f1f1f1;
+    color: black;
+    font-weight: bold;
+}
+
+.chat-input {
+    display: flex;
+    width: 100%;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+.chat-input button {
+    padding: 10px 15px;
+    background-color: #6A5ACD;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-input button:hover {
+    background-color: #5a4fcf;
+}
+
+/* Bio Card Styles */
+/* Style for bot messages to display project cards */
+
+.message.bot {
+    align-self: flex-start;
+    background-color: #f1f1f1;
+    color: #1d4654;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    transition: all 0.3s ease;
+    max-width: 100%;
+    line-height: 2.2em;
+}
+
+/* Style for project titles */
+.message.bot h3 {
+    margin-top: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #1d4654;
+}
+
+/* Style for key project information */
+.message.bot p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Style for project description blurb */
+.message.bot .blurb {
+    font-style: italic;
+    color: #555;
+}
+
+/* Hover effect for the bot message cards */
+.message.bot:hover {
+    background-color: #e0f7fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Expanded content for more details */
+.expanded-content {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.5;
+}

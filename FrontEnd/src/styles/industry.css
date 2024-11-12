@@ -9,7 +9,7 @@
     background-color: rgb(56, 100, 115);
 }
 
-.left-column {
+.industry-container .left-column {
     flex: 2; /* Allow the left column to take up twice the space */
     padding-right: 20px; /* Add space between columns */
     display: flex; /* Make it a flex container */
@@ -17,16 +17,16 @@
     justify-content: center; /* Center content vertically */
 }
 
-.right-column {
+.industry-container .right-column {
     flex: 1; /* Allow the right column to take up less space */
     display: flex; /* Use flex to center the text */
     flex-direction: column; /* Stack rows vertically */
     height: 100%; /* Full height of the column */
     position: relative; /* Needed for absolute positioning of the backdrop */
-    z-index: 1;
+    z-index: 0;
 }
 
-.text-row {
+.industry-container .text-row {
     display: flex;
     flex-direction: column; /* Stack text and separator vertically */
     justify-content: space-between; /* Space between the rows */
@@ -38,31 +38,41 @@
     font-family: 'Monospace', monaco;
 }
 
-.top-row {
+.industry-container .top-row {
     display: flex; /* Use flexbox to position items */
     flex-direction: column; /* Stack image and text vertically */
     align-items: center; /* Center items horizontally */
     justify-content: flex-end; /* Align text at the bottom of the row */
     flex: 1; /* Make this row take equal space */
+    color: black;
+    font-size: larger;
+    /* z-index: 2; */
+
 }
 
-.bottom-row {
+.industry-container .bottom-row {
     display: flex; /* Use flexbox to position items */
     flex-direction: column; /* Stack items vertically */
     align-items: center; /* Center items horizontally */
     justify-content: flex-end; /* Align text at the bottom of the row */
     flex: 1; /* Make this row take equal space */
+    color: black;
+    font-size: larger;
 }
 
 
-.separator {
+.industry-container .separator {
     height: 5px; /* Height of the line */
-    background-color: rgb(0, 0, 0); /* Color of the line, adjust as needed */
+    background-color: rgb(0, 0, 0); /* Color of the line */
     margin: 10px 0; /* Space around the line */
+    margin-bottom: 25px;
+    z-index: 1; /* Ensure it's below the buttons */
+    position: relative; /* Make sure it respects z-index */
 }
 
 
-.backdrop {
+
+.industry-container .backdrop {
     position: absolute; /* Position absolutely within the right column */
     top: 0; /* Align to the top of the right column */
     left: 0; /* Align to the left of the right column */
@@ -70,22 +80,26 @@
     width: 100%; /* Fill the entire width of the right column */
     background-color: rgb(189, 189, 189); /* Color of the backdrop */
     z-index: 0; /* Ensure it's behind the text and other content */
+    pointer-events: none; /* Prevent backdrop from intercepting click events */
 }
 
-.text {
+
+.industry-container .text {
     position: relative; /* Allow text to overlap with backdrop */
     z-index: 2; /* Higher than backdrop to ensure it appears above */
     text-align: center; /* Center text horizontally */
     padding: 20px; /* Optional: add some padding */
+    color: black;
 }
 
-.image {
-    max-width: 250px; /* Ensure the image fits within the column */
+.industry-container .image {
+    max-width: 215px; /* Ensure the image fits within the column */
     height: auto; /* Maintain aspect ratio */
-    /* position: fixed; */
+    margin-right: 2%;
+    padding-bottom: 10px;
 }
 
-.title-text {
+.industry-container .title-text {
     font-size: 5rem; /* Adjust font size for the title */
     font-weight: bold; /* Make title bold */
     margin-bottom: 20px; /* Space below the title */
@@ -93,3 +107,21 @@
     font-family: 'Arial', sans-serif;
     color: white;
   }
+
+.industry-container .nav-button {
+    background-color: rgb(85, 134, 151); 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    width: 75%;
+    height: auto;
+    align-self: center;
+    padding: 0.75em 1.5em; 
+    cursor: pointer; 
+    z-index: 5;
+    font-size: 0.8em; 
+}
+
+.industry-container .nav-button:hover {
+    background-color: rgb(45, 80, 95); 
+}

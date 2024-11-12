@@ -1,0 +1,38 @@
+.featured-industry-container {
+    padding: 20px;
+    /* background-color: rgb(46, 85, 98); */
+}
+
+.featured-industry-container .featured-projects {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 20px;
+}
+
+.featured-industry-container .project-box {
+    border: 2px solid #060606;
+    padding: 15px;
+    width: 95%; /* Full width in column layout */
+    background-color: #d0d0d0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.featured-industry-container .project-box h3 {
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.featured-industry-container h2 {
+    color: #ededed;
+    font-size: 3rem;
+}
+
+.featured-industry-container .project-box p {
+    font-size: 1.2rem;
+    color: #000000;
+    font-weight: 100;
+    font-style: normal;
+    text-align: left;
+}

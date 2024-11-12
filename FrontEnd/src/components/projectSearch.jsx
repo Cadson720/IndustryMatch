@@ -212,8 +212,7 @@ const ProjectSearch = () => {
   const handleSearch = () => {
     const filtered = projects.filter((project) => {
       // Search in title and description for the keyword
-      const keywordMatch = project.title.toLowerCase().includes(keywords.toLowerCase()) ||
-        project.description.toLowerCase().includes(keywords.toLowerCase());
+      const keywordMatch = project.title.toLowerCase().includes(keywords.toLowerCase()) || project.description.toLowerCase().includes(keywords.toLowerCase());
 
       const fieldMatch = field ? project.discipline === field : true;
       const durationMatch = duration ? project.duration === duration : true;
@@ -310,7 +309,7 @@ const ProjectSearch = () => {
 
         <select value={location} onChange={(e) => setLocation(e.target.value)}>
           <option value="">Any Location</option>
-          <option value="Online (Remote)">Online (Remote)</option>
+          <option value="Remote (online)">Remote (online)</option>
           <option value="On-site">On-site</option>
           <option value="Flexible">Flexible</option>
         </select>

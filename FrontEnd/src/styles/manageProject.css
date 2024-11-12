@@ -1,0 +1,192 @@
+/* Prevent the main page from scrolling */
+.manage-project-page {
+  background-color: #1d4654; /* Page background color */
+  font-family: 'Roboto', Arial, sans-serif;
+  color: #333;
+  position: relative;
+  height: 100vh;
+  overflow: hidden; /* Hide scrolling on the main page */
+}
+
+/* Adding the background image as an overlay */
+.manage-project-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/background.png');
+  background-size: cover; /* Ensure the image covers the entire element */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  opacity: 0.15; /* Adjust transparency as needed */
+  z-index: 0; /* Make sure it is behind the content but above the background color */
+}
+
+/* Ensure content is above the background image */
+.manage-project-container {
+  position: relative;
+  z-index: 1; /* Bring content in front of the background image */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 100%; /* Use full height */
+  overflow: hidden; /* Prevent overflow on the main container */
+}
+
+.manage-project-page h2 {
+  color: #ffffff;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Make the project cards a grid */
+.project-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns wide */
+  gap: 20px 50px; /* Space out the project cards */
+  width: 100%;
+  height: calc(100vh - 160px); /* Adjust height to make space for the header */
+  overflow-y: auto; /* Enable vertical scrolling */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  padding-right: 10px; /* Add padding to prevent content cutoff */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Hide the scrollbar for WebKit browsers (Chrome, Safari) */
+.project-cards::-webkit-scrollbar {
+  width: 0;
+  background: transparent; /* Make scrollbar invisible */
+}
+
+.project-card {
+  background-color: #f8f8f8;
+  padding-bottom: 0px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  max-width: 400px;
+  max-height: 322px;
+}
+
+.project-card:hover {
+  transform: translateY(-1px); /* Lift card slightly on hover */
+  background-color: rgb(247, 243, 243);
+}
+
+.project-card h3 {
+  color: #1d4654; /* Darker color for better readability */
+  font-size: 18px;
+  margin-top: 0;
+  font-weight: bold; /* Emphasize project title */
+}
+
+.project-card p {
+  margin: 5px 0;
+  color: #555;
+  font-size: 14px; /* Compact font size */
+}
+
+.project-card .highlight {
+  font-weight: bold;
+  color: #333; /* Darker color for important info */
+}
+
+.project-card .icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.project-card .description {
+  color: #666;
+  font-size: 13px;
+  font-style: italic; /* Different style for descriptions */
+  margin-bottom: 10px;
+}
+
+.project-actions {
+  margin-top: 10px;
+  justify-content: center;
+  bottom: 10px;
+}
+
+.project-actions button {
+  padding: 6px 12px;
+  font-size: 13px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  gap: 20px;
+}
+
+.project-actions .edit-button {
+  background-color: #6a5acd;
+  color: white;
+}
+
+.project-actions .edit-button:hover {
+  background-color: #5a4fcf;
+}
+
+.project-actions .eoi-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.project-actions .eoi-button:hover {
+  background-color: #45a049;
+}
+
+.project-actions .delete-button {
+  background-color: #b20808;
+  color: white;
+}
+
+.project-actions .delete-button:hover {
+  background-color: #870b0b;
+}
+
+/* Styles for no projects message */
+.no-projects-message {
+  text-align: center;
+  color: #ffffff;
+  margin-top: 50px;
+  font-size: 18px;
+}
+
+.create-project-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.create-project-button:hover {
+  background-color: #0056b3;
+}
+
+.search-bar-manage {
+  width: 100%;
+  max-width: 600px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
