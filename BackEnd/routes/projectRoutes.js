@@ -335,4 +335,75 @@ router.get('/manageEOIs/:projectId', async (req, res) => {
   }
 });
 
+// Route to search for project details using title, duration, and size
+router.get('/project/findByBotMessage', async (req, res) => {
+  const { title, duration, size } = req.query;
+
+  try {
+    // Validate the required parameters
+    if (!title || !duration || !size) {
+      return res.status(400).json({ error: 'Missing required parameters: title, duration, or size' });
+    }
+
+    // Perform a search using Sequelize with the given parameters
+    const projects = await Project.findAll({
+      where: {
+        title: { [Op.iLike]: `%${title}%` }, // Case-insensitive partial match for title
+        duration: { [Op.eq]: duration },     // Exact match for duration
+        size: { [Op.eq]: size }              // Exact match for size
+      },
+      include: {
+        model: Industry,
+        as: 'Industry',
+      },
+    });
+
+    if (!projects || projects.length === 0) {
+      return res.status(404).json({ error: 'No matching project found' });
+    }
+
+    // Assuming you want to return the first matching project
+    res.json(projects[0]);
+  } catch (error) {
+    console.error('Error retrieving project:', error);
+    res.status(500).json({ error: 'Failed to retrieve project' });
+  }
+});
+
+// Route to search for a project and return the project_id
+router.get('/project/simpleSearch', async (req, res) => {
+  try {
+    // Extract query parameters from the request
+    const { title, duration, size } = req.query;
+
+    // Validate the extracted parameters
+    if (!title || !duration || !size) {
+      return res.status(400).json({ error: 'Missing required search parameters: title, duration, or size' });
+    }
+
+    // Use Op.iLike for partial and case-insensitive matching
+    const project = await Project.findOne({
+      where: {
+        title: { [Op.iLike]: `%${title}%` }, // Case-insensitive partial match for title
+        duration: { [Op.iLike]: `%${duration}%` }, // Case-insensitive partial match for duration
+        size: { [Op.iLike]: `%${size}%` } // Case-insensitive partial match for size
+      },
+      include: {
+        model: Industry,
+        as: 'Industry',
+      },
+    });
+
+    if (!project) {
+      return res.status(404).json({ error: 'No matching project found' });
+    }
+
+    // Return only the project_id
+    res.json({ project_id: project.project_id });
+  } catch (error) {
+    console.error('Error retrieving project:', error);
+    res.status(500).json({ error: 'Failed to retrieve project' });
+  }
+});
+
 module.exports = router;
