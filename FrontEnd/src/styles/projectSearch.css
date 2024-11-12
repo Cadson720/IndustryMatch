@@ -387,6 +387,7 @@ select:focus {
 }
 
 .actions .apply-button,
+.actions .unsave-button,
 .actions .save-button {
   padding: 8px 16px;
   font-size: 16px;
@@ -414,4 +415,28 @@ select:focus {
 
 .actions .save-button:hover {
   background-color: #af870f;
+}
+
+.actions .unsave-button {
+  background-color: #fc4700;
+  color: white;
+}
+
+.actions .unsave-button:hover {
+  background-color: #ce3506;
+}
+
+.actions .unsave-button:hover { 
+  transform: translateY(-3px);
+}
+
+.actions .unsave-button:active {
+  transform: translateY(2px);
+}
+.actions .save-button:hover { 
+  transform: translateY(-3px);
+}
+
+.actions .save-button:active {
+  transform: translateY(2px);
 }

@@ -127,34 +127,11 @@ const ProjectSearch = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userInput, setUserInput] = useState('');
   const [selectedProject, setSelectedProject] = useState(null);
-  const [modalError, setModalError] = useState('');
-  // Function to decode JWT and set academic_id
-  useEffect(() => {
-    const decodeToken = async () => {
-      const token = localStorage.getItem('jwtToken');
-      if (token) {
-        try {
-          const response = await fetch('http://localhost:3000/api/academic/profile', {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-            },
-          });
-          if (!response.ok) throw new Error('Unable to decode token');
-          const data = await response.json();
-          setAcademicId(data.academic_id); // Assuming the profile response has academic_id
-        } catch (decodeError) {
-          console.error('Failed to decode token:', decodeError);
-        }
-      }
-    };
-    decodeToken();
-  }, []);
-  // function to handle applications
-  const handleApplyClick = (projectId) => {
-    history.push(`/project/${projectId}`);
-  };
+  const [savedProjectIds, setSavedProjectIds] = useState(new Set());
 
+
+  
+  const [modalError, setModalError] = useState('');
 
   // Function to check if all required fields are present
   const isProjectValid = (project) => {
@@ -170,6 +147,55 @@ const ProjectSearch = () => {
       project.Industry && project.Industry.organisation
     );
   };
+  
+  
+
+  // Fetch the academic profile to retrieve academic_id
+  useEffect(() => {
+    const fetchAcademicProfile = async () => {
+      const token = localStorage.getItem('jwtToken');
+      if (token) {
+        try {
+          const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/academic/profile`, {
+            method: 'GET',
+            headers: { 'Authorization': `Bearer ${token}` },
+          });
+          if (!response.ok) throw new Error('Unable to fetch profile');
+          const data = await response.json();
+          setAcademicId(data.academic_id); // Assuming the profile response has academic_id
+        } catch (error) {
+          console.error('Failed to fetch academic profile:', error);
+        }
+      }
+    };
+    fetchAcademicProfile();
+  }, []);
+
+  // Fetch saved project IDs once academicId is available
+  useEffect(() => {
+    if (!academicId) return;
+    
+    const fetchSavedProjectIds = async () => {
+      const token = localStorage.getItem('jwtToken');
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project/saved/${academicId}`, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          const savedIds = new Set(data.map((project) => project.Project.project_id));
+          setSavedProjectIds(savedIds);
+        } else {
+          throw new Error('Failed to fetch saved projects');
+        }
+      } catch (error) {
+        console.error('Error fetching saved projects:', error);
+      }
+    };
+    fetchSavedProjectIds();
+  }, [academicId]);
+
+
 
   // Fetch all projects from the backend when the component mounts
   useEffect(() => {
@@ -263,25 +289,73 @@ const ProjectSearch = () => {
       // .replace(/ - /g, "\n - ");
   };
 
-  const saveProject = async (projectID) => {
-    console.log("Saving project:", projectID);
-    console.log("User:", academicId);
-    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/saveProject`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ academicId, projectID }),
-    });
-    console.log("Response:", response);
-    if (response.ok) {
-        alert('Project saved!');
-    } else {
-        alert('Failed to save project.');
+  // Function to save a project for the current academic
+const saveProject = async (projectID) => {
+  try {
+      const token = localStorage.getItem('jwtToken');
+      if (!token) {
+          throw new Error('No token found');
+      }
+      
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project/save`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ academic_id: academicId, project_id: projectID }),
+      });
+
+      if (response.ok) {
+          setSavedProjectIds((prevSavedIds) => new Set(prevSavedIds).add(projectID));
+          alert('Project saved successfully!');
+      } else {
+          throw new Error('Failed to save project');
+      }
+  } catch (error) {
+      console.error('Error saving project:', error);
+      alert('Failed to save project.');
+  }
+};
+
+  // Unsave a project
+  const unsaveProject = async (projectId) => {
+    const token = localStorage.getItem('jwtToken');
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project/saved/${academicId}/${projectId}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+      if (response.ok) {
+        const newSavedIds = new Set(savedProjectIds);
+        newSavedIds.delete(projectId);
+        setSavedProjectIds(newSavedIds);
+        alert('Project unsaved successfully!');
+      } else {
+        throw new Error('Failed to unsave project');
+      }
+    } catch (error) {
+      console.error('Error unsaving project:', error);
+      alert('Failed to unsave project.');
     }
   };
 
-
+  // JSX Button Logic based on saved status
+  const renderSaveButton = (projectId) => {
+    if (savedProjectIds.has(projectId)) {
+      return (
+        <button onClick={() => unsaveProject(projectId)} className="unsave-button">
+          Unsave
+        </button>
+      );
+    } else {
+      return (
+        <button onClick={() => saveProject(projectId)} className="save-button">
+          Save
+        </button>
+      );
+    }
+  };
 
   // Handle project click to display detailed view
   const handleProjectClick = (project) => {
@@ -423,9 +497,10 @@ const ProjectSearch = () => {
                         <a href={`/projectDetail?projectId=${selectedProject.project_id}`}>
                           <button className="apply-button">Apply</button>
                         </a>
-                        <button onClick={() => saveProject(selectedProject.project_id)} className="save-button">
-                          Save
-                        </button>
+                        <div className="actions">
+                          {academicId && renderSaveButton(selectedProject.project_id)}
+                        </div>
+
                       </>
                     )}
                   </div>

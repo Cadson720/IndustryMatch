@@ -28,22 +28,23 @@ router.get('/academic/profile', authenticateToken, async (req, res) => {
   try {
     const academicId = req.user.profile.academic_id;
 
-    // Find the academic user by ID
+    // Find the academic user by ID and include academic_id in the response
     const academic = await Academic.findByPk(academicId, {
-      attributes: ['academic_email', 'role', 'school'],
+      attributes: ['academic_id', 'academic_email', 'role', 'school'], // Include academic_id here
     });
 
     if (!academic) {
       return res.status(404).json({ error: 'Academic user not found' });
     }
 
-    // Return academic user data
+    // Return academic user data including academic_id
     return res.json(academic);
   } catch (error) {
     console.error('Error fetching academic data:', error);
     return res.status(500).json({ error: 'Failed to retrieve academic profile' });
   }
 });
+
 
 // Route to update the logged-in academic user's profile information
 router.put('/academic/profile', authenticateToken, async (req, res) => {

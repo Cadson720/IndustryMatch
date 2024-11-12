@@ -1,5 +1,8 @@
+body{
+    margin: 0;
+}
 
-/* #root {
+#root {
     justify-content: flex-start;
     width: 100%;
     max-width: 100%;
@@ -9,18 +12,21 @@
     font-weight: bold;
     height: 100%;
     max-height: 100%;
-  } */
+  }
 
   .save-project-page {
-    background-color: #1d4654; 
     font-family: 'Roboto', Arial, sans-serif;
     color: #333;
     position: relative;
-    height: 100vh;
-    overflow: auto; 
+    height: 100%;
+
   }
-  
-  .save-project-page::before {
+
+  .save-project-details {
+    background-color: #1d4654;
+  }
+
+  .save-project-details::before {
     content: "";
     position: absolute;
     top: 0;
@@ -28,97 +34,13 @@
     right: 0;
     bottom: 0;
     background-image: url('/background.png');
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-    opacity: 0.15; 
-    z-index: 0; 
-  }
-
-  .save-project-details {
-    position: relative;
-    z-index: 1; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 90%;
-    max-width: 1400px;
-    margin: 0 auto;
-    overflow: hidden;
-  }
-
-  .save-project-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns wide */
-    gap: 20px 50px; /* Space out the project cards */
-    width: 100%;
-    height: calc(100vh - 160px); /* Adjust height to make space for the header */
-    overflow-y: auto; /* Enable vertical scrolling */
-    scrollbar-width: none; /* Hide scrollbar for Firefox */
-    padding-right: 10px; /* Add padding to prevent content cutoff */
-    box-sizing: border-box;
-  }
-
-  .save-project-container::-webkit-scrollbar {
-    width: 0;
-    background: transparent; /* Make scrollbar invisible */
-  }
-
-
-  
-  .project-card {
-    background-color: #f8f8f8;
-    padding-bottom: 0px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease;
-    max-width: 400px;
-    max-height: 322px;
-    text-align: center;
+    background-size: cover; /* Ensure the image covers the entire element */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    opacity: 0.1; /* Set opacity for the image to see through it */
+    z-index: -1; /* Ensure the background image is behind the content */
   }
   
-  .project-card:hover {
-    transform: translateY(-1px); /* Lift card slightly on hover */
-    background-color: rgb(247, 243, 243);
-  }
-  
-  .project-card h3 {
-    color: #1d4654; /* Darker color for better readability */
-    font-size: 18px;
-    margin-top: 15px;
-    font-weight: bold; /* Emphasize project title */
-  }
-  
-  .project-card p {
-    margin: 5px 0;
-    color: #393939;
-    font-size: 14px; /* Compact font size */
-  }
-  
-  .project-card .highlight {
-    font-weight: bold;
-    color: #333; /* Darker color for important info */
-  }
-  
-  .project-card .icon {
-    width: 14px;
-    height: 14px;
-    margin-right: 6px;
-    vertical-align: middle;
-  }
-  
-  .project-card .description {
-    color: #666;
-    font-size: 13px;
-    font-style: italic; /* Different style for descriptions */
-    margin-bottom: 10px;
-  }
-
-
-
-
-
- 
   .save-project-page h2 {
     color: #ffffff;
     font-size: 24px;
@@ -126,7 +48,48 @@
     margin-bottom: 20px;
   }
   
+  .save-project-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
   
+  .project-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .project-card h3 {
+    color: black;
+    font-size: 20px;
+    margin-top: 0;
+  }
+  
+  .project-card p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 16px;
+  }
+  
+  .project-card .icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  
+  .project-card .description {
+    color: #333;
+    font-size: 14px;
+  }
   
   .project-actions {
     display: flex;
@@ -155,5 +118,11 @@
     color: #ffffff;
     margin-top: 50px;
     font-size: 18px;
-  } 
+  }
+
+  .actions .apply-button:hover {
+    background-color: #45a049;
+    transform: translateY(-3px) !important; /* Lift effect */
+  }
   
+
