@@ -370,40 +370,48 @@ router.get('/project/findByBotMessage', async (req, res) => {
   }
 });
 
-// Route to search for a project and return the project_id
+// Simple search route
 router.get('/project/simpleSearch', async (req, res) => {
   try {
-    // Extract query parameters from the request
-    const { title, duration, size } = req.query;
+    // Extract query parameters
+    const { title, discipline, duration, size, location_type } = req.query;
 
-    // Validate the extracted parameters
-    if (!title || !duration || !size) {
-      return res.status(400).json({ error: 'Missing required search parameters: title, duration, or size' });
+    // Create a filter object based on the provided parameters
+    let filters = {};
+
+    // Add conditions to the filters object based on the provided parameters
+    if (title) {
+      filters.title = { [Op.iLike]: `%${title}%` }; // Case-insensitive match for title
+    }
+    if (discipline) {
+      filters.discipline = { [Op.iLike]: `%${discipline}%` }; // Case-insensitive match for discipline
+    }
+    if (duration) {
+      filters.duration = duration; // Exact match for duration
+    }
+    if (size) {
+      filters.size = size; // Exact match for size
+    }
+    if (location_type) {
+      filters.location_type = { [Op.iLike]: `%${location_type}%` }; // Case-insensitive match for location_type
     }
 
-    // Use Op.iLike for partial and case-insensitive matching
-    const project = await Project.findOne({
-      where: {
-        title: { [Op.iLike]: `%${title}%` }, // Case-insensitive partial match for title
-        duration: { [Op.iLike]: `%${duration}%` }, // Case-insensitive partial match for duration
-        size: { [Op.iLike]: `%${size}%` } // Case-insensitive partial match for size
-      },
-      include: {
-        model: Industry,
-        as: 'Industry',
-      },
+    // Log the constructed filters for debugging
+    console.log("Filters applied:", filters);
+
+    // Fetch projects using the filters
+    const projects = await Project.findAll({
+      where: filters, // Apply the filters
+      limit: 5, // Limit to 5 results
     });
 
-    if (!project) {
-      return res.status(404).json({ error: 'No matching project found' });
-    }
-
-    // Return only the project_id
-    res.json({ project_id: project.project_id });
+    // Send the filtered projects as the response
+    res.json(projects);
   } catch (error) {
-    console.error('Error retrieving project:', error);
-    res.status(500).json({ error: 'Failed to retrieve project' });
+    console.error('Error fetching projects:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 module.exports = router;
