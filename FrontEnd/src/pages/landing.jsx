@@ -23,29 +23,23 @@ function parseJwt(token) {
 }
 
 function Landing() {
-  const [userType, setUserType] = useState('Invalid');
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [selectedUserType, setSelectedUserType] = useState(null);
-  const navigate = useNavigate();
   const [totalProjects, setTotalProjects] = useState(0);
+  const navigate = useNavigate();
 
-  const academicFields = [
-    { name: 'role', placeholder: 'Role', options: ['Bachelor', 'Master', 'PhD'], required: true },
-    { name: 'school', placeholder: 'School', options: ['UTS', 'UniversityB'], required: true },
-  ];
-
-  const industryFields = [
-    { name: 'organisation', placeholder: 'Organisation', options: ['OrgA', 'OrgB'], required: true },
-    { name: 'discipline', placeholder: 'Discipline', options: ['Engineering', 'Software', 'Medicine'], required: true },
-  ];
+  // Check for token on every render
+  const token = localStorage.getItem('jwtToken');
+  const decodedToken = token ? parseJwt(token) : null;
+  const userType = decodedToken ? decodedToken.type : null;
 
   useEffect(() => {
     const fetchTotalProjects = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project`); // Fetch all projects
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project`);
         if (!response.ok) throw new Error('Failed to fetch projects');
-        
+
         const data = await response.json();
         setTotalProjects(data.length);
       } catch (error) {
@@ -66,7 +60,6 @@ function Landing() {
     let path;
 
     try {
-      // Try to login with one common API route
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -84,12 +77,7 @@ function Landing() {
       localStorage.setItem('jwtToken', token);
 
       const decodedToken = parseJwt(token);
-
-      if (!decodedToken) {
-        throw new Error('Failed to decode token');
-      }
-
-      setUserType(decodedToken.type);
+      if (!decodedToken) throw new Error('Failed to decode token');
 
       if (decodedToken.type === 'Academic') {
         path = '/projectSearch';
@@ -118,7 +106,6 @@ function Landing() {
     const email = formData.get("email");
     const password = formData.get("password");
     
-    // Gather additional fields based on user type
     const role = selectedUserType === 'Academic' ? formData.get("role") : null;
     const school = selectedUserType === 'Academic' ? formData.get("school") : null;
     const organisation = selectedUserType === 'Industry' ? formData.get("organisation") : null;
@@ -139,21 +126,14 @@ function Landing() {
         })
       });
 
-      if (!response.ok) {
-        throw new Error('Registration failed');
-      }
+      if (!response.ok) throw new Error('Registration failed');
 
-      // Automatically log in the user by storing the token from registration response
       const { token } = await response.json();
       localStorage.setItem('jwtToken', token);
 
       const decodedToken = parseJwt(token);
+      if (!decodedToken) throw new Error('Failed to decode token');
 
-      if (!decodedToken) {
-        throw new Error('Failed to decode token');
-      }
-
-      // Navigate based on user type
       if (decodedToken.type === 'Academic') {
         navigate('/projectSearch');
       } else if (decodedToken.type === 'Industry') {
@@ -174,7 +154,6 @@ function Landing() {
   return (
     <>
       <div className='container landing'>
-        {/* Login Modal */}
         <Modal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)}>
           <h1>Login</h1>
           <form method="post" onSubmit={LoginVerify}>
@@ -188,7 +167,6 @@ function Landing() {
           </form>
         </Modal>
 
-        {/* Registration Modal */}
         <Modal isOpen={isRegisterModalOpen} onClose={() => {
           setIsRegisterModalOpen(false);
           setSelectedUserType(null);
@@ -239,24 +217,28 @@ function Landing() {
         </Modal>
 
         <div className="diagonal-line"></div> 
-          <div className="left-column">
-            <div className="text-container">
-              <div className="text">Industry Match</div>
-              <button onClick={() => setIsLoginModalOpen(true)} className="auth-button">Login</button>
-              <button onClick={() => setIsRegisterModalOpen(true)} className="auth-button">Register</button>
-              <p>
-                Fostering social and human perspectives in engineering: Projects, Partnerships, Professional Learning.
-                With <i className="landing-i">{totalProjects}</i> projects to choose from and over <i className="landing-i">25</i> successful partnerships!
-              </p>
-              <p>
-                Now with help from <strong>AI</strong>
-              </p>
-            </div>
+        <div className="left-column">
+          <div className="text-container">
+            <div className="text">Industry Match</div>
+            {!userType && (
+              <>
+                <button onClick={() => setIsLoginModalOpen(true)} className="auth-button">Login</button>
+                <button onClick={() => setIsRegisterModalOpen(true)} className="auth-button">Register</button>
+              </>
+            )}
+            <p>
+              Fostering social and human perspectives in engineering: Projects, Partnerships, Professional Learning.
+              With <i className="landing-i">{totalProjects}</i> projects to choose from and over <i className="landing-i">25</i> successful partnerships!
+            </p>
+            <p>
+              Now with help from <strong>AI</strong>
+            </p>
           </div>
-          <div className="right-column">
-            <img src="/landing_image.png" alt="Logo" className="image" />
-          </div>
-          <div className="seperator"></div>
+        </div>
+        <div className="right-column">
+          <img src="/landing_image.png" alt="Logo" className="image" />
+        </div>
+        <div className="seperator"></div>
       </div>
       <FeaturedProjects />
       <Footer />
