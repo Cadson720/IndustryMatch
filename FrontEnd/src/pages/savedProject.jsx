@@ -4,7 +4,6 @@ import Loader from '../pages/loader.jsx';
 import Header from '../pages/header.jsx';
 import "../styles/savedProject.css";
 
-
 const SavedProject = () => {
   const [projects, setProjects] = useState([]);
   const [userDetails, setUserDetails] = useState({
@@ -30,7 +29,7 @@ const SavedProject = () => {
         const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/academic/profile`, {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${token}`, // Send the JWT token in the Authorization header
+            'Authorization': `Bearer ${token}`,
           },
         });
 
@@ -105,7 +104,6 @@ const SavedProject = () => {
 
       if (!response.ok) throw new Error('Failed to save project');
 
-      // Update the savedProjectIds to include the newly saved project
       setSavedProjectIds(new Set(savedProjectIds).add(projectId));
       alert('Project saved successfully!');
     } catch (error) {
@@ -129,12 +127,10 @@ const SavedProject = () => {
 
       if (!response.ok) throw new Error('Failed to unsave project');
 
-      // Update savedProjectIds and remove the project from the projects state
       const newSavedIds = new Set(savedProjectIds);
       newSavedIds.delete(projectId);
       setSavedProjectIds(newSavedIds);
 
-      // Remove the project from the projects list
       setProjects(projects.filter(savedProject => savedProject.Project.project_id !== projectId));
       
       alert('Project unsaved successfully!');
@@ -142,6 +138,10 @@ const SavedProject = () => {
       console.error('Error unsaving project:', error);
       alert('Failed to unsave project.');
     }
+  };
+
+  const handleApplyClick = (projectId) => {
+    navigate(`/projectDetail/${projectId}`);
   };
 
   if (loading) return <Loader />;
@@ -167,13 +167,14 @@ const SavedProject = () => {
                 <p className="description">{savedProject.Project.description.slice(0, 100)}...</p>
                 
                 <div className="actions">
-                  {/* Apply Button */}
+                  {/* Apply Button with consistent functionality */}
                   <button 
-                    onClick={() => navigate(`/projectDetail/${savedProject.Project.project_id}`)} 
+                    onClick={() => navigate(`/projectDetail?projectId=${savedProject.Project.project_id}`)} 
                     className="apply-button"
                   >
                     Apply
                   </button>
+
 
                   {/* Conditionally Render Save or Unsave Button */}
                   {savedProjectIds.has(savedProject.Project.project_id) ? (
