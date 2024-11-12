@@ -271,7 +271,7 @@ const ProjectSearch = () => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ academic_id, projectID }),
+        body: JSON.stringify({ academicId, projectID }),
     });
     console.log("Response:", response);
     if (response.ok) {
@@ -292,7 +292,7 @@ const ProjectSearch = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div class="project-search-page">
+    <div className="project-search-page">
       {!loading && <Header />}
       <div className="project-search-container">
       <div className="search-bar">

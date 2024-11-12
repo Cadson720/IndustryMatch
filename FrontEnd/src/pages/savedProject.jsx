@@ -16,7 +16,7 @@ const SavedProject = () => {
     const fetchProjects = async () => {
       const token = localStorage.getItem('jwtToken');
       try {
-        const response = await fetch('http://localhost:3000/api/project', {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -37,8 +37,8 @@ const SavedProject = () => {
     fetchProjects();
   }, []);
 
-  const handleViewClick = (projectId) => {
-    navigate(`/projectDetail/${projectId}`);
+  const handleViewClick = (projectID) => {
+    navigate(`/projectDetail/${projectID}`);
   };
 
   if (loading) return <Loader />; // Display the loader while loading
@@ -68,9 +68,9 @@ const SavedProject = () => {
                   {project.location_type}
                 </p>
                 <p className="description">{project.description.slice(0, 100)}...</p>
-                <div className="project-actions">
+                {/* <div className="project-actions">
                   <button onClick={() => handleViewClick(project.id)} className="view-button">View</button>
-                </div>
+                </div> */}
               </div>
             ))
           )}
