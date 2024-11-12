@@ -34,6 +34,48 @@ router.get('/eoi/project/:projectId', async (req, res) => {
   }
 });
 
+// Route EOI by Academic ID
+router.get('/eoi/academic/:academicId', async (req, res) => {
+  const { academicId } = req.params;
+
+  try {
+    const eois = await EOI.findAll({
+      where: { academic_id: academicId },
+    });
+
+    if (eois.length === 0) {
+      return res.status(404).json({ message: 'No EOIs found for this academic' });
+    }
+
+    res.json(eois); 
+  } catch (error) {
+    console.error('Error fetching EOIs by academic ID:', error);
+    res.status(500).json({ error: 'Error retrieving EOIs' });
+  }
+});
+
+// Route EOI by Industry ID
+router.get('/eoi/industry/:industryId', async (req, res) => {
+  const { industryId } = req.params;
+
+  try {
+    const eois = await EOI.findAll({
+      where: { industry_id: industryId },
+    });
+
+    if (eois.length === 0) {
+      return res.status(404).json({ message: 'No EOIs found for this industry' });
+    }
+
+    res.json(eois); 
+  } catch (error) {
+    console.error('Error fetching EOIs by industry ID:', error);
+    res.status(500).json({ error: 'Error retrieving EOIs' });
+  }
+});
+
+
+
 // Route to submit a new EOI (application)
 router.post('/eoi', authenticateToken, async (req, res) => {
   const { industry_id, academic_id, project_id, eoi_date, proposal_description, eoi_status } = req.body;
@@ -59,37 +101,6 @@ router.post('/eoi', authenticateToken, async (req, res) => {
     }
 });
 
-
-// redundant due to /project
-// Route to get project details by project_id
-/*
-router.get('/project/:projectId', async (req, res) => {
-  const { projectId } = req.params;
-
-  try {
-    const project = await Project.findOne({
-      where: { project_id: projectId },
-      include: [
-        { model: Industry },
-        {
-          model: EOI,
-          include: [{ model: Academic }, { model: Industry }],
-        },
-      ],
-    });
-
-    if (!project) {
-      return res.status(404).json({ error: 'Project not found' });
-    }
-
-    res.json(project);
-  } catch (error) {
-    console.error(`Error fetching project details for project ${projectId}:`, error);
-    res.status(500).json({ error: 'Error retrieving project details' });
-  }
-});
-
-*/
 // Secret key for signing JWT tokens
 const jwtSecret = 'your_secret_key';
 
