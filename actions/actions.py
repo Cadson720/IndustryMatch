@@ -76,7 +76,8 @@ class ActionSearchProjects(Action):
                             f"Industry: {project['industry']} - Discipline: {project['discipline']}\n"
                             f"Duration: {project['duration']} - Size: {project['size']}\n"
                             f"Location: {project['location_type']}\n"
-                            f"{description_blurb}..."
+                            f"{description_blurb}...\n"
+                            f"Click me to Apply"
                         )
                         formatted_projects.append(formatted_project)
 
