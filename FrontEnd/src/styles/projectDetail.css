@@ -142,7 +142,14 @@
   
   .project-detail-page .application-form textarea {
     resize: none;
-    height: 100px;
+    height: 300px; /* Minimum height set to 300px */
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    font-family: 'Roboto', Arial, sans-serif;
   }
   
   .project-detail-page .apply-button {
@@ -255,5 +262,3 @@
   .project-detail-page .upload:active {
     transform: translateY(2px);
   }
-  
-  

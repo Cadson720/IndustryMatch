@@ -104,7 +104,12 @@ const ManageEOI = () => {
           <div className="eoi-list">
             {eois.map((eoi) => (
               <div key={eoi.eoi_id} className="eoi-card">
-                <p><strong>Proposal:</strong> {eoi.proposal_description}</p>
+                <div
+                  className="proposal-description"
+                  dangerouslySetInnerHTML={{
+                    __html: eoi.proposal_description.replace(/\n/g, '<br />')
+                  }}
+                />
                 <p><strong>Date Submitted:</strong> {new Date(eoi.eoi_date).toLocaleDateString()}</p>
                 <p><strong>Status:</strong> {eoi.eoi_status}</p>
                 <p>
@@ -123,21 +128,21 @@ const ManageEOI = () => {
                   )}
                 </p>
                 <div className="eoi-actions">
-                    <button
-                        onClick={() => handleStatusChange(eoi.eoi_id, 'Approved')}
-                        className="approve-button"
-                    >
-                        Approve
-                    </button>
-                    <button
-                        onClick={() => handleStatusChange(eoi.eoi_id, 'Rejected')}
-                        className="reject-button"
-                    >
-                        Reject
-                    </button>
-                    <button className="back-button" onClick={handleBackClick}>
-                        Back
-                    </button>
+                  <button
+                    onClick={() => handleStatusChange(eoi.eoi_id, 'Approved')}
+                    className="approve-button"
+                  >
+                    Approve
+                  </button>
+                  <button
+                    onClick={() => handleStatusChange(eoi.eoi_id, 'Rejected')}
+                    className="reject-button"
+                  >
+                    Reject
+                  </button>
+                  <button className="back-button" onClick={handleBackClick}>
+                    Back
+                  </button>
                 </div>
               </div>
             ))}

@@ -174,10 +174,11 @@ const ProjectDetail = () => {
             <h3>Proposal</h3>
 
             <label>Description:</label>
-            <textarea 
+            <textarea
               name="proposal_description"
               value={proposalDescription}
               onChange={(e) => setProposalDescription(e.target.value)}
+              className="proposal-description"
             />
             
             <button type="submit" className="apply-button">Submit Application</button>
