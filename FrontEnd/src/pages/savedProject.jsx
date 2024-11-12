@@ -69,16 +69,20 @@ const SavedProject = () => {
         });
 
         if (!response.ok) throw new Error('Failed to fetch saved projects');
-        
+
         const data = await response.json();
-        
+
         // Populate projects and savedProjectIds
         setProjects(data);
         setSavedProjectIds(new Set(data.map((project) => project.Project.project_id)));
+
+        // Stall for 250 milliseconds before setting loading to false
+        setTimeout(() => {
+          setLoading(false);
+        }, 250);
       } catch (error) {
         console.error('Error fetching saved projects:', error);
         setError(error.message);
-      } finally {
         setLoading(false);
       }
     };
