@@ -15,6 +15,7 @@ const SavedProject = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [savedProjectIds, setSavedProjectIds] = useState(new Set());
 
   // Fetch the academic profile to get academic_id
   useEffect(() => {
@@ -53,7 +54,7 @@ const SavedProject = () => {
     fetchAcademicProfile();
   }, []);
 
-  // Fetch saved projects once academic_id is available in userDetails
+  // Fetch saved projects and populate savedProjectIds
   useEffect(() => {
     if (!userDetails.academic_id) return;
 
@@ -69,7 +70,10 @@ const SavedProject = () => {
         if (!response.ok) throw new Error('Failed to fetch saved projects');
         
         const data = await response.json();
+        
+        // Populate projects and savedProjectIds
         setProjects(data);
+        setSavedProjectIds(new Set(data.map((project) => project.Project.project_id)));
       } catch (error) {
         console.error('Error fetching saved projects:', error);
         setError(error.message);
@@ -80,6 +84,60 @@ const SavedProject = () => {
 
     fetchSavedProjects();
   }, [userDetails.academic_id]);
+
+  // Function to handle saving a project
+  const saveProject = async (projectId) => {
+    const token = localStorage.getItem('jwtToken');
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project/save`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ academic_id: userDetails.academic_id, project_id: projectId })
+      });
+
+      if (!response.ok) throw new Error('Failed to save project');
+
+      // Update the savedProjectIds to include the newly saved project
+      setSavedProjectIds(new Set(savedProjectIds).add(projectId));
+      alert('Project saved successfully!');
+    } catch (error) {
+      console.error('Error saving project:', error);
+      alert('Failed to save project.');
+    }
+  };
+
+  // Function to handle unsaving a project and remove it from the displayed list
+  const unsaveProject = async (projectId) => {
+    const token = localStorage.getItem('jwtToken');
+    const url = `${import.meta.env.VITE_API_BASE_URL}/api/project/saved/${userDetails.academic_id}/${projectId}`;
+    
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) throw new Error('Failed to unsave project');
+
+      // Update savedProjectIds and remove the project from the projects state
+      const newSavedIds = new Set(savedProjectIds);
+      newSavedIds.delete(projectId);
+      setSavedProjectIds(newSavedIds);
+
+      // Remove the project from the projects list
+      setProjects(projects.filter(savedProject => savedProject.Project.project_id !== projectId));
+      
+      alert('Project unsaved successfully!');
+    } catch (error) {
+      console.error('Error unsaving project:', error);
+      alert('Failed to unsave project.');
+    }
+  };
 
   if (loading) return <Loader />;
   if (error) return <p>Error: {error}</p>;
@@ -102,14 +160,40 @@ const SavedProject = () => {
                 <p><img src="/clock.png" alt="Duration icon" className="icon" /> {savedProject.Project.duration}</p>
                 <p><img src="/location.png" alt="Location icon" className="icon" /> {savedProject.Project.location_type}</p>
                 <p className="description">{savedProject.Project.description.slice(0, 100)}...</p>
-                <button onClick={() => navigate(`/projectDetail/${savedProject.Project.project_id}`)} className="view-button">View</button>
+                
+                <div className="actions">
+                  {/* Apply Button */}
+                  <button 
+                    onClick={() => navigate(`/projectDetail/${savedProject.Project.project_id}`)} 
+                    className="apply-button"
+                  >
+                    Apply
+                  </button>
+
+                  {/* Conditionally Render Save or Unsave Button */}
+                  {savedProjectIds.has(savedProject.Project.project_id) ? (
+                    <button 
+                      onClick={() => unsaveProject(savedProject.Project.project_id)} 
+                      className="unsave-button"
+                    >
+                      Unsave
+                    </button>
+                  ) : (
+                    <button 
+                      onClick={() => saveProject(savedProject.Project.project_id)} 
+                      className="save-button"
+                    >
+                      Save
+                    </button>
+                  )}
+                </div>
               </div>
             ))
           )}
         </div>
       </div>
     </div>
-  );
+  );  
 };
 
 export default SavedProject;
