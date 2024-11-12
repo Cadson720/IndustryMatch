@@ -34,6 +34,12 @@
     margin-bottom: 15px;
     flex-wrap: wrap;
     justify-content: center;
+    font-weight: bold;
+}
+
+.bold {
+    font-weight: bolder;
+    color: #5a4fcf;
 }
 
 .sample-prompt {
@@ -53,6 +59,7 @@
 }
 
 .matchmaker-chat {
+    margin-top: 8vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -108,10 +115,13 @@
 
 .chat-input input {
     flex: 1;
-    padding: 10px;
-    border-radius: 5px 0 0 5px;
+    padding: 15px;
+    border-radius: 10px;
     border: 1px solid #ccc;
     font-family: 'Roboto', Arial, sans-serif;
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: 16px;
 }
 
 .chat-input button {
@@ -119,7 +129,7 @@
     background-color: #6A5ACD;
     color: white;
     border: none;
-    border-radius: 0 5px 5px 0;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
