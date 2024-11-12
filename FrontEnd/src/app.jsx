@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './pages/landing.jsx';
 //import Header from './pages/header.jsx'; // Import the Header component
@@ -43,7 +43,7 @@ function App() {
         <Route path="/" element={<Layout><Landing /></Layout>} />
         <Route path="/about" element={<Layout><About /></Layout>} />
         <Route path="/academicProfile" element={<Layout><AcademicProfile /></Layout>} />
-        <Route path="/projectDetail" element={<Layout><ProjectDetail /></Layout>} />
+        
         <Route path="/industryProfile" element={<Layout><IndustryProfile /></Layout>} />
         <Route path="/projectCreation" element={<Layout><CreateProject /></Layout>} />
         
@@ -52,6 +52,7 @@ function App() {
 
 
         {/* ProjectSearch loads without Layout */}
+        <Route path="/projectDetail" element={<ProjectDetail />} />
         <Route path="/matchMaker" element={<MatchMaker />} />
         <Route path="/industry" element={<Industry />} />
         <Route path="/manageEOI/:projectId" element={<ManageEOI />} />

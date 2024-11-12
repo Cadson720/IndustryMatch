@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../styles/projectDetail.css";
+import Header from '../pages/header.jsx'; // Import the Header component
+import Loader from '../pages/loader.jsx'; // Import the Loader component
 
 const ProjectDetail = () => {
   const [project, setProject] = useState(null);
   const [academic, setAcademic] = useState({
-    academic_id: '', // Include academic_id in the initial state
+    academic_id: '',
     academic_email: '',
     role: '',
     school: '',
     phone: '',
   });
-  const [proposalDescription, setProposalDescription] = useState(''); // For EOI proposal description
+  const [proposalDescription, setProposalDescription] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -32,9 +34,15 @@ const ProjectDetail = () => {
       } catch (err) {
         setError(err.message);
       } finally {
-        setLoading(false);
+        // Ensure the loader is visible for at least 250ms
+        setTimeout(() => {
+          setLoading(false);
+        }, 250);
       }
     };
+
+    // Show loader and fetch project details
+    setLoading(true); // Reset loader state on component mount
     fetchProject();
   }, [projectId]);
 
@@ -48,13 +56,13 @@ const ProjectDetail = () => {
         const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/academic/profile`, {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${token}`, // Send the JWT token in the Authorization header
+            'Authorization': `Bearer ${token}`,
           },
         });
         if (!response.ok) throw new Error('Failed to fetch academic data');
         const data = await response.json();
         setAcademic({
-          academic_id: data.academic_id, // Ensure academic_id is set here
+          academic_id: data.academic_id,
           academic_email: data.academic_email,
           role: data.role,
           school: data.school,
@@ -90,9 +98,9 @@ const ProjectDetail = () => {
 
     const eoiData = {
       industry_id: project.industry_id,
-      academic_id: academic.academic_id, // Use academic_id here
+      academic_id: academic.academic_id,
       project_id: projectId,
-      eoi_date: new Date().toISOString().split('T')[0], // Current date in YYYY-MM-DD format
+      eoi_date: new Date().toISOString().split('T')[0],
       proposal_description: proposalDescription,
       eoi_status: 'Pending',
     };
@@ -113,77 +121,80 @@ const ProjectDetail = () => {
     }
   };
 
-  if (loading) return <p>Loading project details...</p>;
+  if (loading) return <Loader />; // Show loader on initial load
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="project-detail-page">
-      <div className="project-columns">
-        {/* Left Column: Project Details */}
-        <div className="project-detail-column">
-          {project ? (
-            <div className="project-detail">
-              <h2>{project.title}</h2>
-              <div className="project-detail-columns">
-                <div className="project-detail-left-column">
-                  <p>
-                    {project.industry} <strong>  -  </strong> {project.discipline}
-                  </p>
-                  <p>
-                    <img src="/team.png" alt="team icon" className="team-icon" />
-                    <strong> </strong> {formatSize(project.size)}
-                  </p>
-                  <p>
-                    <img src="/clock.png" alt="duration icon" className="duration-icon" />
-                    <strong> </strong> {project.duration}
-                  </p>
-                  <p>
-                    <img src="/location.png" alt="location icon" className="location-icon" />
-                    <strong> </strong> {project.location_type}
-                    {(project.location_type === 'Flexible' || project.location_type === 'On-site') && project.address && (
-                      <span> - {project.address}</span>
-                    )}
-                  </p>
-                  <br />
+    <div className="project-detail-container">
+      <Header /> {/* Include the Header component */}
+      <div className="project-detail-page">
+        <div className="project-columns">
+          {/* Left Column: Project Details */}
+          <div className="project-detail-column">
+            {project ? (
+              <div className="project-detail">
+                <h2>{project.title}</h2>
+                <div className="project-detail-columns">
+                  <div className="project-detail-left-column">
+                    <p>
+                      {project.industry} <strong>  -  </strong> {project.discipline}
+                    </p>
+                    <p>
+                      <img src="/team.png" alt="team icon" className="team-icon" />
+                      <strong> </strong> {formatSize(project.size)}
+                    </p>
+                    <p>
+                      <img src="/clock.png" alt="duration icon" className="duration-icon" />
+                      <strong> </strong> {project.duration}
+                    </p>
+                    <p>
+                      <img src="/location.png" alt="location icon" className="location-icon" />
+                      <strong> </strong> {project.location_type}
+                      {(project.location_type === 'Flexible' || project.location_type === 'On-site') && project.address && (
+                        <span> - {project.address}</span>
+                      )}
+                    </p>
+                    <br />
+                  </div>
+                </div>
+                <p><strong>Description:</strong> {formatDetailedDescription(project.description)}</p>
+                <div className="project-publish-info">
+                  <p><strong>Published:</strong> {project.publish_date}</p>
+                  <p><strong>Organisation:</strong> {project.Industry && project.Industry.organisation}</p>
                 </div>
               </div>
-              <p><strong>Description:</strong> {formatDetailedDescription(project.description)}</p>
-              <div className="project-publish-info">
-                <p><strong>Published:</strong> {project.publish_date}</p>
-                <p><strong>Organisation:</strong> {project.Industry && project.Industry.organisation}</p>
-              </div>
-            </div>
-          ) : (
-            <p>No project found</p>
-          )}
-        </div>
+            ) : (
+              <p>No project found</p>
+            )}
+          </div>
 
-        {/* Right Column: Application Form */}
-        <div className="application-column">
-          <h3>Your Details</h3>
-          <form className="application-form" onSubmit={handleSubmit}>
-            <label>Email:</label>
-            <input type="email" name="email" value={academic.academic_email} readOnly />
+          {/* Right Column: Application Form */}
+          <div className="application-column">
+            <h3>Your Details</h3>
+            <form className="application-form" onSubmit={handleSubmit}>
+              <label>Email:</label>
+              <input type="email" name="email" value={academic.academic_email} readOnly />
 
-            <label>School:</label>
-            <input type="text" name="school" value={academic.school} readOnly />
+              <label>School:</label>
+              <input type="text" name="school" value={academic.school} readOnly />
 
-            <label>Role:</label>
-            <input type="text" name="role" value={academic.role} readOnly />
+              <label>Role:</label>
+              <input type="text" name="role" value={academic.role} readOnly />
 
-            <h3>Proposal</h3>
+              <h3>Proposal</h3>
 
-            <label>Description:</label>
-            <textarea
-              name="proposal_description"
-              value={proposalDescription}
-              onChange={(e) => setProposalDescription(e.target.value)}
-              className="proposal-description"
-            />
-            
-            <button type="submit" className="apply-button">Submit Application</button>
-            <button type="button" className="upload-button" onClick={() => alert("File upload is not functional")}>Upload File</button>
-          </form>
+              <label>Description:</label>
+              <textarea
+                name="proposal_description"
+                value={proposalDescription}
+                onChange={(e) => setProposalDescription(e.target.value)}
+                className="proposal-description"
+              />
+              
+              <button type="submit" className="apply-button">Submit Application</button>
+              <button type="button" className="upload-button" onClick={() => alert("File upload is not functional")}>Upload File</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
