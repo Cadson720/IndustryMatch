@@ -172,7 +172,7 @@ const SavedProject = () => {
                     onClick={() => navigate(`/projectDetail?projectId=${savedProject.Project.project_id}`)} 
                     className="apply-button"
                   >
-                    Apply
+                    View/Apply
                   </button>
 
 

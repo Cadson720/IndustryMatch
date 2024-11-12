@@ -67,8 +67,6 @@ const ManageEOI = () => {
     }
   };
   
-  
-  
   const handleBackClick = () => {
     navigate('/manageProject', { state: { searchQuery: searchParams } });
   };
@@ -111,9 +109,11 @@ const ManageEOI = () => {
                 />
                 <p><strong>Date Submitted:</strong> {new Date(eoi.eoi_date).toLocaleDateString()}</p>
                 <p><strong>Status:</strong> {eoi.eoi_status}</p>
-                <p>
-                  <strong>Academic Email:</strong>{' '}
-                  {eoi.Academic ? (
+                
+                {/* Only display academic email if status is "Approved" */}
+                {eoi.eoi_status === 'Approved' && eoi.Academic && (
+                  <p>
+                    <strong>Academic Email:</strong>{' '}
                     <a
                       href={`mailto:${eoi.Academic.academic_email}`}
                       target="_blank"
@@ -122,10 +122,9 @@ const ManageEOI = () => {
                     >
                       {eoi.Academic.academic_email}
                     </a>
-                  ) : (
-                    'N/A'
-                  )}
-                </p>
+                  </p>
+                )}
+
                 <div className="eoi-actions">
                   <button
                     onClick={() => handleStatusChange(eoi.eoi_id, 'Approved')}

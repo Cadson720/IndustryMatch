@@ -11,6 +11,8 @@ const ManageProject = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [eoiAvailability, setEoiAvailability] = useState({});
+  const [noEoiMessage, setNoEoiMessage] = useState(null); // Notification for "No EOIs" message
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +27,7 @@ const ManageProject = () => {
             },
           }
         );
-  
+
         if (response.status === 404) {
           setProjects([]);
           setFilteredProjects([]);
@@ -33,18 +35,25 @@ const ManageProject = () => {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         } else {
           const data = await response.json();
-          
+
           // Sort projects based on their status
           data.sort((a, b) => {
             const statusOrder = { "Public": 1, "Private": 2, "Archived": 3 };
             return statusOrder[a.status] - statusOrder[b.status];
           });
-  
-          setTimeout(() => {
-            setProjects(data);
-            setFilteredProjects(data);
-            setLoading(false);
-          }, 250);
+
+          const eoiStatuses = {};
+          for (const project of data) {
+            const eoiResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/eoi/project/${project.project_id}`, {
+              headers: { 'Authorization': `Bearer ${token}` }
+            });
+            eoiStatuses[project.project_id] = eoiResponse.ok && (await eoiResponse.json()).length > 0;
+          }
+          setEoiAvailability(eoiStatuses);
+
+          setProjects(data);
+          setFilteredProjects(data);
+          setLoading(false);
         }
       } catch (error) {
         console.error('Error fetching projects:', error);
@@ -52,10 +61,8 @@ const ManageProject = () => {
         setLoading(false);
       }
     };
-  
     fetchProjects();
   }, []);
-  
 
   const handleSearchChange = (e) => {
     const query = e.target.value.toLowerCase();
@@ -75,7 +82,12 @@ const ManageProject = () => {
   };
 
   const handleManageEOIsClick = (projectId) => {
-    navigate(`/manageEOI/${projectId}`);
+    if (eoiAvailability[projectId]) {
+      navigate(`/manageEOI/${projectId}`);
+    } else {
+      setNoEoiMessage(`No EOIs found for the project with ID: ${projectId}.`); // Display message at the top
+      setTimeout(() => setNoEoiMessage(null), 3000); // Clear message after 3 seconds
+    }
   };
 
   const handleDeleteClick = (projectId) => {
@@ -108,23 +120,31 @@ const ManageProject = () => {
   const statusColor = (status) => {
     switch (status) {
       case 'Public':
-        return '#4caf50'; // Green for Public
+        return '#4caf50';
       case 'Private':
-        return '#f44336'; // Red for Private
+        return '#f44336';
       case 'Archived':
-        default:
-          return '#b0b0b0';
+      default:
+        return '#b0b0b0';
     }
   };
 
   if (loading) return <Loader />;
-  if (error) return <p className="error-message">Error: {error}</p>;
+  if (error) return <p className="error-message">{error}</p>;
 
   return (
     <div className="manage-project-page">
       {!loading && <Header />}
       <div className="manage-project-container">
         <h2>Manage Projects</h2>
+
+        {/* Notification message for no EOIs */}
+        {noEoiMessage && (
+          <div className="no-eoi-notification" style={{ color: 'red', fontWeight: 'bold', marginBottom: '10px' }}>
+            {noEoiMessage}
+          </div>
+        )}
+
         <input
           type="text"
           className="search-bar-manage"
@@ -160,7 +180,13 @@ const ManageProject = () => {
                 <p className="description">{project.description.slice(0, 90)}...</p>
                 <div className="project-actions">
                   <button onClick={() => handleEditClick(project.project_id)} className="edit-button">Edit</button>
-                  <button onClick={() => handleManageEOIsClick(project.project_id)} className="eoi-button">Manage EOIs</button>
+                  <button 
+                    onClick={() => handleManageEOIsClick(project.project_id)} 
+                    className="eoi-button"
+                    disabled={!eoiAvailability[project.project_id]} // Disable if no EOIs
+                  >
+                    Manage EOIs
+                  </button>
                   <button onClick={() => handleDeleteClick(project.project_id)} className="delete-button">Delete</button>
                 </div>
               </div>
