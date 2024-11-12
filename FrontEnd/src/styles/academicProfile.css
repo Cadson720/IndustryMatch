@@ -1,9 +1,11 @@
 .ip-container {
-    height: 100vh;
+    height: calc(100vh - 1000px);
     background-color: rgb(56, 100, 115);
     padding: 20px;
+    padding-bottom: 0px;
     display: flex;
     flex-direction: column; /* Added: to stack the heading on top of the content */
+    overflow: hidden;
 }
 
 .ip-container .heading {
@@ -18,8 +20,7 @@
 }
 
 .ip-container .column-container {
-    display: flex;
-    flex: 1; /* Added: makes the column container fill the remaining height */
+    height: calc(200vh - 160px);
 }
 
 .ip-container .left-column {
@@ -30,6 +31,7 @@
     background-color: #4a707e;
     padding: 20px;
     border-radius: 10px;
+    height: calc(100vh - 218px);
 }
 
 .ip-container .tab-btn {
@@ -63,6 +65,7 @@
     background-color: #e0e0e0;
     padding: 20px;
     border-radius: 10px;
+    height: calc(100vh - 218px);
 }
 
 

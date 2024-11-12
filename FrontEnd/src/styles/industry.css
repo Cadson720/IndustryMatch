@@ -3,8 +3,7 @@
     display: flex; /* Use flexbox for two-column layout */
     justify-content: space-between; /* Space between columns */
     align-items: stretch; /* Make columns fill the full height */
-    padding: 20px; /* Add some padding around the container */
-    height: 100vh; /* Fill the entire viewport height */
+    height: calc(100vh - 80px); /* Fill the entire viewport height */
     position: relative; /* Ensure the backdrop can be positioned relative to the container */
     background-color: rgb(56, 100, 115);
 }
@@ -30,7 +29,7 @@
     display: flex;
     flex-direction: column; /* Stack text and separator vertically */
     justify-content: space-between; /* Space between the rows */
-    height: 100%; /* Fill the entire height of the right column */
+    height: calc(100vh); /* Fill the entire height of the right column */
     z-index: 2; /* Ensure it's above the backdrop */
     text-align: center; /* Center text horizontally */
     padding: 20px; /* Optional: add some padding */

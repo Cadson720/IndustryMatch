@@ -151,8 +151,6 @@ const Industry_Profile = () => {
       <div className="column-container">
         <div className="left-column">
           <button className={`tab-btn ${activeTab === 'details' ? 'active' : ''}`} onClick={() => setActiveTab('details')}>My Details</button>
-          <button className={`tab-btn ${activeTab === 'projects' ? 'active' : ''}`} onClick={() => setActiveTab('projects')}>My Projects</button>
-          <button className={`tab-btn ${activeTab === 'applications' ? 'active' : ''}`} onClick={() => setActiveTab('applications')}>Applications</button>
           <button className="logout-btn" onClick={() => localStorage.removeItem('jwtToken')}>Log Out</button>
         </div>
         <div className="right-column">

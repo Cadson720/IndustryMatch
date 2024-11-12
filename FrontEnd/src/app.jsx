@@ -46,7 +46,6 @@ function App() {
         <Route path="/projectDetail" element={<Layout><ProjectDetail /></Layout>} />
         <Route path="/industryProfile" element={<Layout><IndustryProfile /></Layout>} />
         <Route path="/projectCreation" element={<Layout><CreateProject /></Layout>} />
-        <Route path="/industry" element={<Layout><Industry /></Layout>} />
         <Route path="/matchMaker" element={<Layout><MatchMaker /></Layout>} />
         
         {/* <Route path="/project/:projectId/eois" element={<EOIs />} />
@@ -54,6 +53,7 @@ function App() {
 
 
         {/* ProjectSearch loads without Layout */}
+        <Route path="/industry" element={<Industry />} />
         <Route path="/manageEOI/:projectId" element={<ManageEOI />} />
         <Route path="/editProject/:id" element={<EditProject />} />
         <Route path="/projectSearch" element={<ProjectSearch />} />
