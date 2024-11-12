@@ -53,7 +53,7 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Flexible grid layout */
   gap: 20px; /* Add consistent spacing between cards */
   width: 100%;
-  max-height: 70vh; /* Set a max height for the card container */
+  max-height: 73vh; /* Set a max height for the card container */
   overflow-y: auto; /* Enable vertical scrolling */
   padding-right: 10px; /* Add padding to avoid content cutoff */
   box-sizing: border-box;
@@ -93,6 +93,7 @@
   margin: 5px 0;
   color: #555;
   font-size: 14px;
+  min-height: 45px;
 }
 
 .project-card .description {
