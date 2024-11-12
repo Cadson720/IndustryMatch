@@ -72,8 +72,14 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
-  max-width: 100%; /* Make sure cards are responsive */
+  max-width: 100%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  align-items: center; /* Center elements horizontally */
+  text-align: center; /* Center text elements */
 }
 
 .project-card:hover {
@@ -87,13 +93,15 @@
   font-size: 18px;
   margin-top: 0;
   font-weight: bold;
+  min-height: 45px;
+  text-align: center; /* Center align the title */
 }
 
 .project-card p {
   margin: 5px 0;
   color: #555;
   font-size: 14px;
-  min-height: 45px;
+  text-align: center; /* Center align the text */
 }
 
 .project-card .description {
@@ -101,13 +109,24 @@
   font-size: 13px;
   font-style: italic;
   margin-bottom: 10px;
+  text-align: center; /* Center align the description */
+}
+
+.project-card .icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  vertical-align: middle;
 }
 
 /* Action buttons styling */
 .project-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around; /* Space out the buttons evenly */
+  width: 100%; /* Make the buttons span the full width */
   margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd; /* Optional: add a top border to separate from content */
 }
 
 .project-actions button {
@@ -117,6 +136,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 80px; /* Set a fixed width to align buttons */
 }
 
 .project-actions .edit-button {
@@ -124,14 +144,26 @@
   color: white;
 }
 
+.project-actions .edit-button:hover {
+  background-color: #5a4fcf;
+}
+
 .project-actions .eoi-button {
   background-color: #4caf50;
   color: white;
 }
 
+.project-actions .eoi-button:hover {
+  background-color: #45a049;
+}
+
 .project-actions .delete-button {
   background-color: #b20808;
   color: white;
+}
+
+.project-actions .delete-button:hover {
+  background-color: #870b0b;
 }
 
 /* Styles for the "no projects" message */
