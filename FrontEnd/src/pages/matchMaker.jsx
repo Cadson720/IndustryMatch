@@ -81,20 +81,18 @@ const MatchMakerChat = () => {
         }
     }, [messages]);
 
-    // Function to handle clicking a bot message
     const handleBotMessageClick = async (messageText) => {
         try {
           // Split the message by new lines to separate different parts
           const lines = messageText.split('\n');
       
-          // Extract title from the first line
-          const title = lines[0].trim();
+          // Extract title from everything before "Industry:"
+          const industryIndex = messageText.indexOf("Industry:");
+          const keywords = messageText.substring(0, industryIndex).trim(); // Use title as keywords
       
           // Extract industry and discipline from the second line
           const industryDisciplineLine = lines[1];
-          const industryMatch = industryDisciplineLine.match(/Industry: (.*) -/);
           const disciplineMatch = industryDisciplineLine.match(/Discipline: (.*)/);
-          const industry = industryMatch ? industryMatch[1].trim() : null;
           const discipline = disciplineMatch ? disciplineMatch[1].trim() : null;
       
           // Extract duration and size from the third line
@@ -104,28 +102,47 @@ const MatchMakerChat = () => {
           const duration = durationMatch ? durationMatch[1].trim() : null;
           const size = sizeMatch ? sizeMatch[1].trim() : null;
       
+          // Extract location_type from the fourth line (or wherever it's defined)
+          const locationLine = lines[3]; // Assuming location_type is on the fourth line
+          const locationMatch = locationLine.match(/Location: (.*)/);
+          const location_type = locationMatch ? locationMatch[1].trim() : null;
+      
+          // Debugging: Log extracted variables
+          console.log('Extracted keywords:', keywords);
+          console.log('Extracted discipline:', discipline);
+          console.log('Extracted duration:', duration);
+          console.log('Extracted size:', size);
+          console.log('Extracted location_type:', location_type);
+      
           // Ensure all required information is extracted
-          if (!title || !duration || !size) {
+          if (!keywords || !discipline || !duration || !size || !location_type) {
             alert('Could not extract project details from the message.');
             return;
           }
       
-          // Make a GET request to the searchByBot route with the extracted parameters
+          // Make a GET request to the /project/search route with the extracted parameters
           const searchResponse = await fetch(
-            `${import.meta.env.VITE_API_BASE_URL}/api/project/simpleSearch?title=${encodeURIComponent(title)}&duration=${encodeURIComponent(duration)}&size=${encodeURIComponent(size)}`
+            `${import.meta.env.VITE_API_BASE_URL}/api/project/search?keywords=${encodeURIComponent(keywords)}&discipline=${encodeURIComponent(discipline)}&duration=${encodeURIComponent(duration)}&size=${encodeURIComponent(size)}&location_type=${encodeURIComponent(location_type)}`
           );
       
           if (!searchResponse.ok) throw new Error('Failed to fetch matching project.');
       
-          const { project_id } = await searchResponse.json();
+          const projects = await searchResponse.json();
       
-          // Navigate to the project detail page using the project_id
-          navigate(`/projectDetail?projectId=${project_id}`);
+          // Check if projects are found and handle navigation
+          if (projects.length > 0) {
+            const { project_id } = projects[0]; // Use the first project_id found
+            navigate(`/projectDetail?projectId=${project_id}`);
+          } else {
+            alert('No matching projects found.');
+          }
         } catch (error) {
           console.error('Error fetching project:', error);
           alert('Failed to fetch matching project.');
         }
       };
+      
+      
   
     return (
         <div className="matchmaker-wrapper">

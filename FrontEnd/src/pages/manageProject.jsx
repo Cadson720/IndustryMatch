@@ -25,7 +25,7 @@ const ManageProject = () => {
             },
           }
         );
-
+  
         if (response.status === 404) {
           setProjects([]);
           setFilteredProjects([]);
@@ -33,6 +33,13 @@ const ManageProject = () => {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         } else {
           const data = await response.json();
+          
+          // Sort projects based on their status
+          data.sort((a, b) => {
+            const statusOrder = { "Public": 1, "Private": 2, "Archived": 3 };
+            return statusOrder[a.status] - statusOrder[b.status];
+          });
+  
           setTimeout(() => {
             setProjects(data);
             setFilteredProjects(data);
@@ -45,9 +52,10 @@ const ManageProject = () => {
         setLoading(false);
       }
     };
-
+  
     fetchProjects();
   }, []);
+  
 
   const handleSearchChange = (e) => {
     const query = e.target.value.toLowerCase();
@@ -102,10 +110,10 @@ const ManageProject = () => {
       case 'Public':
         return '#4caf50'; // Green for Public
       case 'Private':
-        return '#ff9800'; // Orange for Private
+        return '#f44336'; // Red for Private
       case 'Archived':
-      default:
-        return '#f44336'; // Red for Archived
+        default:
+          return '#b0b0b0';
     }
   };
 
