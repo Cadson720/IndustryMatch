@@ -1,52 +1,92 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import "../styles/loader.css";
 import Loader from '../pages/loader.jsx';
 import Header from '../pages/header.jsx';
-import "../styles/savedProject.css"; // New CSS file for save project page
+import "../styles/savedProject.css";
 
 const SavedProject = () => {
   const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true); // State to handle loading
+  const [userDetails, setUserDetails] = useState({
+    academic_id: null,
+    email: '',
+    role: '',
+    school: ''
+  });
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Fetch projects for the logged-in user with a delay
+  // Fetch the academic profile to get academic_id
   useEffect(() => {
-    const fetchProjects = async () => {
+    const fetchAcademicProfile = async () => {
+      try {
+        const token = localStorage.getItem('jwtToken');
+        if (!token) {
+          throw new Error('No token found');
+        }
+
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/academic/profile`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`, // Send the JWT token in the Authorization header
+          },
+        });
+
+        if (!response.ok) {
+          const errorMessage = `Error: ${response.status} ${response.statusText}`;
+          throw new Error(errorMessage);
+        }
+
+        const data = await response.json();
+        setUserDetails({
+          academic_id: data.academic_id,
+          email: data.academic_email,
+          role: data.role,
+          school: data.school,
+        });
+      } catch (error) {
+        console.error('Error fetching academic profile:', error);
+        setError('Failed to fetch academic profile');
+      }
+    };
+
+    fetchAcademicProfile();
+  }, []);
+
+  // Fetch saved projects once academic_id is available in userDetails
+  useEffect(() => {
+    if (!userDetails.academic_id) return;
+
+    const fetchSavedProjects = async () => {
       const token = localStorage.getItem('jwtToken');
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project`, {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project/saved/${userDetails.academic_id}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
-        if (!response.ok) throw new Error('Failed to fetch projects');
+
+        if (!response.ok) throw new Error('Failed to fetch saved projects');
+        
         const data = await response.json();
-        // Introduce a delay of 250ms using setTimeout
-        setTimeout(() => {
-          setProjects(data);
-          setLoading(false); // Set loading to false once the data is fetched and delayed
-        }, 250);
+        setProjects(data);
       } catch (error) {
-        console.error('Error fetching projects:', error);
+        console.error('Error fetching saved projects:', error);
         setError(error.message);
-        setLoading(false); // Set loading to false in case of an error
+      } finally {
+        setLoading(false);
       }
     };
-    fetchProjects();
-  }, []);
 
-  const handleViewClick = (projectID) => {
-    navigate(`/projectDetail/${projectID}`);
-  };
+    fetchSavedProjects();
+  }, [userDetails.academic_id]);
 
-  if (loading) return <Loader />; // Display the loader while loading
+  if (loading) return <Loader />;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="save-project-page">
-      {!loading && <Header />}
+      <Header />
       <div className="save-project-details">
         <h2>Saved Projects</h2>
         <div className="save-project-container">
@@ -55,22 +95,14 @@ const SavedProject = () => {
               <p>No saved projects available.</p>
             </div>
           ) : (
-            projects.map((project) => (
-              <div key={project.id} className="project-card">
-                <h3>{project.title}</h3>
-                <p><strong>Industry:</strong> {project.industry} - {project.discipline}</p>
-                <p>
-                  <img src="/clock.png" alt="Duration icon" className="icon" />
-                  {project.duration}
-                </p>
-                <p>
-                  <img src="/location.png" alt="Location icon" className="icon" />
-                  {project.location_type}
-                </p>
-                <p className="description">{project.description.slice(0, 100)}...</p>
-                {/* <div className="project-actions">
-                  <button onClick={() => handleViewClick(project.id)} className="view-button">View</button>
-                </div> */}
+            projects.map((savedProject) => (
+              <div key={savedProject.Project.project_id} className="project-card">
+                <h3>{savedProject.Project.title}</h3>
+                <p><strong>Industry:</strong> {savedProject.Project.industry} - {savedProject.Project.discipline}</p>
+                <p><img src="/clock.png" alt="Duration icon" className="icon" /> {savedProject.Project.duration}</p>
+                <p><img src="/location.png" alt="Location icon" className="icon" /> {savedProject.Project.location_type}</p>
+                <p className="description">{savedProject.Project.description.slice(0, 100)}...</p>
+                <button onClick={() => navigate(`/projectDetail/${savedProject.Project.project_id}`)} className="view-button">View</button>
               </div>
             ))
           )}
