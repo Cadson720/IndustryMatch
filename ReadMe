@@ -1,12 +1,13 @@
-Backend 
-	• npm install express pg sequelize cors dotenv
-Front end 
-	• npm install react react-dom vite @vitejs/plugin-react
-Dev 
-	• npm install --save-dev nodemon
-	• npm install -g sequelize-cli
+/BackEnd 
+	• npm install
+/FrontEnd 
+	• npm install
+/IndustryConnect/
+	• npm run deploy
+		- this will build the application and move it into the backend and host the build off the backend server and run both ai models
 
-To run the programm
+
+Local running for development
 	•cd into both the frontend & backend folders in seprate terminal windows Example /cd Documents/GitHub/IndustryMatch/FrontEnd
 	•in the FrontEnd folder run "npm run dev"
 	•in the BackEnd folder run "npm start"
