@@ -6,6 +6,7 @@
 	• npm run deploy
 		- this will build the application and move it into the backend and host the build off the backend server and run both ai models
 /Industryconnect/ - ai set up 
+	- pip install python3.9
 	- python -m venv rasa-env
 	- .\rasa-env\Scripts\Activate
 	-pip install rasa==3.6.20
