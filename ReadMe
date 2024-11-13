@@ -2,13 +2,24 @@
 	• npm install
 /FrontEnd 
 	• npm install
-/IndustryConnect/
+/IndustryConnect/ - deployment 
 	• npm run deploy
 		- this will build the application and move it into the backend and host the build off the backend server and run both ai models
+/Industryconnect/ - ai set up 
+	- python -m venv rasa-env
+	- .\rasa-env\Scripts\Activate
+	-pip install rasa==3.6.20
+	- pip install rasa-sdk
+	- pip install rasa
+
+	In separate terminals
+	- rasa run actions 
+	- rasa run --enable-api --cors "*"
+
 
 
 Local running for development
-	•cd into both the frontend & backend folders in seprate terminal windows Example /cd Documents/GitHub/IndustryMatch/FrontEnd
+	•cd into both the frontend & backend folders in separate terminal windows. Example /cd Documents/GitHub/IndustryMatch/FrontEnd
 	•in the FrontEnd folder run "npm run dev"
 	•in the BackEnd folder run "npm start"
 	
