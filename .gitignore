@@ -1,3 +1,5 @@
 # Ignore environment variable file
 .env
 .env.local
+FrontEnd/.env.local
+
