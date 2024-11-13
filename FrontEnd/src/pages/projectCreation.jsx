@@ -100,156 +100,158 @@ function CreateProject() {
 
     // Validate required fields
     if (
-        !formData.publish_date.trim() || 
-        !formData.discipline.trim() || 
-        !formData.duration.trim() || 
-        !formData.size.trim() || 
-        !formData.location_type.trim() || 
-        !formData.address.trim() || 
-        !formData.description.trim() || 
-        !formData.status.trim() || 
-        !formData.image_path.trim()
+      !formData.publish_date.trim() || 
+      !formData.discipline.trim() || 
+      !formData.duration.trim() || 
+      !formData.size.trim() || 
+      !formData.location_type.trim() || 
+      !formData.description.trim() || 
+      !formData.status.trim() || 
+      !formData.image_path.trim()
     ) {
-        setError('Please fill all required fields');
-        return;
+      setError('Please fill all required fields');
+      console.log('Missing fields:', formData); // Debug missing fields
+      return;
     }
 
     const requiredHeadings = ["Project Objectives:", "Technical Knowledge:", "Student Year Recommendation:"];
     const missingHeadings = requiredHeadings.filter(heading => !formData.description.includes(heading));
 
     if (missingHeadings.length > 0) {
-        setError(`Please do not remove the following headings: ${missingHeadings.join(', ')}`);
-        return;
+      setError(`Please do not remove the following headings: ${missingHeadings.join(', ')}`);
+      return;
     }
 
     try {
-        const token = localStorage.getItem('jwtToken'); // Retrieve token from local storage
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project/create`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` // Include the token in the request
-            },
-            body: JSON.stringify(formData),
-        });
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-        if (response.ok) {
-            setSuccess(true);
-            setError(null);
-            setFormData({
-                title: '',
-                publish_date: getTodayDate(),
-                industry: '',
-                discipline: '',
-                duration: '',
-                size: '',
-                location_type: '',
-                address: '',
-                description: `Project Objectives:\n\n\nTechnical Knowledge:\n\n\nStudent Year Recommendation:\n\n`,
-                status: '',
-                image_path: ''
-            });
-        } else {
-            const errorData = await response.json();
-            setError(errorData.error || 'Failed to create project');
-        }
+      if (response.ok) {
+        setSuccess(true);
+        setError(null);
+        setFormData({
+          title: '',
+          publish_date: getTodayDate(),
+          industry: '',
+          discipline: '',
+          duration: '',
+          size: '', // Reset to match the new field
+          location_type: '',
+          address: '',
+          description: `Project Objectives:\n\n\nTechnical Knowledge:\n\n\nStudent Year Recommendation:\n\n`,
+          status: '', // Reset to match the new field
+          image_path: ''
+        });
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || 'Failed to create project');
+      }
     } catch (err) {
-        setError('Something went wrong while creating the project');
+      setError('Something went wrong while creating the project');
     }
-};
+  };
+
   return (
     <div className="create_body">
-    <div className="comp">
+      <div className="comp">
         <h1>Create a New Project</h1>
 
         {success && <p>Project created successfully!</p>}
         {error && <p>Error: {error}</p>}
 
         <form onSubmit={handleSubmit}>
-            <div className="form-group">
-                <label className="label">Title:</label>
-                <input type="text" name="title" value={formData.title} onChange={handleChange} required />
-            </div>
-            <div className="form-group">
-                <label className="label">Publish Date:</label>
-                <input type="date" name="publish_date" value={formData.publish_date} onChange={handleChange} required />
-            </div>
-            <div className="form-group">
-                <label className="label">Industry:</label>
-                <select name="industry" value={formData.industry} onChange={handleChange} required>
-                    <option value="">Select Industry</option>
-                    {Object.keys(industryOptions).map((industry) => (
-                        <option key={industry} value={industry}>{industry}</option>
-                    ))}
-                </select>
-            </div>
-            <div className="form-group">
-                <label className="label">Discipline:</label>
-                <select name="discipline" value={formData.discipline} onChange={handleChange} required>
-                    <option value="">Select Discipline</option>
-                    {disciplines.map((discipline) => (
-                        <option key={discipline} value={discipline}>{discipline}</option>
-                    ))}
-                </select>
-            </div>
-            <div className="form-group">
-                <label className="label">Duration:</label>
-                <select name="duration" value={formData.duration} onChange={handleChange} required>
-                    <option value="Any length">Any length</option>
-                    <option value="4 weeks">4 weeks</option>
-                    <option value="6 weeks">6 weeks</option>
-                    <option value="8 weeks">8 weeks</option>
-                    <option value="12 weeks">12 weeks</option>
-                    <option value="24 weeks">24 weeks</option>
-                </select>
-            </div>
-            <div className="form-group">
-                <label className="label">Size:</label>
-                <select name="size" value={formData.size} onChange={handleChange} required>
-                    <option value="">Select Size</option>
-                    <option value="Small">Small (1-3 students)</option>
-                    <option value="Medium">Medium (4-8 students)</option>
-                    <option value="Large">Large (8+ students)</option>
-                </select>
-            </div>
-            <div className="form-group">
-                <label className="label">Location:</label>
-                <select name="location_type" value={formData.location_type} onChange={handleChange} required>
-                    <option value="On-site">On-site</option>
-                    <option value="Online">Online</option>
-                    <option value="Flexible">Flexible</option>
-                </select>
-            </div>
-            <div className="form-group">
-                <label className="label">Address:</label>
-                <input type="text" name="address" value={formData.address} onChange={handleChange} required />
-            </div>
-            <div className="form-group">
-          <label className="label">Description:</label>
-          <textarea 
-            name="description" 
-            value={formData.description} 
-            onChange={handleChange} 
-            rows="10"
-            required 
-          />
-        </div>
-            <div className="form-group">
-                <label className="label">Project Status:</label>
-                <select name="status" value={formData.status} onChange={handleChange} required>
-                    <option value="">Select Status</option>
-                    <option value="Public">Public</option>
-                    <option value="Private">Private</option>
-                    <option value="Archived">Archived</option>
-                </select>
-            </div>
-            <button type="submit">Create Project</button>
+          <div className="form-group">
+            <label className="label">Title:</label>
+            <input type="text" name="title" value={formData.title} onChange={handleChange} required />
+          </div>
+          <div className="form-group">
+            <label className="label">Publish Date:</label>
+            <input type="date" name="publish_date" value={formData.publish_date} onChange={handleChange} required />
+          </div>
+          <div className="form-group">
+            <label className="label">Industry:</label>
+            <select name="industry" value={formData.industry} onChange={handleChange} required>
+              <option value="">Select Industry</option>
+              {Object.keys(industryOptions).map((industry) => (
+                <option key={industry} value={industry}>{industry}</option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="label">Discipline:</label>
+            <select name="discipline" value={formData.discipline} onChange={handleChange} required>
+              <option value="">Select Discipline</option>
+              {disciplines.map((discipline) => (
+                <option key={discipline} value={discipline}>{discipline}</option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="label">Duration:</label>
+            <select name="duration" value={formData.duration} onChange={handleChange} required>
+              <option value="Any length">Any length</option>
+              <option value="4 weeks">4 weeks</option>
+              <option value="6 weeks">6 weeks</option>
+              <option value="8 weeks">8 weeks</option>
+              <option value="12 weeks">12 weeks</option>
+              <option value="24 weeks">24 weeks</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="label">Size:</label>
+            <select name="size" value={formData.size} onChange={handleChange} required>
+              <option value="">Select Size</option>
+              <option value="Small">Small (1-3 students)</option>
+              <option value="Medium">Medium (4-8 students)</option>
+              <option value="Large">Large (8+ students)</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="label">Location:</label>
+            <select name="location_type" value={formData.location_type} onChange={handleChange} required>
+              <option value="On-site">On-site</option>
+              <option value="Online">Online</option>
+              <option value="Flexible">Flexible</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="label">Address:</label>
+            <input type="text" name="address" value={formData.address} onChange={handleChange} required />
+          </div>
+          <div className="form-group">
+            <label className="label">Description:</label>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              rows="10"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label className="label">Project Status:</label>
+            <select name="status" value={formData.status} onChange={handleChange} required>
+              <option value="">Select Status</option>
+              <option value="Public">Public</option>
+              <option value="Private">Private</option>
+              <option value="Archived">Archived</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="label">Image Path:</label>
+            <input type="text" name="image_path" value={formData.image_path} onChange={handleChange} />
+          </div>
+          <button type="submit">Create Project</button>
         </form>
         <div className="behind"></div>
+      </div>
     </div>
-    </div>
-);
-
+  );
 }
 
 export default CreateProject;

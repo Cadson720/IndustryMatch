@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/projectCreation.css';
 
 function CreateProject() {
   const getTodayDate = () => {
@@ -123,7 +124,7 @@ function CreateProject() {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/api/project', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/project`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -157,6 +158,7 @@ function CreateProject() {
   };
 
   return (
+    <div className="create_body">
     <div className="comp">
         <h1>Create a New Project</h1>
 
@@ -249,8 +251,8 @@ function CreateProject() {
         </form>
         <div className="behind"></div>
     </div>
+    </div>
 );
-
 }
 
 export default CreateProject;
